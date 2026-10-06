@@ -11,7 +11,6 @@ use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Widgets\AccountWidget;
-use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
@@ -35,26 +34,38 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
 
+
             /*
             |--------------------------------------------------------------------------
             | Authentication
             |--------------------------------------------------------------------------
-            |
-            | Enable Filament's own login page.
-            |
-            | We intentionally DO NOT enable:
-            |
-            | ->registration()
-            | ->passwordReset()
-            | ->profile()
-            |
-            | because employees should not be able to register themselves,
-            | reset their own passwords, or change their password/profile.
-            |
             */
 
             ->login()
             ->authGuard('web')
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Branding
+            |--------------------------------------------------------------------------
+            |
+            | Replaces the default "Laravel" text with your website logo.
+            |
+            */
+
+            ->brandName('Zaitoona Al Andalaus')
+
+            ->brandLogo(
+                asset('assets/frontend/img/image1.png')
+            )
+
+            ->brandLogoHeight('3rem')
+
+            ->favicon(
+                asset('assets/frontend/img/image1.png')
+            )
+
 
             /*
             |--------------------------------------------------------------------------
@@ -66,6 +77,7 @@ class AdminPanelProvider extends PanelProvider
                 'primary' => Color::Amber,
             ])
 
+
             /*
             |--------------------------------------------------------------------------
             | Resources
@@ -76,6 +88,7 @@ class AdminPanelProvider extends PanelProvider
                 in: app_path('Filament/Admin/Resources'),
                 for: 'App\\Filament\\Admin\\Resources',
             )
+
 
             /*
             |--------------------------------------------------------------------------
@@ -92,10 +105,17 @@ class AdminPanelProvider extends PanelProvider
                 Dashboard::class,
             ])
 
+
             /*
             |--------------------------------------------------------------------------
             | Widgets
             |--------------------------------------------------------------------------
+            |
+            | AccountWidget remains.
+            |
+            | FilamentInfoWidget has been removed, so the Filament
+            | documentation / GitHub block will no longer appear.
+            |
             */
 
             ->discoverWidgets(
@@ -105,8 +125,8 @@ class AdminPanelProvider extends PanelProvider
 
             ->widgets([
                 AccountWidget::class,
-                FilamentInfoWidget::class,
             ])
+
 
             /*
             |--------------------------------------------------------------------------
@@ -125,6 +145,7 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
+
 
             /*
             |--------------------------------------------------------------------------

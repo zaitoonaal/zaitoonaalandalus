@@ -14,7 +14,7 @@ const CONFIG = {
    INTERNATIONALIZATION (I18N) DICTIONARY
    ========================================================= */
 const I18N = {
-  en:{
+  en: {
     announce1:"Doha, Qatar",announce2:"Restaurant · Shisha · Coffee Lounge",announce3:"Reservations Recommended",
     navHome:"Home",navMenu:"Menu",navExperience:"Experience",navGallery:"Gallery",navContact:"Contact",bookTable:"Book a table",brand:"Zaitoona Al Andalaus",brandSub:"Restaurant · Shisha · Coffee",
     heroKicker:"A refined Doha gathering place",hero1:"Taste.",hero2:"Breathe.",hero3:"Stay awhile.",heroDesc:"Mediterranean flavours, beautifully prepared shisha and coffee rituals — served with warm Andalusian-inspired hospitality in the heart of Doha.",reserveNow:"Reserve your table",exploreMenu:"Explore the menu",meta1Title:"All Day",meta1Text:"Dining",meta2Title:"Premium",meta2Text:"Shisha",meta3Title:"Late Night",meta3Text:"Coffee & Lounge",
@@ -27,7 +27,7 @@ const I18N = {
     callUs:"Call us",
     footerAbout:"A premium Doha restaurant and lounge for Mediterranean food, refined shisha, specialty coffee and relaxed evenings.",footerExplore:"Explore",footerContact:"Contact",footerFollow:"Follow",instagram:"Instagram",tiktok:"TikTok",rights:"All rights reserved.",footerLine:"Restaurant · Shisha · Coffee Lounge · Doha, Qatar"
   },
-  ar:{
+  ar: {
     announce1:"الدوحة، قطر",announce2:"مطعم · شيشة · قهوة ولاونج",announce3:"يفضل الحجز مسبقاً",
     navHome:"الرئيسية",navMenu:"القائمة",navExperience:"التجربة",navGallery:"الصور",navContact:"تواصل",bookTable:"احجز طاولة",brand:"زيتونة الأندلس",brandSub:"مطعم · شيشة · قهوة",
     heroKicker:"وجهة راقية للقاءات في الدوحة",hero1:"تذوّق.",hero2:"استرخِ.",hero3:"وخُذ وقتك.",heroDesc:"نكهات متوسطية، شيشة محضّرة بعناية وطقوس قهوة أصيلة — بروح ضيافة دافئة مستوحاة من الأندلس في قلب الدوحة.",reserveNow:"احجز طاولتك",exploreMenu:"اكتشف القائمة",meta1Title:"طوال اليوم",meta1Text:"مطعم",meta2Title:"مميزة",meta2Text:"شيشة",meta3Title:"حتى وقت متأخر",meta3Text:"قهوة ولاونج",
@@ -47,12 +47,12 @@ const I18N = {
    TESTIMONIAL QUOTES
    ========================================================= */
 const QUOTES = {
-  en:[
+  en: [
     ["“Elegant without feeling formal — the kind of place where dinner naturally becomes coffee, shisha and another hour with friends.”","Zaitoona Guest Experience · Demo Review"],
     ["“Warm service, a calm atmosphere and a menu made for sharing. Exactly what a Doha evening should feel like.”","Zaitoona Guest Experience · Demo Review"],
     ["“Come for the grill, stay for Arabic coffee and a beautifully prepared shisha. The pace of the place is the real luxury.”","Zaitoona Guest Experience · Demo Review"]
   ],
-  ar:[
+  ar: [
     ["«راقي من دون تكلّف — المكان الذي يتحول فيه العشاء بشكل طبيعي إلى قهوة وشيشة وساعة إضافية مع الأصدقاء.»","تجربة ضيف زيتونة · تقييم تجريبي"],
     ["«خدمة دافئة، أجواء هادئة وقائمة مصممة للمشاركة. هكذا يجب أن تكون أمسية الدوحة.»","تجربة ضيف زيتونة · تقييم تجريبي"],
     ["«تعال للمشاوي، وابقَ للقهوة العربية والشيشة المحضّرة بإتقان. هدوء المكان هو الفخامة الحقيقية.»","تجربة ضيف زيتونة · تقييم تجريبي"]
@@ -66,23 +66,32 @@ const QUOTES = {
 let lang = localStorage.getItem("zaitoona-lang") || "en";
 let currentQuote = 0;
 
-const $ = (s,root=document)=>root.querySelector(s); const $$ = (s,root=document)=>[...root.querySelectorAll(s)];
+const $ = (s, root = document) => root.querySelector(s); const $$ = (s, root = document) => [...root.querySelectorAll(s)];
 /* End of Global State Section */
 
 /* =========================================================
    APPLICATION CONFIGURATION
    ========================================================= */
-function applyConfig(){
-  $$(".js-phone").forEach(el=>el.textContent=CONFIG.phoneDisplay);   $$
-(".js-phone-link").forEach(el=>el.href=`tel:${CONFIG.phoneDial}`);
-  $$(".js-email").forEach(el=>{el.textContent=CONFIG.email;el.href=`mailto:${CONFIG.email}`});
-  $$(".js-address").forEach(el=>el.textContent=CONFIG.address);
-  if($("#mobileCall")) $("#mobileCall").href=`tel:${CONFIG.phoneDial}`;
-  const wa=`https://wa.me/${CONFIG.whatsapp}`;
-  if($("#floatingWhatsapp")) $("#floatingWhatsapp").href=wa;
-  if($("#footerWhatsapp")) $("#footerWhatsapp").href=wa;
-  const schema=JSON.parse($("#schemaJson").textContent);schema.telephone=CONFIG.phoneDial;schema.address.streetAddress=CONFIG.address;$("#schemaJson").textContent=JSON.stringify(schema);      } /* End of Application Config Function */  /* =========================================================    LANGUAGE TOGGLE LOGIC    ========================================================= */ function applyLanguage(newLang){          lang=newLang;localStorage.setItem("zaitoona-lang",lang);          document.documentElement.lang=lang;document.documentElement.dir=lang==="ar"?"rtl":"ltr";          document.body.classList.toggle("ar",lang==="ar");          $$('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(I18N[lang][k])el.textContent=I18N[lang][k]});$("#langToggle").innerHTML=lang==="en"?"<span>EN</span> / <span>AR</span>":"<span>AR</span> / <span>EN</span>";
-  $("#mobileLang").innerHTML=lang==="en"?"<span>EN</span> / <span>AR</span>":"<span>AR</span> / <span>EN</span>";
+function applyConfig() {
+  $$(".js-phone").forEach(el => el.textContent = CONFIG.phoneDisplay);   $$
+(".js-phone-link").forEach(el => el.href = `tel:${CONFIG.phoneDial}`);
+  $$(".js-email").forEach(el => { el.textContent = CONFIG.email; el.href = `mailto:${CONFIG.email}`; });
+  $$(".js-address").forEach(el => el.textContent = CONFIG.address);
+  
+  if ($("#mobileCall")) $("#mobileCall").href = `tel:${CONFIG.phoneDial}`;
+  
+  const wa = `https://wa.me/${CONFIG.whatsapp}`;
+  if ($("#floatingWhatsapp")) $("#floatingWhatsapp").href = wa;
+  if ($("#footerWhatsapp")) $("#footerWhatsapp").href = wa;
+  
+  const schemaEl = $("#schemaJson");   if (schemaEl) {     try {       const schema = JSON.parse(schemaEl.textContent);       schema.telephone = CONFIG.phoneDial;       schema.address.streetAddress = CONFIG.address;       schemaEl.textContent = JSON.stringify(schema);     } catch (e) {       console.warn("Schema JSON not found or invalid on this page.");     }   } } /* End of Application Config Function */  /* =========================================================    LANGUAGE TOGGLE LOGIC    ========================================================= */ function applyLanguage(newLang) {   lang = newLang;   localStorage.setItem("zaitoona-lang", lang);   document.documentElement.lang = lang;   document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";   document.body.classList.toggle("ar", lang === "ar");      $$('[data-i18n]').forEach(el => {
+    const k = el.dataset.i18n;
+    if (I18N[lang][k]) el.textContent = I18N[lang][k];
+  });
+  
+  if ($("#langToggle")) $("#langToggle").innerHTML = lang === "en" ? "<span>EN</span> / <span>AR</span>" : "<span>AR</span> / <span>EN</span>";
+  if ($("#mobileLang")) $("#mobileLang").innerHTML = lang === "en" ? "<span>EN</span> / <span>AR</span>" : "<span>AR</span> / <span>EN</span>";
+  
   renderQuotes();
 }
 /* End of Language Logic Section */
@@ -90,52 +99,117 @@ function applyConfig(){
 /* =========================================================
    TESTIMONIAL RENDERER
    ========================================================= */
-function renderQuotes(){
-  const qs=QUOTES[lang];if(currentQuote>=qs.length)currentQuote=0;
-  $("#quoteText").textContent=qs[currentQuote][0];$("#quoteAuthor").textContent=qs[currentQuote][1];
-  $("#quoteDots").innerHTML=qs.map((_,i)=>`<button class="quote-dot ${i===currentQuote?'active':''}" aria-label="Quote ${i+1}" data-q="${i}"></button>`).join("");
-  $$(".quote-dot").forEach(btn=>btn.addEventListener("click",()=>{currentQuote=+btn.dataset.q;renderQuotes()}));
+function renderQuotes() {
+  const quoteText = $("#quoteText");
+  const quoteAuthor = $("#quoteAuthor");
+  const quoteDots = $("#quoteDots");
+
+  if (!quoteText || !quoteAuthor || !quoteDots) return;
+
+  const qs = QUOTES[lang];
+  if (currentQuote >= qs.length) currentQuote = 0;
+  
+  quoteText.textContent = qs[currentQuote][0];
+  quoteAuthor.textContent = qs[currentQuote][1];
+  
+  quoteDots.innerHTML = qs.map((_, i) => `<button class="quote-dot ${i === currentQuote ? 'active' : ''}" aria-label="Quote ${i + 1}" data-q="${i}"></button>`).join("");
+  
+  $$(".quote-dot").forEach(btn => btn.addEventListener("click", () => {
+    currentQuote = +btn.dataset.q;
+    renderQuotes();
+  }));
 }
 /* End of Testimonial Logic Section */
 
 /* =========================================================
    EVENT LISTENERS & OBSERVERS
    ========================================================= */
-/* Loader Logic */
-window.addEventListener("load",()=>setTimeout(()=>$("#loader").classList.add("hidden"),450));
-setTimeout(()=>$("#loader").classList.add("hidden"),2200);
+window.addEventListener("load", () => setTimeout(() => {
+  if ($("#loader")) $("#loader").classList.add("hidden");
+}, 450));
+setTimeout(() => { if ($("#loader")) $("#loader").classList.add("hidden"); }, 2200);
 
-/* Header Active Section Tracker */
-const header=$("#header");
-window.addEventListener("scroll",()=>header.classList.toggle("scrolled",window.scrollY>28),{passive:true});
-const navTargets=$$("main section[id]");      const navObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){$$('.nav-left .nav-link').forEach(a=>{ if(a.getAttribute('href').startsWith('#')) a.classList.toggle('active',a.getAttribute('href')===`#${e.target.id}`) })}})},{rootMargin:"-30% 0px -60% 0px"});
-navTargets.forEach(s=>navObserver.observe(s));
+const header = $("#header");
+if (header) {
+  window.addEventListener("scroll", () => header.classList.toggle("scrolled", window.scrollY > 28), { passive: true });
+}
 
-/* Mobile Menu Logic */
-function closeMobile(){$("#mobileMenu").classList.remove("open");document.body.classList.remove("no-scroll");$("#mobileMenu").setAttribute("aria-hidden","true")}
-$("#menuToggle").addEventListener("click",()=>{$("#mobileMenu").classList.toggle("open");document.body.classList.toggle("no-scroll");$("#mobileMenu").setAttribute("aria-hidden",$("#mobileMenu").classList.contains("open")?"false":"true")});      $$("#mobileMenu a").forEach(a=>a.addEventListener("click",closeMobile));
+const navTargets = $$("main section[id]"); const navObserver = new IntersectionObserver(entries => {   entries.forEach(e => {     if (e.isIntersecting) {       $$('.nav-left .nav-link').forEach(a => {
+        if (a.getAttribute('href').startsWith('#')) {
+          a.classList.toggle('active', a.getAttribute('href') === `#${e.target.id}`);
+        }
+      });
+    }
+  });
+}, { rootMargin: "-30% 0px -60% 0px" });
+navTargets.forEach(s => navObserver.observe(s));
 
-/* Language Toggles */
-$("#langToggle").addEventListener("click",()=>applyLanguage(lang==="en"?"ar":"en"));
-$("#mobileLang").addEventListener("click",()=>applyLanguage(lang==="en"?"ar":"en"));
+function closeMobile() {
+  if ($("#mobileMenu")) {
+    $("#mobileMenu").classList.remove("open");
+    document.body.classList.remove("no-scroll");
+    $("#mobileMenu").setAttribute("aria-hidden", "true");
+  }
+}
 
-/* Intersection Observer Reveal Animation */
-const revealObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");revealObserver.unobserve(e.target)}})},{threshold:.1,rootMargin:"0px 0px -40px"});
-$$(".reveal").forEach(el=>revealObserver.observe(el));       /* Lightbox Modal Logic */ $$
-(".gallery-item img").forEach(img=>img.addEventListener("click",()=>{$("#lightboxImage").src=img.src.replace(/w=\d+/,"w=1800");$("#lightbox").classList.add("open");document.body.classList.add("no-scroll")}));
-function closeLightbox(){$("#lightbox").classList.remove("open");document.body.classList.remove("no-scroll")}
-$("#lightboxClose").addEventListener("click",closeLightbox);$("#lightbox").addEventListener("click",e=>{if(e.target===$("#lightbox"))closeLightbox()});
-document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeLightbox();closeMobile()}});
+if ($("#menuToggle")) {
+  $("#menuToggle").addEventListener("click", () => {
+    $("#mobileMenu").classList.toggle("open");
+    document.body.classList.toggle("no-scroll");
+    $("#mobileMenu").setAttribute("aria-hidden", $("#mobileMenu").classList.contains("open") ? "false" : "true");   }); } $$("#mobileMenu a").forEach(a => a.addEventListener("click", closeMobile));
 
-/* Testimonial Autoplay Loop */
-setInterval(()=>{currentQuote=(currentQuote+1)%QUOTES[lang].length;renderQuotes()},7000);
-/* End of Event Listeners Section */
+if ($("#langToggle")) $("#langToggle").addEventListener("click", () => applyLanguage(lang === "en" ? "ar" : "en"));
+if ($("#mobileLang")) $("#mobileLang").addEventListener("click", () => applyLanguage(lang === "en" ? "ar" : "en"));
+
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add("visible");
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: .1, rootMargin: "0px 0px -40px" });
+$$(".reveal").forEach(el => revealObserver.observe(el));  /* Lightbox Modal Logic */ $$
+(".gallery-item img").forEach(img => {
+  img.addEventListener("click", () => {
+    const lightboxImage = $("#lightboxImage");
+    const lightbox = $("#lightbox");
+    if (lightboxImage && lightbox) {
+      lightboxImage.src = img.src.replace(/w=\d+/, "w=1800");
+      lightbox.classList.add("open");
+      document.body.classList.add("no-scroll");
+    }
+  });
+});
+
+function closeLightbox() {
+  if ($("#lightbox")) {
+    $("#lightbox").classList.remove("open");
+    document.body.classList.remove("no-scroll");
+  }
+}
+
+if ($("#lightboxClose")) $("#lightboxClose").addEventListener("click", closeLightbox);
+if ($("#lightbox")) {
+  $("#lightbox").addEventListener("click", e => {
+    if (e.target === $("#lightbox")) closeLightbox();
+  });
+}
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") { closeLightbox(); closeMobile(); }
+});
+
+setInterval(() => {
+  if ($("#quoteText")) {
+    currentQuote = (currentQuote + 1) % QUOTES[lang].length;
+    renderQuotes();
+  }
+}, 7000);
 
 /* =========================================================
    INITIALIZATION
    ========================================================= */
-$("#year").textContent=new Date().getFullYear();
+if ($("#year")) $("#year").textContent = new Date().getFullYear();
 applyConfig();
 applyLanguage(lang);
 renderQuotes();
-/* End of Initialization Section */

@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\HeroSection;
-use Illuminate\View\View;
+use App\Models\AboutSetting;
+use App\Models\GallerySetting;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index(): View
+    public function index()
     {
-        $hero = HeroSection::query()->first();
+        $aboutSettings = AboutSetting::first();
+        $gallerySetting = GallerySetting::first();
+        
+        // Pass a null variable so the view doesn't throw an "Undefined variable" error
+        $hero = null; 
 
-        return view('Home.index', [
-            'hero' => $hero,
-        ]);
+        return view('Home.index', compact('aboutSettings', 'gallerySetting', 'hero'));
     }
 }
