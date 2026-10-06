@@ -15,13 +15,6 @@
 </head>
 <body>
 
-  <div class="announcement">
-    <div class="announcement-inner">
-      <span data-i18n="announce1">Doha, Qatar</span><span class="announcement-dot"></span>
-      <span data-i18n="announce2">Restaurant · Shisha · Coffee Lounge</span><span class="announcement-dot optional"></span>
-      <span class="optional" data-i18n="announce3">Reservations Recommended</span>
-    </div>
-  </div>
 
   @include('Home.header')
 

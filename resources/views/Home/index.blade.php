@@ -39,24 +39,7 @@
 </head>
 <body>
    
- <!-- Full Screen Loader -->
-    <div class="loader" id="loader" aria-hidden="true">
-        <div class="loader-mark">
-            <img src="{{ asset('assets/frontend/img/image1.png') }}" class="loader-logo" alt="Loading...">
-            <div class="loader-line"></div>
-        </div>
-    </div>
-    <!-- End of Loader Section -->
-
-    <!-- Top Announcement Bar -->
-    <div class="announcement">
-        <div class="announcement-inner">
-            <span data-i18n="announce1">Doha, Qatar</span><span class="announcement-dot"></span>
-            <span data-i18n="announce2">Restaurant · Shisha · Coffee Lounge</span><span class="announcement-dot optional"></span>
-            <span class="optional" data-i18n="announce3">Reservations Recommended</span>
-        </div>
-    </div>
-    <!-- End of Announcement Bar -->
+    @include('Home.loader')
 
     @include('Home.header')
 
