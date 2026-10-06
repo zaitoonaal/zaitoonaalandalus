@@ -7,7 +7,7 @@
 
     $heroVideo = !empty($hero?->video_path)
         ? asset('storage/' . ltrim($hero->video_path, '/'))
-        : asset('build/assets/frontend/vid/video1.mp4');
+        : asset('assets/frontend/vid/video1.mp4');
 
     $heroPoster = !empty($hero?->video_poster_path)
         ? asset('storage/' . ltrim($hero->video_poster_path, '/'))
