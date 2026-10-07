@@ -3,68 +3,118 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ReservationSubmitted;
+use App\Models\InstagramSection;
 use App\Models\TableReservation;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\View\View;
 use Throwable;
 
 class TableReservationController extends Controller
 {
-    public function store(Request $request): JsonResponse
+    /*
+    |--------------------------------------------------------------------------
+    | RESERVATION PAGE
+    |--------------------------------------------------------------------------
+    |
+    | Loads the reservation page and also provides the dynamic Instagram
+    | Grid data because this page contains @include('Home.instagramgrid').
+    |
+    */
+
+    public function create(): View
     {
+        $instagramSections =
+            InstagramSection::query()
+                ->where(
+                    'is_active',
+                    true
+                )
+                ->orderBy(
+                    'sort_order',
+                    'asc'
+                )
+                ->orderBy(
+                    'id',
+                    'asc'
+                )
+                ->get();
+
+
+        return view(
+            'Home.reserveatable',
+            compact(
+                'instagramSections'
+            )
+        );
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | STORE RESERVATION
+    |--------------------------------------------------------------------------
+    */
+
+    public function store(
+        Request $request
+    ): JsonResponse {
         /*
         |--------------------------------------------------------------------------
         | VALIDATION
         |--------------------------------------------------------------------------
         */
 
-        $validated = $request->validate([
-            'name' => [
-                'required',
-                'string',
-                'max:120',
-            ],
+        $validated =
+            $request->validate([
 
-            'phone' => [
-                'required',
-                'string',
-                'max:50',
-            ],
+                'name' => [
+                    'required',
+                    'string',
+                    'max:120',
+                ],
 
-            'reservation_date' => [
-                'required',
-                'date',
-                'after_or_equal:today',
-            ],
+                'phone' => [
+                    'required',
+                    'string',
+                    'max:50',
+                ],
 
-            'reservation_time' => [
-                'required',
-                'date_format:H:i',
-            ],
+                'reservation_date' => [
+                    'required',
+                    'date',
+                    'after_or_equal:today',
+                ],
 
-            'guests' => [
-                'required',
-                'in:2,3,4,5,6,7,8,9+',
-            ],
+                'reservation_time' => [
+                    'required',
+                    'date_format:H:i',
+                ],
 
-            'seating' => [
-                'required',
-                'in:no-preference,dining-area,shisha-lounge,outdoor-terrace',
-            ],
+                'guests' => [
+                    'required',
+                    'in:2,3,4,5,6,7,8,9+',
+                ],
 
-            'message' => [
-                'nullable',
-                'string',
-                'max:1500',
-            ],
+                'seating' => [
+                    'required',
+                    'in:no-preference,dining-area,shisha-lounge,outdoor-terrace',
+                ],
 
-            'language' => [
-                'required',
-                'in:en,ar',
-            ],
-        ]);
+                'message' => [
+                    'nullable',
+                    'string',
+                    'max:1500',
+                ],
+
+                'language' => [
+                    'required',
+                    'in:en,ar',
+                ],
+
+            ]);
 
 
         /*
@@ -95,7 +145,8 @@ class TableReservationController extends Controller
                     $validated['seating'],
 
                 'message' =>
-                    $validated['message'] ?? null,
+                    $validated['message']
+                    ?? null,
 
                 'language' =>
                     $validated['language'],
@@ -108,12 +159,13 @@ class TableReservationController extends Controller
 
                 'user_agent' =>
                     $request->userAgent(),
+
             ]);
 
 
         /*
         |--------------------------------------------------------------------------
-        | SEND TEMPLATE EMAIL
+        | EMAIL
         |--------------------------------------------------------------------------
         */
 
@@ -142,12 +194,6 @@ class TableReservationController extends Controller
             );
 
 
-            /*
-            |--------------------------------------------------------------------------
-            | MAIL SUCCESS
-            |--------------------------------------------------------------------------
-            */
-
             $mailSent =
                 true;
 
@@ -165,29 +211,35 @@ class TableReservationController extends Controller
                         $reservation->id
                     )
                     ->update([
+
                         'email_sent_at' =>
                             now(),
+
                     ]);
 
 
-            } catch (Throwable $databaseException) {
+            } catch (
+                Throwable $databaseException
+            ) {
 
                 /*
                 |--------------------------------------------------------------------------
-                | Email already sent.
-                | Do NOT change $mailSent.
+                | The email was already sent successfully.
+                | A timestamp failure must not mark SMTP as failed.
                 |--------------------------------------------------------------------------
                 */
 
                 Log::warning(
                     'Reservation email sent but email_sent_at could not be saved.',
                     [
+
                         'reservation_id' =>
                             $reservation->id,
 
                         'error' =>
                             $databaseException
                                 ->getMessage(),
+
                     ]
                 );
             }
@@ -196,21 +248,28 @@ class TableReservationController extends Controller
             Log::info(
                 'Reservation template email sent successfully.',
                 [
+
                     'reservation_id' =>
                         $reservation->id,
 
                     'email' =>
                         $notificationEmail,
+
                 ]
             );
 
 
-        } catch (Throwable $exception) {
+        } catch (
+            Throwable $exception
+        ) {
 
             /*
             |--------------------------------------------------------------------------
-            | MAIL FAILED
+            | EMAIL FAILED
             |--------------------------------------------------------------------------
+            |
+            | Reservation remains saved even if notification email fails.
+            |
             */
 
             $mailSent =
@@ -223,6 +282,7 @@ class TableReservationController extends Controller
             Log::error(
                 'Reservation template email failed.',
                 [
+
                     'reservation_id' =>
                         $reservation->id,
 
@@ -231,6 +291,7 @@ class TableReservationController extends Controller
 
                     'error' =>
                         $exception->getMessage(),
+
                 ]
             );
         }
@@ -258,6 +319,7 @@ class TableReservationController extends Controller
 
                 default =>
                     'No preference',
+
             };
 
 
@@ -277,6 +339,7 @@ class TableReservationController extends Controller
 
                 default =>
                     'بدون تفضيل',
+
             };
 
 
@@ -307,6 +370,7 @@ class TableReservationController extends Controller
 
             $whatsappNumber =
                 '97433858316';
+
         }
 
 
@@ -337,10 +401,14 @@ class TableReservationController extends Controller
                     . $reservation->phone,
 
                 'التاريخ: '
-                    . $validated['reservation_date'],
+                    . $validated[
+                        'reservation_date'
+                    ],
 
                 'الوقت: '
-                    . $validated['reservation_time'],
+                    . $validated[
+                        'reservation_time'
+                    ],
 
                 'عدد الضيوف: '
                     . $reservation->guests,
@@ -353,6 +421,7 @@ class TableReservationController extends Controller
                         $reservation->message
                         ?: '-'
                     ),
+
             ];
 
 
@@ -360,7 +429,7 @@ class TableReservationController extends Controller
 
             $whatsappLines = [
 
-                'Hello Zaitoona Al Andalaus, I would like to request a table reservation:',
+                'Hello Zaitoona Al Andalus, I would like to request a table reservation:',
 
                 '',
 
@@ -374,10 +443,14 @@ class TableReservationController extends Controller
                     . $reservation->phone,
 
                 'Date: '
-                    . $validated['reservation_date'],
+                    . $validated[
+                        'reservation_date'
+                    ],
 
                 'Time: '
-                    . $validated['reservation_time'],
+                    . $validated[
+                        'reservation_time'
+                    ],
 
                 'Guests: '
                     . $reservation->guests,
@@ -390,6 +463,7 @@ class TableReservationController extends Controller
                         $reservation->message
                         ?: '-'
                     ),
+
             ];
         }
 
@@ -420,6 +494,7 @@ class TableReservationController extends Controller
 
         return response()->json(
             [
+
                 'success' =>
                     true,
 
@@ -442,6 +517,7 @@ class TableReservationController extends Controller
                     )
                         ? $mailError
                         : null,
+
             ],
             201
         );

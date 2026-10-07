@@ -15,31 +15,36 @@
         content="#ffffff"
     />
 
+    <meta
+        name="format-detection"
+        content="telephone=yes"
+    />
 
-    <!-- SEO Optimization Meta Tags -->
 
-    <title>
-        Zaitoona Al Alandalus | Restaurant · Shisha · Coffee Lounge — Doha
-    </title>
+    <!-- ============================================================
+         PRIMARY SEO
+         ============================================================ -->
+
+    <title>Zaitoona Al Andalus | Restaurant, Shisha & Coffee Lounge in Doha</title>
 
     <meta
         name="description"
-        content="Zaitoona Al Alandalus — a premium restaurant, shisha and coffee lounge in Doha, Qatar. Mediterranean dining, refined shisha, Arabic coffee and relaxed late-night hospitality."
+        content="Zaitoona Al Andalus is a premium restaurant, shisha and coffee lounge in Doha, Qatar, offering Mediterranean dining, refined shisha, Arabic coffee and relaxed hospitality."
     />
 
     <meta
         name="keywords"
-        content="Zaitoona Al Alandalus, Doha restaurant, Qatar shisha lounge, Doha coffee lounge, Mediterranean restaurant Doha, Arabic coffee Qatar, Middle Eastern cuisine, luxury dining Doha"
+        content="Zaitoona Al Andalus, restaurant in Doha, Doha restaurant, shisha lounge Doha, Qatar shisha lounge, coffee lounge Doha, Mediterranean restaurant Doha, Arabic coffee Qatar, Middle Eastern restaurant Doha, restaurant and shisha Doha"
     />
 
     <meta
         name="author"
-        content="Zaitoona Al Alandalus"
+        content="Zaitoona Al Andalus"
     />
 
     <meta
         name="robots"
-        content="index, follow"
+        content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
     />
 
     <link
@@ -48,21 +53,56 @@
     />
 
 
-    <!-- Open Graph (Facebook/LinkedIn) -->
+    <!-- ============================================================
+         FAVICON
+         ============================================================ -->
 
-    <meta
-        property="og:title"
-        content="Zaitoona Al Andalaus | Restaurant · Shisha · Coffee Lounge"
+    <link
+        rel="icon"
+        type="image/png"
+        href="{{ asset('assets/frontend/img/image1.png') }}?v=2"
+    />
+
+    <link
+        rel="shortcut icon"
+        type="image/png"
+        href="{{ asset('assets/frontend/img/image1.png') }}?v=2"
+    />
+
+    <link
+        rel="apple-touch-icon"
+        href="{{ asset('assets/frontend/img/image1.png') }}?v=2"
     />
 
     <meta
-        property="og:description"
-        content="A refined Doha destination for food, shisha and coffee. Mediterranean flavours, beautifully prepared shisha and coffee rituals."
+        name="apple-mobile-web-app-title"
+        content="Zaitoona Al Andalus"
     />
+
+
+    <!-- ============================================================
+         OPEN GRAPH
+         Facebook / LinkedIn / WhatsApp
+         ============================================================ -->
 
     <meta
         property="og:type"
         content="website"
+    />
+
+    <meta
+        property="og:site_name"
+        content="Zaitoona Al Andalus"
+    />
+
+    <meta
+        property="og:title"
+        content="Zaitoona Al Andalus | Restaurant, Shisha & Coffee Lounge in Doha"
+    />
+
+    <meta
+        property="og:description"
+        content="Discover Zaitoona Al Andalus in Doha, Qatar — Mediterranean dining, refined shisha, specialty coffee and relaxed hospitality."
     />
 
     <meta
@@ -75,8 +115,25 @@
         content="{{ asset('assets/frontend/img/image1.png') }}"
     />
 
+    <meta
+        property="og:image:secure_url"
+        content="{{ asset('assets/frontend/img/image1.png') }}"
+    />
 
-    <!-- Twitter Cards -->
+    <meta
+        property="og:image:alt"
+        content="Zaitoona Al Andalus Restaurant, Shisha and Coffee Lounge in Doha"
+    />
+
+    <meta
+        property="og:locale"
+        content="en_US"
+    />
+
+
+    <!-- ============================================================
+         TWITTER / X
+         ============================================================ -->
 
     <meta
         name="twitter:card"
@@ -85,12 +142,12 @@
 
     <meta
         name="twitter:title"
-        content="Zaitoona Al Andalaus | Restaurant · Shisha · Coffee Lounge"
+        content="Zaitoona Al Andalus | Restaurant, Shisha & Coffee Lounge in Doha"
     />
 
     <meta
         name="twitter:description"
-        content="A refined Doha destination for food, shisha and coffee."
+        content="A premium Doha destination for Mediterranean dining, refined shisha, specialty coffee and relaxed hospitality."
     />
 
     <meta
@@ -98,10 +155,15 @@
         content="{{ asset('assets/frontend/img/image1.png') }}"
     />
 
-    <!-- End of SEO Optimization Meta Tags -->
+    <meta
+        name="twitter:image:alt"
+        content="Zaitoona Al Andalus Restaurant in Doha, Qatar"
+    />
 
 
-    <!-- Preconnect & Fonts -->
+    <!-- ============================================================
+         PRECONNECT & FONTS
+         ============================================================ -->
 
     <link
         rel="preconnect"
@@ -119,17 +181,15 @@
         rel="stylesheet"
     >
 
-    <!-- End of Fonts -->
 
-
-    <!-- Main Stylesheet -->
+    <!-- ============================================================
+         MAIN STYLESHEET
+         ============================================================ -->
 
     <link
         rel="stylesheet"
         href="{{ asset('assets/frontend/css/style.css') }}"
     >
-
-    <!-- End of Main Stylesheet -->
 
 </head>
 
@@ -167,7 +227,9 @@
     @include('Home.footer')
 
 
-    <!-- JSON-LD SEO Schema -->
+    <!-- ============================================================
+         RESTAURANT STRUCTURED DATA / JSON-LD
+         ============================================================ -->
 
     <script
         type="application/ld+json"
@@ -176,41 +238,81 @@
     {
         "@@context": "https://schema.org",
         "@@type": "Restaurant",
-        "name": "Zaitoona Al Alandalus",
-        "description": "Premium restaurant, shisha and coffee lounge in Doha, Qatar.",
+
+        "@@id": "{{ url('/') }}#restaurant",
+
+        "name": "Zaitoona Al Andalus",
+
+        "url": "{{ url('/') }}",
+
+        "image": "{{ asset('assets/frontend/img/image1.png') }}",
+
+        "logo": "{{ asset('assets/frontend/img/image1.png') }}",
+
+        "description": "Zaitoona Al Andalus is a premium restaurant, shisha and coffee lounge in Doha, Qatar, offering Mediterranean and Middle Eastern dining, refined shisha and specialty coffee.",
+
+        "telephone": "+97433858316",
+
+        "priceRange": "QAR $$-$$$",
+
         "servesCuisine": [
             "Mediterranean",
             "Middle Eastern",
             "Arabic"
         ],
-        "priceRange": "QAR $$-$$$",
+
         "address": {
             "@@type": "PostalAddress",
             "addressLocality": "Doha",
             "addressCountry": "QA"
         },
-        "telephone": "+97433858316",
-        "acceptsReservations": "True"
+
+        "areaServed": {
+            "@@type": "City",
+            "name": "Doha"
+        },
+
+        "acceptsReservations": true,
+
+        "openingHoursSpecification": [
+            {
+                "@@type": "OpeningHoursSpecification",
+
+                "dayOfWeek": [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday",
+                    "Sunday"
+                ],
+
+                "opens": "10:00",
+
+                "closes": "02:00"
+            }
+        ]
     }
     </script>
 
-    <!-- End of JSON-LD Schema -->
 
-
-    <!-- Hero Dynamic JavaScript -->
+    <!-- ============================================================
+         HERO DYNAMIC JAVASCRIPT
+         ============================================================ -->
 
     <script
         src="{{ asset('assets/frontend/js/hero-section.js') }}"
     ></script>
 
 
-    <!-- Main JavaScript -->
+    <!-- ============================================================
+         MAIN JAVASCRIPT
+         ============================================================ -->
 
     <script
         src="{{ asset('assets/frontend/js/script.js') }}"
     ></script>
-
-    <!-- End of Main JavaScript -->
 
 
 </body>

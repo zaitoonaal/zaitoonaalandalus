@@ -25,8 +25,8 @@
             <a class="nav-link" href="/blog" data-i18n="navBlog">Blog</a>
         </nav>
 
-        <a href="/" class="brand" aria-label="Zaitoona Al Andalaus home">
-            <img src="{{ asset('assets/frontend/img/image1.png') }}" class="brand-mark" alt="Zaitoona Al Andalaus">
+        <a href="/" class="brand" aria-label="Zaitoona Al Andalus home">
+            <img src="{{ asset('assets/frontend/img/image1.png') }}" class="brand-mark" alt="Zaitoona Al Andalus">
             <span class="brand-copy">
                 <strong class="brand-name" data-i18n="brand">Zaitoona Al Andalus</strong>
                 <small class="brand-sub" data-i18n="brandSub">Restaurant · Shisha · Coffee</small>

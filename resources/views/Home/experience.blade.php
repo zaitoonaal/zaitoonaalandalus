@@ -1,32 +1,412 @@
-<!-- Experience Features Split -->
-        <section class="experience" id="experience">
+@php
+
+    $experienceSections =
+        $experienceSections
+        ?? collect();
+
+@endphp
+
+
+@if(
+    $experienceSections->isNotEmpty()
+)
+
+    <!-- ============================================================
+         DYNAMIC EXPERIENCE SECTION
+         ============================================================ -->
+
+    <section
+        class="experience"
+        id="experience"
+    >
+
+        @foreach(
+            $experienceSections
+            as $experience
+        )
+
+            @php
+
+                /*
+                |--------------------------------------------------------------------------
+                | IMAGE
+                |--------------------------------------------------------------------------
+                */
+
+                if (
+                    filled(
+                        $experience->image
+                    )
+                ) {
+
+                    $experienceImage =
+                        asset(
+                            'storage/'
+                            . ltrim(
+                                $experience->image,
+                                '/'
+                            )
+                        );
+
+                } elseif (
+                    filled(
+                        $experience->image_url
+                    )
+                ) {
+
+                    $experienceImage =
+                        $experience->image_url;
+
+                } else {
+
+                    $experienceImage =
+                        asset(
+                            'assets/frontend/img/image1.png'
+                        );
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | ARABIC FALLBACKS
+                |--------------------------------------------------------------------------
+                */
+
+                $eyebrowAr =
+                    filled(
+                        $experience->eyebrow_ar
+                    )
+                        ? $experience->eyebrow_ar
+                        : $experience->eyebrow_en;
+
+
+                $titleAr =
+                    filled(
+                        $experience->title_ar
+                    )
+                        ? $experience->title_ar
+                        : $experience->title_en;
+
+
+                $descriptionAr =
+                    filled(
+                        $experience->description_ar
+                    )
+                        ? $experience->description_ar
+                        : $experience->description_en;
+
+
+                $list1Ar =
+                    filled(
+                        $experience->list_1_ar
+                    )
+                        ? $experience->list_1_ar
+                        : $experience->list_1_en;
+
+
+                $list2Ar =
+                    filled(
+                        $experience->list_2_ar
+                    )
+                        ? $experience->list_2_ar
+                        : $experience->list_2_en;
+
+
+                $list3Ar =
+                    filled(
+                        $experience->list_3_ar
+                    )
+                        ? $experience->list_3_ar
+                        : $experience->list_3_en;
+
+
+                $buttonLabelAr =
+                    filled(
+                        $experience->button_label_ar
+                    )
+                        ? $experience->button_label_ar
+                        : $experience->button_label_en;
+
+
+                $imageAltAr =
+                    filled(
+                        $experience->image_alt_ar
+                    )
+                        ? $experience->image_alt_ar
+                        : $experience->image_alt_en;
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | BUTTON CLASS
+                |--------------------------------------------------------------------------
+                */
+
+                $buttonClass =
+                    $experience->button_style
+                    === 'primary'
+                        ? 'btn btn-primary reveal'
+                        : 'btn reveal';
+
+            @endphp
+
+
             <div class="split">
-                <div class="split-media reveal"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1600&q=88" alt="Fresh Mediterranean food" loading="lazy"></div>
-                <div class="split-copy">
-                    <div class="eyebrow reveal" data-i18n="culinaryEyebrow">Culinary mastery</div>
-                    <h2 class="section-title reveal" data-i18n="culinaryTitle">Made for sharing, remembered for flavour.</h2>
-                    <p class="lede reveal" data-i18n="culinaryText">Begin with mezze, move into flame-grilled favourites, then leave space for something sweet. Our menu is designed around generous plates, fresh ingredients and the pleasure of sharing.</p>
-                    <div class="split-list reveal">
-                        <div><i>01</i><span data-i18n="culinaryList1">Levantine & Mediterranean inspiration</span></div>
-                        <div><i>02</i><span data-i18n="culinaryList2">Charcoal grill signatures</span></div>
-                        <div><i>03</i><span data-i18n="culinaryList3">Fresh desserts, coffee & tea</span></div>
-                    </div>
-                    <a href="/menu" class="btn reveal"><span data-i18n="seeMenu">See signature menu</span><svg class="btn-arrow" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6"/></svg></a>
+
+
+                <!-- ========================================================
+                     IMAGE
+                     ======================================================== -->
+
+                <div class="split-media reveal">
+
+                    <img
+                        src="{{ $experienceImage }}"
+
+                        alt="{{ $experience->image_alt_en ?: $experience->title_en }}"
+
+                        loading="lazy"
+
+                        decoding="async"
+
+                        data-db-alt
+
+                        data-alt-en="{{ $experience->image_alt_en ?: $experience->title_en }}"
+
+                        data-alt-ar="{{ $imageAltAr ?: $titleAr }}"
+                    >
+
                 </div>
-            </div>
-            <div class="split">
-                <div class="split-media reveal"><img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1600&q=88" alt="Relaxed cafe and lounge ambience" loading="lazy"></div>
+
+
+                <!-- ========================================================
+                     CONTENT
+                     ======================================================== -->
+
                 <div class="split-copy">
-                    <div class="eyebrow reveal" data-i18n="relaxEyebrow">Relax with us</div>
-                    <h2 class="section-title reveal" data-i18n="relaxTitle">An evening with no reason to rush.</h2>
-                    <p class="lede reveal" data-i18n="relaxText">Zaitoona is shaped for easy gatherings — business catch-ups, family dinners, coffee with friends or a long shisha session after sunset.</p>
-                    <div class="split-list reveal">
-                        <div><i>01</i><span data-i18n="relaxList1">Comfortable lounge seating</span></div>
-                        <div><i>02</i><span data-i18n="relaxList2">Calm day-to-night atmosphere</span></div>
-                        <div><i>03</i><span data-i18n="relaxList3">Attentive table service</span></div>
-                    </div>
-                    <a href="/reserveatable" class="btn btn-primary reveal"><span data-i18n="bookExperience">Book your experience</span><svg class="btn-arrow" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6"/></svg></a>
+
+
+                    @if(
+                        filled(
+                            $experience->eyebrow_en
+                        )
+                    )
+
+                        <div
+                            class="eyebrow reveal"
+
+                            data-db-i18n
+
+                            data-en="{{ $experience->eyebrow_en }}"
+
+                            data-ar="{{ $eyebrowAr }}"
+                        >
+                            {{ $experience->eyebrow_en }}
+                        </div>
+
+                    @endif
+
+
+                    <h2
+                        class="section-title reveal"
+
+                        data-db-i18n
+
+                        data-en="{{ $experience->title_en }}"
+
+                        data-ar="{{ $titleAr }}"
+                    >
+                        {{ $experience->title_en }}
+                    </h2>
+
+
+                    @if(
+                        filled(
+                            $experience->description_en
+                        )
+                    )
+
+                        <p
+                            class="lede reveal"
+
+                            data-db-i18n
+
+                            data-en="{{ $experience->description_en }}"
+
+                            data-ar="{{ $descriptionAr }}"
+                        >
+                            {{ $experience->description_en }}
+                        </p>
+
+                    @endif
+
+
+                    <!-- ====================================================
+                         LIST
+                         ==================================================== -->
+
+                    @if(
+                        filled(
+                            $experience->list_1_en
+                        )
+                        ||
+                        filled(
+                            $experience->list_2_en
+                        )
+                        ||
+                        filled(
+                            $experience->list_3_en
+                        )
+                    )
+
+                        <div class="split-list reveal">
+
+
+                            @if(
+                                filled(
+                                    $experience->list_1_en
+                                )
+                            )
+
+                                <div>
+
+                                    <i>
+                                        01
+                                    </i>
+
+                                    <span
+                                        data-db-i18n
+
+                                        data-en="{{ $experience->list_1_en }}"
+
+                                        data-ar="{{ $list1Ar }}"
+                                    >
+                                        {{ $experience->list_1_en }}
+                                    </span>
+
+                                </div>
+
+                            @endif
+
+
+                            @if(
+                                filled(
+                                    $experience->list_2_en
+                                )
+                            )
+
+                                <div>
+
+                                    <i>
+                                        02
+                                    </i>
+
+                                    <span
+                                        data-db-i18n
+
+                                        data-en="{{ $experience->list_2_en }}"
+
+                                        data-ar="{{ $list2Ar }}"
+                                    >
+                                        {{ $experience->list_2_en }}
+                                    </span>
+
+                                </div>
+
+                            @endif
+
+
+                            @if(
+                                filled(
+                                    $experience->list_3_en
+                                )
+                            )
+
+                                <div>
+
+                                    <i>
+                                        03
+                                    </i>
+
+                                    <span
+                                        data-db-i18n
+
+                                        data-en="{{ $experience->list_3_en }}"
+
+                                        data-ar="{{ $list3Ar }}"
+                                    >
+                                        {{ $experience->list_3_en }}
+                                    </span>
+
+                                </div>
+
+                            @endif
+
+
+                        </div>
+
+                    @endif
+
+
+                    <!-- ====================================================
+                         BUTTON
+                         ==================================================== -->
+
+                    @if(
+                        filled(
+                            $experience->button_label_en
+                        )
+                        &&
+                        filled(
+                            $experience->button_url
+                        )
+                    )
+
+                        <a
+                            href="{{ $experience->button_url }}"
+
+                            class="{{ $buttonClass }}"
+                        >
+
+                            <span
+                                data-db-i18n
+
+                                data-en="{{ $experience->button_label_en }}"
+
+                                data-ar="{{ $buttonLabelAr }}"
+                            >
+                                {{ $experience->button_label_en }}
+                            </span>
+
+
+                            <svg
+                                class="btn-arrow"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                aria-hidden="true"
+                            >
+
+                                <path
+                                    d="M5 12h14M13 6l6 6-6 6"
+                                    stroke="currentColor"
+                                    stroke-width="1.6"
+                                />
+
+                            </svg>
+
+                        </a>
+
+                    @endif
+
+
                 </div>
+
             </div>
-        </section>
-        <!-- End of Experience Features Split -->
+
+        @endforeach
+
+    </section>
+
+    <!-- End Dynamic Experience Section -->
+
+@endif

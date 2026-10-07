@@ -39,6 +39,7 @@
             <div class="footer-bottom">
                 <span>© <span id="year"></span> Zaitoona Al Andalus. <span data-i18n="rights">All rights reserved.</span></span>
                 <span data-i18n="footerLine">Restaurant · Shisha · Coffee Lounge · Doha, Qatar</span>
+                <span>Website developed by <a href="https://ositandweb.com" target="_blank" rel="noopener">O's it and web solutions</a></span>
             </div>
         </div>
     </footer>

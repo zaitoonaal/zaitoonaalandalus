@@ -16,9 +16,9 @@ const CONFIG = {
 const I18N = {
   en: {
     announce1:"Doha, Qatar",announce2:"Restaurant · Shisha · Coffee Lounge",announce3:"Reservations Recommended",
-    navHome:"Home",navMenu:"Menu",navExperience:"Experience",navGallery:"Gallery",navBlog:"Blog",navContact:"Contact",About:"About",bookTable:"Book a table",brand:"Zaitoona Al Andalaus",brandSub:"Restaurant · Shisha · Coffee",
+    navHome:"Home",navMenu:"Menu",navExperience:"Experience",navGallery:"Gallery",navBlog:"Blog",navContact:"Contact",About:"About",bookTable:"Book a table",brand:"Zaitoona Al Andalus",brandSub:"Restaurant · Shisha · Coffee",
     heroKicker:"A refined Doha gathering place",hero1:"Taste.",hero2:"Breathe.",hero3:"Stay awhile.",heroDesc:"Mediterranean flavours, beautifully prepared shisha and coffee rituals — served with warm Andalusian-inspired hospitality in the heart of Doha.",reserveNow:"Reserve your table",exploreMenu:"Explore the menu",meta1Title:"All Day",meta1Text:"Dining",meta2Title:"Premium",meta2Text:"Shisha",meta3Title:"Late Night",meta3Text:"Coffee & Lounge",
-    introEyebrow:"The Zaitoona experience",introTitle:"Rooted in hospitality. Made for Doha.",introCopy:"Zaitoona Al Andalaus brings together the generosity of Arab hospitality and the relaxed elegance of Mediterranean café culture — a place to meet, dine, share shisha and let the evening unfold naturally.",detail1Title:"From the kitchen",detail1Text:"Shareable mezze, grilled signatures, fresh salads, desserts and all-day plates made for long tables and easy conversation.",detail2Title:"From the lounge",detail2Text:"Thoughtfully prepared shisha, specialty coffee, tea and refreshing drinks served in an unhurried, polished setting.",
+    introEyebrow:"The Zaitoona experience",introTitle:"Rooted in hospitality. Made for Doha.",introCopy:"Zaitoona Al Andalus brings together the generosity of Arab hospitality and the relaxed elegance of Mediterranean café culture — a place to meet, dine, share shisha and let the evening unfold naturally.",detail1Title:"From the kitchen",detail1Text:"Shareable mezze, grilled signatures, fresh salads, desserts and all-day plates made for long tables and easy conversation.",detail2Title:"From the lounge",detail2Text:"Thoughtfully prepared shisha, specialty coffee, tea and refreshing drinks served in an unhurried, polished setting.",
     feat1Label:"Cuisine",feat1Title:"Culinary craft",feat1Text:"Modern Mediterranean and Middle Eastern flavours, plated with restraint and character.",feat2Label:"Lounge",feat2Title:"Relax with us",feat2Text:"Soft seating, warm service and a calm atmosphere that carries comfortably into the night.",feat3Label:"Coffee",feat3Title:"Coffee rituals",feat3Text:"Arabic coffee, espresso classics and slow-brew favourites — from first cup to late-night finish.",
     culinaryEyebrow:"Culinary mastery",culinaryTitle:"Made for sharing, remembered for flavour.",culinaryText:"Begin with mezze, move into flame-grilled favourites, then leave space for something sweet. Our menu is designed around generous plates, fresh ingredients and the pleasure of sharing.",culinaryList1:"Levantine & Mediterranean inspiration",culinaryList2:"Charcoal grill signatures",culinaryList3:"Fresh desserts, coffee & tea",seeMenu:"See signature menu",
     relaxEyebrow:"Relax with us",relaxTitle:"An evening with no reason to rush.",relaxText:"Zaitoona is shaped for easy gatherings — business catch-ups, family dinners, coffee with friends or a long shisha session after sunset.",relaxList1:"Comfortable lounge seating",relaxList2:"Calm day-to-night atmosphere",relaxList3:"Attentive table service",bookExperience:"Book your experience",
@@ -48,9 +48,9 @@ const I18N = {
    ========================================================= */
 const QUOTES = {
   en: [
-    ["“Elegant without feeling formal — the kind of place where dinner naturally becomes coffee, shisha and another hour with friends.”","Zaitoona Guest Experience · Demo Review"],
-    ["“Warm service, a calm atmosphere and a menu made for sharing. Exactly what a Doha evening should feel like.”","Zaitoona Guest Experience · Demo Review"],
-    ["“Come for the grill, stay for Arabic coffee and a beautifully prepared shisha. The pace of the place is the real luxury.”","Zaitoona Guest Experience · Demo Review"]
+    ["“Elegant without feeling formal — the kind of place where dinner naturally becomes coffee, shisha and another hour with friends.”","Zaitoona Guest Experience"],
+    ["“Warm service, a calm atmosphere and a menu made for sharing. Exactly what a Doha evening should feel like.”","Zaitoona Guest Experience ·"],
+    ["“Come for the grill, stay for Arabic coffee and a beautifully prepared shisha. The pace of the place is the real luxury.”","Zaitoona Guest Experience ·"]
   ],
   ar: [
     ["«راقي من دون تكلّف — المكان الذي يتحول فيه العشاء بشكل طبيعي إلى قهوة وشيشة وساعة إضافية مع الأصدقاء.»","تجربة ضيف زيتونة · تقييم تجريبي"],

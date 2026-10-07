@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\GalleryController;
-use App\Http\Controllers\MenuController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\TableReservationController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,15 +47,26 @@ Route::get(
 
 /*
 |--------------------------------------------------------------------------
-| Blog Page
+| Blog Listing Page
 |--------------------------------------------------------------------------
 */
 
-Route::get('/blog', function () {
+Route::get(
+    '/blog',
+    [BlogController::class, 'index']
+)->name('blog');
 
-    return view('Home.blog');
 
-})->name('blog');
+/*
+|--------------------------------------------------------------------------
+| Single Blog Post
+|--------------------------------------------------------------------------
+*/
+
+Route::get(
+    '/blog/{slug}',
+    [BlogController::class, 'show']
+)->name('blog.show');
 
 
 /*
@@ -63,25 +75,16 @@ Route::get('/blog', function () {
 |--------------------------------------------------------------------------
 */
 
-Route::get('/reserveatable', function () {
+Route::get(
+    '/reserveatable',
+    [
+        TableReservationController::class,
+        'create',
+    ]
+)->name(
+    'reservations.create'
+);
 
-    return view('Home.reserveatable');
-
-})->name('reservations.create');
-
-
-/*
-|--------------------------------------------------------------------------
-| Submit Table Reservation
-|--------------------------------------------------------------------------
-|
-| Your reservation form uses:
-|
-| route('reservations.store')
-|
-| so this POST route must exist.
-|
-*/
 
 Route::post(
     '/reserveatable',
@@ -90,8 +93,12 @@ Route::post(
         'store',
     ]
 )
-    ->middleware('throttle:10,1')
-    ->name('reservations.store');
+    ->middleware(
+        'throttle:10,1'
+    )
+    ->name(
+        'reservations.store'
+    );
 
 
 /*

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InstagramSection;
 use App\Models\MenuSetting;
 use Illuminate\View\View;
 
@@ -9,14 +10,72 @@ class MenuController extends Controller
 {
     public function index(): View
     {
-        $menuSetting = MenuSetting::query()->first();
+        /*
+        |--------------------------------------------------------------------------
+        | MENU PAGE SETTINGS
+        |--------------------------------------------------------------------------
+        */
 
-        if ($menuSetting && ! $menuSetting->is_active) {
+        $menuSetting =
+            MenuSetting::query()
+                ->first();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | HIDE MENU PAGE WHEN DISABLED
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            $menuSetting
+            && ! $menuSetting->is_active
+        ) {
             abort(404);
         }
 
-        return view('Home.menu', [
-            'menuSetting' => $menuSetting,
-        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | INSTAGRAM GRID
+        |--------------------------------------------------------------------------
+        |
+        | Loads the same active Instagram Grid Setting used on the homepage.
+        |
+        */
+
+        $instagramSections =
+            InstagramSection::query()
+                ->where(
+                    'is_active',
+                    true
+                )
+                ->orderBy(
+                    'sort_order',
+                    'asc'
+                )
+                ->orderBy(
+                    'id',
+                    'asc'
+                )
+                ->get();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | MENU PAGE VIEW
+        |--------------------------------------------------------------------------
+        */
+
+        return view(
+            'Home.menu',
+            [
+                'menuSetting' =>
+                    $menuSetting,
+
+                'instagramSections' =>
+                    $instagramSections,
+            ]
+        );
     }
 }
