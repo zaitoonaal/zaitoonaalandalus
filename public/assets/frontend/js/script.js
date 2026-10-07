@@ -24,6 +24,7 @@ const CONFIG = {
 
     address:
         "Old Airport, Near Food Place, Building No. 26, Zone 45, Street No 840, Doha Qatar"
+
 };
 
 
@@ -43,6 +44,7 @@ const I18N = {
 
         announce3:
             "Reservations Recommended",
+
 
         navHome:
             "Home",
@@ -73,14 +75,17 @@ const I18N = {
         About:
             "About",
 
+
         bookTable:
             "Book a table",
+
 
         brand:
             "Zaitoona Al Andalus",
 
         brandSub:
             "Restaurant · Shisha · Coffee",
+
 
         heroKicker:
             "A refined Doha gathering place",
@@ -121,6 +126,7 @@ const I18N = {
         meta3Text:
             "Coffee & Lounge",
 
+
         introEyebrow:
             "The Zaitoona experience",
 
@@ -141,6 +147,7 @@ const I18N = {
 
         detail2Text:
             "Thoughtfully prepared shisha, specialty coffee, tea and refreshing drinks served in an unhurried, polished setting.",
+
 
         feat1Label:
             "Cuisine",
@@ -169,6 +176,7 @@ const I18N = {
         feat3Text:
             "Arabic coffee, espresso classics and slow-brew favourites — from first cup to late-night finish.",
 
+
         culinaryEyebrow:
             "Culinary mastery",
 
@@ -190,6 +198,7 @@ const I18N = {
         seeMenu:
             "See signature menu",
 
+
         relaxEyebrow:
             "Relax with us",
 
@@ -210,6 +219,7 @@ const I18N = {
 
         bookExperience:
             "Book your experience",
+
 
         shishaEyebrow:
             "The shisha ritual",
@@ -247,6 +257,7 @@ const I18N = {
         shishaLegal:
             "Shisha service is offered in accordance with applicable local regulations.",
 
+
         galleryEyebrow:
             "Our atmosphere",
 
@@ -256,11 +267,14 @@ const I18N = {
         experienceIt:
             "Experience it",
 
+
         testimonialEyebrow:
             "What the evening should feel like",
 
+
         callUs:
             "Call us",
+
 
         footerAbout:
             "A premium Doha restaurant and lounge for Mediterranean food, refined shisha, specialty coffee and relaxed evenings.",
@@ -285,6 +299,7 @@ const I18N = {
 
         footerLine:
             "Restaurant · Shisha · Coffee Lounge · Doha, Qatar"
+
     },
 
 
@@ -298,6 +313,7 @@ const I18N = {
 
         announce3:
             "يفضل الحجز مسبقاً",
+
 
         navHome:
             "الرئيسية",
@@ -323,14 +339,17 @@ const I18N = {
         About:
             "من نحن",
 
+
         bookTable:
             "احجز طاولة",
+
 
         brand:
             "زيتونة الأندلس",
 
         brandSub:
             "مطعم · شيشة · قهوة",
+
 
         heroKicker:
             "وجهة راقية للقاءات في الدوحة",
@@ -371,6 +390,7 @@ const I18N = {
         meta3Text:
             "قهوة ولاونج",
 
+
         introEyebrow:
             "تجربة زيتونة",
 
@@ -391,6 +411,7 @@ const I18N = {
 
         detail2Text:
             "شيشة محضّرة بعناية، قهوة مختصة، شاي ومشروبات منعشة تقدم في أجواء راقية ومريحة.",
+
 
         feat1Label:
             "المطبخ",
@@ -419,6 +440,7 @@ const I18N = {
         feat3Text:
             "قهوة عربية، كلاسيكيات الإسبريسو وطرق تقطير هادئة من أول فنجان حتى نهاية السهرة.",
 
+
         culinaryEyebrow:
             "إتقان الطهي",
 
@@ -440,6 +462,7 @@ const I18N = {
         seeMenu:
             "شاهد القائمة المختارة",
 
+
         relaxEyebrow:
             "استرخِ معنا",
 
@@ -460,6 +483,7 @@ const I18N = {
 
         bookExperience:
             "احجز تجربتك",
+
 
         shishaEyebrow:
             "طقس الشيشة",
@@ -497,6 +521,7 @@ const I18N = {
         shishaLegal:
             "تُقدّم خدمة الشيشة وفقاً للأنظمة المحلية المعمول بها.",
 
+
         galleryEyebrow:
             "أجواؤنا",
 
@@ -506,11 +531,14 @@ const I18N = {
         experienceIt:
             "عِش التجربة",
 
+
         testimonialEyebrow:
             "هكذا يجب أن تشعر الأمسية",
 
+
         callUs:
             "اتصل بنا",
+
 
         footerAbout:
             "مطعم ولاونج راقٍ في الدوحة للمأكولات المتوسطية والشيشة والقهوة المختصة والأمسيات الهادئة.",
@@ -535,54 +563,9 @@ const I18N = {
 
         footerLine:
             "مطعم · شيشة · قهوة ولاونج · الدوحة، قطر"
+
     }
-};
 
-
-/* =========================================================
-   TESTIMONIALS
-   ========================================================= */
-
-const QUOTES = {
-
-    en: [
-
-        [
-            "“Elegant without feeling formal — the kind of place where dinner naturally becomes coffee, shisha and another hour with friends.”",
-            "Zaitoona Guest Experience · Demo Review"
-        ],
-
-        [
-            "“Warm service, a calm atmosphere and a menu made for sharing. Exactly what a Doha evening should feel like.”",
-            "Zaitoona Guest Experience · Demo Review"
-        ],
-
-        [
-            "“Come for the grill, stay for Arabic coffee and a beautifully prepared shisha. The pace of the place is the real luxury.”",
-            "Zaitoona Guest Experience · Demo Review"
-        ]
-
-    ],
-
-
-    ar: [
-
-        [
-            "«راقي من دون تكلّف — المكان الذي يتحول فيه العشاء بشكل طبيعي إلى قهوة وشيشة وساعة إضافية مع الأصدقاء.»",
-            "تجربة ضيف زيتونة · تقييم تجريبي"
-        ],
-
-        [
-            "«خدمة دافئة، أجواء هادئة وقائمة مصممة للمشاركة. هكذا يجب أن تكون أمسية الدوحة.»",
-            "تجربة ضيف زيتونة · تقييم تجريبي"
-        ],
-
-        [
-            "«تعال للمشاوي، وابقَ للقهوة العربية والشيشة المحضّرة بإتقان. هدوء المكان هو الفخامة الحقيقية.»",
-            "تجربة ضيف زيتونة · تقييم تجريبي"
-        ]
-
-    ]
 };
 
 
@@ -624,13 +607,19 @@ if (
         lang
     )
 ) {
+
     lang =
         "en";
+
 }
 
 
 let currentQuote =
     0;
+
+
+let testimonials =
+    [];
 
 
 /* =========================================================
@@ -645,6 +634,7 @@ function applyConfig() {
 
                 element.textContent =
                     CONFIG.phoneDisplay;
+
             }
         );
 
@@ -655,6 +645,7 @@ function applyConfig() {
 
                 element.href =
                     `tel:${CONFIG.phoneDial}`;
+
             }
         );
 
@@ -666,12 +657,16 @@ function applyConfig() {
                 element.textContent =
                     CONFIG.email;
 
+
                 if (
                     element.tagName === "A"
                 ) {
+
                     element.href =
                         `mailto:${CONFIG.email}`;
+
                 }
+
             }
         );
 
@@ -682,6 +677,7 @@ function applyConfig() {
 
                 element.href =
                     `mailto:${CONFIG.email}`;
+
             }
         );
 
@@ -692,6 +688,7 @@ function applyConfig() {
 
                 element.textContent =
                     CONFIG.address;
+
             }
         );
 
@@ -703,8 +700,10 @@ function applyConfig() {
     if (
         mobileCall
     ) {
+
         mobileCall.href =
             `tel:${CONFIG.phoneDial}`;
+
     }
 
 
@@ -719,8 +718,10 @@ function applyConfig() {
     if (
         floatingWhatsapp
     ) {
+
         floatingWhatsapp.href =
             whatsappUrl;
+
     }
 
 
@@ -731,8 +732,10 @@ function applyConfig() {
     if (
         footerWhatsapp
     ) {
+
         footerWhatsapp.href =
             whatsappUrl;
+
     }
 
 
@@ -741,12 +744,74 @@ function applyConfig() {
     | IMPORTANT
     |--------------------------------------------------------------------------
     |
-    | We do NOT modify schemaJson here.
+    | Do NOT modify schemaJson here.
     |
-    | SEO JSON-LD is now fully rendered server-side by Laravel so
-    | crawlers receive the final structured data immediately.
+    | Homepage SEO structured data is rendered server-side by Laravel.
     |
     */
+
+}
+
+
+/* =========================================================
+   DATABASE TRANSLATIONS
+   ========================================================= */
+
+function applyDatabaseTranslations(
+    selectedLanguage
+) {
+
+    $$("[data-db-i18n]")
+        .forEach(
+            element => {
+
+                const english =
+                    element.dataset.en
+                    ?? "";
+
+
+                const arabic =
+                    element.dataset.ar
+                    ?? english;
+
+
+                element.textContent =
+                    selectedLanguage === "ar"
+                        ? (
+                            arabic
+                            || english
+                        )
+                        : english;
+
+            }
+        );
+
+
+    $$("[data-db-alt]")
+        .forEach(
+            image => {
+
+                const english =
+                    image.dataset.altEn
+                    ?? "";
+
+
+                const arabic =
+                    image.dataset.altAr
+                    ?? english;
+
+
+                image.alt =
+                    selectedLanguage === "ar"
+                        ? (
+                            arabic
+                            || english
+                        )
+                        : english;
+
+            }
+        );
+
 }
 
 
@@ -805,9 +870,16 @@ function applyLanguage(
 
                     element.textContent =
                         I18N[lang][key];
+
                 }
+
             }
         );
+
+
+    applyDatabaseTranslations(
+        lang
+    );
 
 
     const languageMarkup =
@@ -823,8 +895,10 @@ function applyLanguage(
     if (
         desktopLanguage
     ) {
+
         desktopLanguage.innerHTML =
             languageMarkup;
+
     }
 
 
@@ -835,12 +909,15 @@ function applyLanguage(
     if (
         mobileLanguage
     ) {
+
         mobileLanguage.innerHTML =
             languageMarkup;
+
     }
 
 
     renderQuotes();
+
 }
 
 
@@ -848,13 +925,155 @@ function applyLanguage(
    TESTIMONIALS
    ========================================================= */
 
+function cleanTestimonialAuthor(
+    value
+) {
+
+    let author =
+        String(
+            value || ""
+        );
+
+
+    author =
+        author.replace(
+            /\s*[·\-|]?\s*Demo\s*Review\s*/gi,
+            ""
+        );
+
+
+    author =
+        author.replace(
+            /\s*[·\-|]?\s*Demo\s*/gi,
+            ""
+        );
+
+
+    author =
+        author.replace(
+            /\s*[·\-|]?\s*تقييم تجريبي\s*/g,
+            ""
+        );
+
+
+    return author
+        .replace(
+            /^[\s·\-|]+|[\s·\-|]+$/g,
+            ""
+        )
+        .trim();
+
+}
+
+
+function loadTestimonials() {
+
+    const dataElement =
+        $("#testimonialData");
+
+
+    if (
+        !dataElement
+    ) {
+
+        testimonials =
+            [];
+
+        return;
+
+    }
+
+
+    try {
+
+        const parsed =
+            JSON.parse(
+                dataElement.textContent
+            );
+
+
+        testimonials =
+            Array.isArray(
+                parsed
+            )
+                ? parsed.map(
+                    testimonial => ({
+
+                        quote_en:
+                            testimonial.quote_en
+                            || "",
+
+                        quote_ar:
+                            testimonial.quote_ar
+                            ||
+                            testimonial.quote_en
+                            ||
+                            "",
+
+                        author_en:
+                            cleanTestimonialAuthor(
+                                testimonial.author_en
+                                ||
+                                "Zaitoona Guest Experience"
+                            )
+                            ||
+                            "Zaitoona Guest Experience",
+
+                        author_ar:
+                            cleanTestimonialAuthor(
+                                testimonial.author_ar
+                                ||
+                                "تجربة ضيف زيتونة"
+                            )
+                            ||
+                            "تجربة ضيف زيتونة",
+
+                        rating:
+                            Math.max(
+                                1,
+                                Math.min(
+                                    5,
+                                    Number(
+                                        testimonial.rating
+                                        || 5
+                                    )
+                                )
+                            ),
+
+                    })
+                )
+                : [];
+
+    } catch (
+        error
+    ) {
+
+        testimonials =
+            [];
+
+
+        console.warn(
+            "Unable to load testimonial data."
+        );
+
+    }
+
+}
+
+
 function renderQuotes() {
 
     const quoteText =
         $("#quoteText");
 
+
     const quoteAuthor =
         $("#quoteAuthor");
+
+
+    const quoteStars =
+        $("#quoteStars");
+
 
     const quoteDots =
         $("#quoteDots");
@@ -862,40 +1081,118 @@ function renderQuotes() {
 
     if (
         !quoteText
-        || !quoteAuthor
-        || !quoteDots
+        ||
+        !quoteAuthor
+        ||
+        !quoteDots
+        ||
+        !testimonials.length
     ) {
+
         return;
+
     }
-
-
-    const quotes =
-        QUOTES[lang]
-        ?? QUOTES.en;
 
 
     if (
         currentQuote
-        >= quotes.length
+        >= testimonials.length
     ) {
+
         currentQuote =
             0;
+
     }
 
 
+    const testimonial =
+        testimonials[
+            currentQuote
+        ];
+
+
+    const quote =
+        lang === "ar"
+            ? (
+                testimonial.quote_ar
+                ||
+                testimonial.quote_en
+                ||
+                ""
+            )
+            : (
+                testimonial.quote_en
+                ||
+                ""
+            );
+
+
+    const author =
+        lang === "ar"
+            ? (
+                testimonial.author_ar
+                ||
+                testimonial.author_en
+                ||
+                ""
+            )
+            : (
+                testimonial.author_en
+                ||
+                ""
+            );
+
+
     quoteText.textContent =
-        quotes[currentQuote][0];
+        `“${quote}”`;
 
 
     quoteAuthor.textContent =
-        quotes[currentQuote][1];
+        cleanTestimonialAuthor(
+            author
+        );
+
+
+    if (
+        quoteStars
+    ) {
+
+        const rating =
+            Math.max(
+                1,
+                Math.min(
+                    5,
+                    Number(
+                        testimonial.rating
+                        || 5
+                    )
+                )
+            );
+
+
+        quoteStars.textContent =
+            "★".repeat(
+                rating
+            )
+            +
+            "☆".repeat(
+                5 - rating
+            );
+
+
+        quoteStars.setAttribute(
+            "aria-label",
+            `${rating} out of 5 stars`
+        );
+
+    }
 
 
     quoteDots.innerHTML =
-        quotes
+        testimonials
             .map(
                 (
-                    quote,
+                    item,
                     index
                 ) => {
 
@@ -903,6 +1200,7 @@ function renderQuotes() {
                         index === currentQuote
                             ? "active"
                             : "";
+
 
                     return `
                         <button
@@ -912,6 +1210,7 @@ function renderQuotes() {
                             data-q="${index}"
                         ></button>
                     `;
+
                 }
             )
             .join("");
@@ -930,11 +1229,15 @@ function renderQuotes() {
                                 button.dataset.q
                             );
 
+
                         renderQuotes();
+
                     }
                 );
+
             }
         );
+
 }
 
 
@@ -951,10 +1254,13 @@ function hideLoader() {
     if (
         loader
     ) {
+
         loader.classList.add(
             "hidden"
         );
+
     }
+
 }
 
 
@@ -980,11 +1286,13 @@ function initializeLoader() {
                     hideLoader,
                     450
                 );
+
             },
             {
                 once: true
             }
         );
+
     }
 
 
@@ -992,6 +1300,7 @@ function initializeLoader() {
         hideLoader,
         2200
     );
+
 }
 
 
@@ -1008,7 +1317,9 @@ function initializeHeader() {
     if (
         !header
     ) {
+
         return;
+
     }
 
 
@@ -1024,8 +1335,10 @@ function initializeHeader() {
                 window.scrollY > 28
             );
 
+
             ticking =
                 false;
+
         };
 
 
@@ -1035,7 +1348,9 @@ function initializeHeader() {
             if (
                 ticking
             ) {
+
                 return;
+
             }
 
 
@@ -1046,6 +1361,7 @@ function initializeHeader() {
             window.requestAnimationFrame(
                 updateHeader
             );
+
         };
 
 
@@ -1059,6 +1375,7 @@ function initializeHeader() {
             passive: true
         }
     );
+
 }
 
 
@@ -1077,7 +1394,9 @@ function initializeNavigationObserver() {
     if (
         !sections.length
     ) {
+
         return;
+
     }
 
 
@@ -1087,7 +1406,9 @@ function initializeNavigationObserver() {
             in window
         )
     ) {
+
         return;
+
     }
 
 
@@ -1102,7 +1423,9 @@ function initializeNavigationObserver() {
                         if (
                             !entry.isIntersecting
                         ) {
+
                             return;
+
                         }
 
 
@@ -1129,7 +1452,9 @@ function initializeNavigationObserver() {
                                     if (
                                         hashIndex === -1
                                     ) {
+
                                         return;
+
                                     }
 
 
@@ -1144,16 +1469,20 @@ function initializeNavigationObserver() {
                                         linkHash
                                         === activeHash
                                     );
+
                                 }
                             );
+
                     }
                 );
+
             },
 
             {
                 rootMargin:
                     "-30% 0px -60% 0px"
             }
+
         );
 
 
@@ -1163,8 +1492,10 @@ function initializeNavigationObserver() {
             observer.observe(
                 section
             );
+
         }
     );
+
 }
 
 
@@ -1177,6 +1508,7 @@ function closeMobile() {
     const menu =
         $("#mobileMenu");
 
+
     const toggle =
         $("#menuToggle");
 
@@ -1184,7 +1516,9 @@ function closeMobile() {
     if (
         !menu
     ) {
+
         return;
+
     }
 
 
@@ -1212,7 +1546,9 @@ function closeMobile() {
             "aria-expanded",
             "false"
         );
+
     }
+
 }
 
 
@@ -1221,13 +1557,15 @@ function initializeMobileMenu() {
     const toggle =
         $("#menuToggle");
 
+
     const menu =
         $("#mobileMenu");
 
 
     if (
         toggle
-        && menu
+        &&
+        menu
     ) {
 
         toggle.setAttribute(
@@ -1272,8 +1610,10 @@ function initializeMobileMenu() {
                         ? "true"
                         : "false"
                 );
+
             }
         );
+
     }
 
 
@@ -1285,8 +1625,10 @@ function initializeMobileMenu() {
                     "click",
                     closeMobile
                 );
+
             }
         );
+
 }
 
 
@@ -1313,8 +1655,10 @@ function initializeLanguageButtons() {
                         ? "ar"
                         : "en"
                 );
+
             }
         );
+
     }
 
 
@@ -1335,9 +1679,12 @@ function initializeLanguageButtons() {
                         ? "ar"
                         : "en"
                 );
+
             }
         );
+
     }
+
 }
 
 
@@ -1354,7 +1701,9 @@ function initializeRevealObserver() {
     if (
         !elements.length
     ) {
+
         return;
+
     }
 
 
@@ -1371,10 +1720,13 @@ function initializeRevealObserver() {
                 element.classList.add(
                     "visible"
                 );
+
             }
         );
 
+
         return;
+
     }
 
 
@@ -1400,9 +1752,12 @@ function initializeRevealObserver() {
                             observer.unobserve(
                                 entry.target
                             );
+
                         }
+
                     }
                 );
+
             },
 
             {
@@ -1412,6 +1767,7 @@ function initializeRevealObserver() {
                 rootMargin:
                     "0px 0px -40px"
             }
+
         );
 
 
@@ -1421,8 +1777,10 @@ function initializeRevealObserver() {
             observer.observe(
                 element
             );
+
         }
     );
+
 }
 
 
@@ -1439,7 +1797,9 @@ function closeLightbox() {
     if (
         !lightbox
     ) {
+
         return;
+
     }
 
 
@@ -1451,6 +1811,7 @@ function closeLightbox() {
     document.body.classList.remove(
         "no-scroll"
     );
+
 }
 
 
@@ -1459,8 +1820,10 @@ function initializeLightbox() {
     const lightbox =
         $("#lightbox");
 
+
     const lightboxImage =
         $("#lightboxImage");
+
 
     const closeButton =
         $("#lightboxClose");
@@ -1476,9 +1839,12 @@ function initializeLightbox() {
 
                         if (
                             !lightbox
-                            || !lightboxImage
+                            ||
+                            !lightboxImage
                         ) {
+
                             return;
+
                         }
 
 
@@ -1495,7 +1861,8 @@ function initializeLightbox() {
 
                         lightboxImage.alt =
                             image.alt
-                            || "Gallery preview";
+                            ||
+                            "Gallery preview";
 
 
                         lightbox.classList.add(
@@ -1508,8 +1875,10 @@ function initializeLightbox() {
                             .add(
                                 "no-scroll"
                             );
+
                     }
                 );
+
             }
         );
 
@@ -1522,6 +1891,7 @@ function initializeLightbox() {
             "click",
             closeLightbox
         );
+
     }
 
 
@@ -1539,10 +1909,14 @@ function initializeLightbox() {
                 ) {
 
                     closeLightbox();
+
                 }
+
             }
         );
+
     }
+
 }
 
 
@@ -1564,9 +1938,12 @@ function initializeKeyboard() {
                 closeLightbox();
 
                 closeMobile();
+
             }
+
         }
     );
+
 }
 
 
@@ -1578,8 +1955,12 @@ function initializeTestimonialRotation() {
 
     if (
         !$("#quoteText")
+        ||
+        testimonials.length === 0
     ) {
+
         return;
+
     }
 
 
@@ -1588,14 +1969,13 @@ function initializeTestimonialRotation() {
 
             if (
                 document.hidden
+                ||
+                testimonials.length === 0
             ) {
+
                 return;
+
             }
-
-
-            const quotes =
-                QUOTES[lang]
-                ?? QUOTES.en;
 
 
             currentQuote =
@@ -1603,7 +1983,7 @@ function initializeTestimonialRotation() {
                     currentQuote
                     + 1
                 )
-                % quotes.length;
+                % testimonials.length;
 
 
             renderQuotes();
@@ -1611,6 +1991,7 @@ function initializeTestimonialRotation() {
         },
         7000
     );
+
 }
 
 
@@ -1631,7 +2012,9 @@ function updateFooterYear() {
         year.textContent =
             new Date()
                 .getFullYear();
+
     }
+
 }
 
 
@@ -1641,31 +2024,46 @@ function updateFooterYear() {
 
 function initializeApp() {
 
+    loadTestimonials();
+
+
     applyConfig();
+
 
     applyLanguage(
         lang
     );
 
+
     initializeLoader();
+
 
     initializeHeader();
 
+
     initializeNavigationObserver();
+
 
     initializeMobileMenu();
 
+
     initializeLanguageButtons();
+
 
     initializeRevealObserver();
 
+
     initializeLightbox();
+
 
     initializeKeyboard();
 
+
     initializeTestimonialRotation();
 
+
     updateFooterYear();
+
 }
 
 
@@ -1685,4 +2083,5 @@ if (
 } else {
 
     initializeApp();
+
 }
