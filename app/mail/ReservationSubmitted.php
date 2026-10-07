@@ -31,6 +31,7 @@ class ReservationSubmitted extends Mailable
                 . $this->reservation->name
         );
     }
+    
 
     public function content(): Content
     {
