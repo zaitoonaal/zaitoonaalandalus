@@ -8,27 +8,28 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('home_seo_settings', function (Blueprint $table) {
+        Schema::create('homepage_seo_settings', function (Blueprint $table) {
             $table->id();
 
             /*
             |--------------------------------------------------------------------------
-            | Main SEO
+            | General SEO
             |--------------------------------------------------------------------------
             */
 
+            $table->string('site_name')
+                ->default('Zaitoona Al Andalus');
+
             $table->string('seo_title')
-                ->default(
-                    'Zaitoona Al Andalus | Restaurant, Shisha & Coffee Lounge in Doha'
-                );
+                ->nullable();
 
             $table->text('meta_description')
                 ->nullable();
 
-            $table->text('meta_keywords')
+            $table->string('focus_keyword')
                 ->nullable();
 
-            $table->text('canonical_url')
+            $table->string('author')
                 ->nullable();
 
             $table->string('robots')
@@ -36,13 +37,29 @@ return new class extends Migration
                     'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
                 );
 
-            $table->string('theme_color')
+            $table->text('canonical_url')
+                ->nullable();
+
+            $table->string('theme_color', 20)
                 ->default('#ffffff');
 
 
             /*
             |--------------------------------------------------------------------------
-            | Icons
+            | Search Engine Verification
+            |--------------------------------------------------------------------------
+            */
+
+            $table->text('google_site_verification')
+                ->nullable();
+
+            $table->text('bing_site_verification')
+                ->nullable();
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Favicon
             |--------------------------------------------------------------------------
             */
 
@@ -70,9 +87,6 @@ return new class extends Migration
 
             $table->string('og_image_alt')
                 ->nullable();
-
-            $table->string('og_type')
-                ->default('website');
 
             $table->string('og_locale')
                 ->default('en_US');
@@ -106,8 +120,11 @@ return new class extends Migration
             |--------------------------------------------------------------------------
             */
 
+            $table->string('schema_type')
+                ->default('Restaurant');
+
             $table->string('schema_name')
-                ->default('Zaitoona Al Andalus');
+                ->nullable();
 
             $table->text('schema_description')
                 ->nullable();
@@ -115,77 +132,91 @@ return new class extends Migration
             $table->string('schema_image')
                 ->nullable();
 
-            $table->string('telephone')
+            $table->string('schema_logo')
                 ->nullable();
 
-            $table->string('price_range')
-                ->default('QAR $$-$$$');
-
-            $table->text('serves_cuisine')
+            $table->string('schema_telephone')
                 ->nullable();
 
-            $table->string('street_address')
+            $table->string('schema_email')
                 ->nullable();
 
-            $table->string('address_locality')
-                ->default('Doha');
-
-            $table->string('address_region')
+            $table->string('schema_price_range')
                 ->nullable();
 
-            $table->string('postal_code')
+            $table->json('schema_serves_cuisine')
                 ->nullable();
 
-            $table->string('address_country', 10)
+
+            /*
+            |--------------------------------------------------------------------------
+            | Address
+            |--------------------------------------------------------------------------
+            */
+
+            $table->string('schema_street_address')
+                ->nullable();
+
+            $table->string('schema_locality')
+                ->nullable();
+
+            $table->string('schema_region')
+                ->nullable();
+
+            $table->string('schema_postal_code')
+                ->nullable();
+
+            $table->string('schema_country', 10)
                 ->default('QA');
 
+            $table->string('schema_area_served')
+                ->nullable();
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Coordinates
+            |--------------------------------------------------------------------------
+            */
+
             $table->decimal(
-                'latitude',
+                'schema_latitude',
                 10,
                 7
             )->nullable();
 
             $table->decimal(
-                'longitude',
-                11,
+                'schema_longitude',
+                10,
                 7
             )->nullable();
 
-            $table->time('opening_time')
-                ->nullable();
-
-            $table->time('closing_time')
-                ->nullable();
-
-            $table->boolean('accepts_reservations')
-                ->default(true);
-
-            $table->text('reservation_url')
-                ->nullable();
-
-            $table->text('menu_url')
-                ->nullable();
-
-            $table->text('same_as')
-                ->nullable();
-
 
             /*
             |--------------------------------------------------------------------------
-            | Search Engine Verification
+            | Restaurant Links / Details
             |--------------------------------------------------------------------------
             */
 
-            $table->string('google_site_verification')
+            $table->text('schema_menu_url')
                 ->nullable();
 
-            $table->string('bing_site_verification')
+            $table->text('schema_reservation_url')
+                ->nullable();
+
+            $table->boolean('schema_accepts_reservations')
+                ->default(true);
+
+            $table->json('schema_opening_hours')
+                ->nullable();
+
+            $table->json('schema_same_as')
                 ->nullable();
 
 
             /*
             |--------------------------------------------------------------------------
-            | Publishing
+            | Status
             |--------------------------------------------------------------------------
             */
 
@@ -196,10 +227,11 @@ return new class extends Migration
         });
     }
 
+
     public function down(): void
     {
         Schema::dropIfExists(
-            'home_seo_settings'
+            'homepage_seo_settings'
         );
     }
 };

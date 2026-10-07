@@ -2,16 +2,15 @@
 
 namespace App\Policies;
 
-use App\Models\HomeSeoSetting;
+use App\Models\HomepageSeoSetting;
 use App\Models\User;
 
-class HomeSeoSettingPolicy
+class HomepageSeoSettingPolicy
 {
     private function isAdmin(
         User $user
     ): bool {
-        return $user->is_active
-            && $user->role === 'admin';
+        return $user->role === 'admin';
     }
 
 
@@ -26,7 +25,7 @@ class HomeSeoSettingPolicy
 
     public function view(
         User $user,
-        HomeSeoSetting $homeSeoSetting
+        HomepageSeoSetting $homepageSeoSetting
     ): bool {
         return $this->isAdmin(
             $user
@@ -45,7 +44,7 @@ class HomeSeoSettingPolicy
 
     public function update(
         User $user,
-        HomeSeoSetting $homeSeoSetting
+        HomepageSeoSetting $homepageSeoSetting
     ): bool {
         return $this->isAdmin(
             $user
@@ -55,15 +54,26 @@ class HomeSeoSettingPolicy
 
     public function delete(
         User $user,
-        HomeSeoSetting $homeSeoSetting
+        HomepageSeoSetting $homepageSeoSetting
     ): bool {
-        return false;
+        return $this->isAdmin(
+            $user
+        );
+    }
+
+
+    public function deleteAny(
+        User $user
+    ): bool {
+        return $this->isAdmin(
+            $user
+        );
     }
 
 
     public function restore(
         User $user,
-        HomeSeoSetting $homeSeoSetting
+        HomepageSeoSetting $homepageSeoSetting
     ): bool {
         return false;
     }
@@ -71,7 +81,7 @@ class HomeSeoSettingPolicy
 
     public function forceDelete(
         User $user,
-        HomeSeoSetting $homeSeoSetting
+        HomepageSeoSetting $homepageSeoSetting
     ): bool {
         return false;
     }

@@ -1,28 +1,36 @@
 <?php
 
-namespace App\Filament\Admin\Resources\HomeSeoSettings\Tables;
+namespace App\Filament\Admin\Resources\HomepageSeoSettings\Tables;
 
+use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class HomeSeoSettingsTable
+class HomepageSeoSettingsTable
 {
     public static function configure(
         Table $table
     ): Table {
         return $table
-
             ->columns([
+
+                TextColumn::make(
+                    'site_name'
+                )
+                    ->label(
+                        'Site'
+                    )
+                    ->searchable(),
+
 
                 TextColumn::make(
                     'seo_title'
                 )
                     ->label(
-                        'Homepage SEO Title'
+                        'SEO Title'
                     )
-                    ->searchable()
                     ->wrap()
                     ->limit(70),
 
@@ -40,7 +48,7 @@ class HomeSeoSettingsTable
                     'updated_at'
                 )
                     ->label(
-                        'Last Updated'
+                        'Updated'
                     )
                     ->dateTime(
                         'd M Y, h:i A'
@@ -56,11 +64,10 @@ class HomeSeoSettingsTable
                         'Edit SEO'
                     ),
 
-            ])
 
-            ->defaultSort(
-                'updated_at',
-                'desc'
-            );
+                DeleteAction::make()
+                    ->requiresConfirmation(),
+
+            ]);
     }
 }

@@ -1,23 +1,26 @@
 <?php
 
-namespace App\Filament\Admin\Resources\HomeSeoSettings\Pages;
+namespace App\Filament\Admin\Resources\HomepageSeoSettings\Pages;
 
-use App\Filament\Admin\Resources\HomeSeoSettings\HomeSeoSettingResource;
+use App\Filament\Admin\Resources\HomepageSeoSettings\HomepageSeoSettingResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
-class ListHomeSeoSettings extends ListRecords
+class ListHomepageSeoSettings extends ListRecords
 {
     protected static string $resource =
-        HomeSeoSettingResource::class;
+        HomepageSeoSettingResource::class;
+
 
     protected function getHeaderActions(): array
     {
         return [
+
             CreateAction::make()
                 ->label(
                     'Create Homepage SEO'
                 ),
+
         ];
     }
 }
