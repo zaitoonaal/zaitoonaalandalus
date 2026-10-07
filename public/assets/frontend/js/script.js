@@ -16,7 +16,7 @@ const CONFIG = {
 const I18N = {
   en: {
     announce1:"Doha, Qatar",announce2:"Restaurant · Shisha · Coffee Lounge",announce3:"Reservations Recommended",
-    navHome:"Home",navMenu:"Menu",navExperience:"Experience",navGallery:"Gallery",navContact:"Contact",bookTable:"Book a table",brand:"Zaitoona Al Andalaus",brandSub:"Restaurant · Shisha · Coffee",
+    navHome:"Home",navMenu:"Menu",navExperience:"Experience",navGallery:"Gallery",navBlog:"Blog",navContact:"Contact",About:"About",bookTable:"Book a table",brand:"Zaitoona Al Andalaus",brandSub:"Restaurant · Shisha · Coffee",
     heroKicker:"A refined Doha gathering place",hero1:"Taste.",hero2:"Breathe.",hero3:"Stay awhile.",heroDesc:"Mediterranean flavours, beautifully prepared shisha and coffee rituals — served with warm Andalusian-inspired hospitality in the heart of Doha.",reserveNow:"Reserve your table",exploreMenu:"Explore the menu",meta1Title:"All Day",meta1Text:"Dining",meta2Title:"Premium",meta2Text:"Shisha",meta3Title:"Late Night",meta3Text:"Coffee & Lounge",
     introEyebrow:"The Zaitoona experience",introTitle:"Rooted in hospitality. Made for Doha.",introCopy:"Zaitoona Al Andalaus brings together the generosity of Arab hospitality and the relaxed elegance of Mediterranean café culture — a place to meet, dine, share shisha and let the evening unfold naturally.",detail1Title:"From the kitchen",detail1Text:"Shareable mezze, grilled signatures, fresh salads, desserts and all-day plates made for long tables and easy conversation.",detail2Title:"From the lounge",detail2Text:"Thoughtfully prepared shisha, specialty coffee, tea and refreshing drinks served in an unhurried, polished setting.",
     feat1Label:"Cuisine",feat1Title:"Culinary craft",feat1Text:"Modern Mediterranean and Middle Eastern flavours, plated with restraint and character.",feat2Label:"Lounge",feat2Title:"Relax with us",feat2Text:"Soft seating, warm service and a calm atmosphere that carries comfortably into the night.",feat3Label:"Coffee",feat3Title:"Coffee rituals",feat3Text:"Arabic coffee, espresso classics and slow-brew favourites — from first cup to late-night finish.",
@@ -29,7 +29,7 @@ const I18N = {
   },
   ar: {
     announce1:"الدوحة، قطر",announce2:"مطعم · شيشة · قهوة ولاونج",announce3:"يفضل الحجز مسبقاً",
-    navHome:"الرئيسية",navMenu:"القائمة",navExperience:"التجربة",navGallery:"الصور",navContact:"تواصل",bookTable:"احجز طاولة",brand:"زيتونة الأندلس",brandSub:"مطعم · شيشة · قهوة",
+    navHome:"الرئيسية",navMenu:"القائمة",navExperience:"التجربة",navGallery:"الصور",navBlog:"المدونة",navContact:"تواصل",About:"من نحن",bookTable:"احجز طاولة",brand:"زيتونة الأندلس",brandSub:"مطعم · شيشة · قهوة",
     heroKicker:"وجهة راقية للقاءات في الدوحة",hero1:"تذوّق.",hero2:"استرخِ.",hero3:"وخُذ وقتك.",heroDesc:"نكهات متوسطية، شيشة محضّرة بعناية وطقوس قهوة أصيلة — بروح ضيافة دافئة مستوحاة من الأندلس في قلب الدوحة.",reserveNow:"احجز طاولتك",exploreMenu:"اكتشف القائمة",meta1Title:"طوال اليوم",meta1Text:"مطعم",meta2Title:"مميزة",meta2Text:"شيشة",meta3Title:"حتى وقت متأخر",meta3Text:"قهوة ولاونج",
     introEyebrow:"تجربة زيتونة",introTitle:"ضيافة أصيلة بروح الدوحة.",introCopy:"تجمع زيتونة الأندلس بين كرم الضيافة العربية وأناقة المقاهي المتوسطية الهادئة — مكان للقاء وتناول الطعام ومشاركة الشيشة وترك الأمسية تسير على مهل.",detail1Title:"من المطبخ",detail1Text:"مقبلات للمشاركة، مشاوي مميزة، سلطات طازجة، حلويات وأطباق طوال اليوم لطاولات طويلة وأحاديث أجمل.",detail2Title:"من اللاونج",detail2Text:"شيشة محضّرة بعناية، قهوة مختصة، شاي ومشروبات منعشة تقدم في أجواء راقية ومريحة.",
     feat1Label:"المطبخ",feat1Title:"إبداع الطهي",feat1Text:"نكهات متوسطية وشرق أوسطية عصرية بتقديم أنيق ومتوازن.",feat2Label:"اللاونج",feat2Title:"استرخِ معنا",feat2Text:"جلسات مريحة، خدمة دافئة وأجواء هادئة تمتد بسلاسة إلى الليل.",feat3Label:"القهوة",feat3Title:"طقوس القهوة",feat3Text:"قهوة عربية، كلاسيكيات الإسبريسو وطرق تقطير هادئة من أول فنجان حتى نهاية السهرة.",
@@ -66,14 +66,14 @@ const QUOTES = {
 let lang = localStorage.getItem("zaitoona-lang") || "en";
 let currentQuote = 0;
 
-const $ = (s, root = document) => root.querySelector(s); const $$ = (s, root = document) => [...root.querySelectorAll(s)];
+const $ = (s, root = document) => root.querySelector(s);  const $$ = (s, root = document) => [...root.querySelectorAll(s)];
 /* End of Global State Section */
 
 /* =========================================================
    APPLICATION CONFIGURATION
    ========================================================= */
 function applyConfig() {
-  $$(".js-phone").forEach(el => el.textContent = CONFIG.phoneDisplay);   $$
+  $$(".js-phone").forEach(el => el.textContent = CONFIG.phoneDisplay);    $$
 (".js-phone-link").forEach(el => el.href = `tel:${CONFIG.phoneDial}`);
   $$(".js-email").forEach(el => { el.textContent = CONFIG.email; el.href = `mailto:${CONFIG.email}`; });
   $$(".js-address").forEach(el => el.textContent = CONFIG.address);
@@ -84,7 +84,7 @@ function applyConfig() {
   if ($("#floatingWhatsapp")) $("#floatingWhatsapp").href = wa;
   if ($("#footerWhatsapp")) $("#footerWhatsapp").href = wa;
   
-  const schemaEl = $("#schemaJson");   if (schemaEl) {     try {       const schema = JSON.parse(schemaEl.textContent);       schema.telephone = CONFIG.phoneDial;       schema.address.streetAddress = CONFIG.address;       schemaEl.textContent = JSON.stringify(schema);     } catch (e) {       console.warn("Schema JSON not found or invalid on this page.");     }   } } /* End of Application Config Function */  /* =========================================================    LANGUAGE TOGGLE LOGIC    ========================================================= */ function applyLanguage(newLang) {   lang = newLang;   localStorage.setItem("zaitoona-lang", lang);   document.documentElement.lang = lang;   document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";   document.body.classList.toggle("ar", lang === "ar");      $$('[data-i18n]').forEach(el => {
+  const schemaEl = $("#schemaJson");    if (schemaEl) {      try {        const schema = JSON.parse(schemaEl.textContent);        schema.telephone = CONFIG.phoneDial;        schema.address.streetAddress = CONFIG.address;        schemaEl.textContent = JSON.stringify(schema);      } catch (e) {        console.warn("Schema JSON not found or invalid on this page.");      }    }  }  /* End of Application Config Function */    /* =========================================================     LANGUAGE TOGGLE LOGIC     ========================================================= */  function applyLanguage(newLang) {    lang = newLang;    localStorage.setItem("zaitoona-lang", lang);    document.documentElement.lang = lang;    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";    document.body.classList.toggle("ar", lang === "ar");       $$('[data-i18n]').forEach(el => {
     const k = el.dataset.i18n;
     if (I18N[lang][k]) el.textContent = I18N[lang][k];
   });
@@ -127,6 +127,7 @@ function renderQuotes() {
 window.addEventListener("load", () => setTimeout(() => {
   if ($("#loader")) $("#loader").classList.add("hidden");
 }, 450));
+
 setTimeout(() => { if ($("#loader")) $("#loader").classList.add("hidden"); }, 2200);
 
 const header = $("#header");
@@ -134,7 +135,7 @@ if (header) {
   window.addEventListener("scroll", () => header.classList.toggle("scrolled", window.scrollY > 28), { passive: true });
 }
 
-const navTargets = $$("main section[id]"); const navObserver = new IntersectionObserver(entries => {   entries.forEach(e => {     if (e.isIntersecting) {       $$('.nav-left .nav-link').forEach(a => {
+const navTargets = $$("main section[id]");  const navObserver = new IntersectionObserver(entries => {    entries.forEach(e => {      if (e.isIntersecting) {        $$('.nav-left .nav-link').forEach(a => {
         if (a.getAttribute('href').startsWith('#')) {
           a.classList.toggle('active', a.getAttribute('href') === `#${e.target.id}`);
         }
@@ -156,7 +157,7 @@ if ($("#menuToggle")) {
   $("#menuToggle").addEventListener("click", () => {
     $("#mobileMenu").classList.toggle("open");
     document.body.classList.toggle("no-scroll");
-    $("#mobileMenu").setAttribute("aria-hidden", $("#mobileMenu").classList.contains("open") ? "false" : "true");   }); } $$("#mobileMenu a").forEach(a => a.addEventListener("click", closeMobile));
+    $("#mobileMenu").setAttribute("aria-hidden", $("#mobileMenu").classList.contains("open") ? "false" : "true");      });  }   $$("#mobileMenu a").forEach(a => a.addEventListener("click", closeMobile));
 
 if ($("#langToggle")) $("#langToggle").addEventListener("click", () => applyLanguage(lang === "en" ? "ar" : "en"));
 if ($("#mobileLang")) $("#mobileLang").addEventListener("click", () => applyLanguage(lang === "en" ? "ar" : "en"));
@@ -169,7 +170,7 @@ const revealObserver = new IntersectionObserver(entries => {
     }
   });
 }, { threshold: .1, rootMargin: "0px 0px -40px" });
-$$(".reveal").forEach(el => revealObserver.observe(el));  /* Lightbox Modal Logic */ $$
+$$(".reveal").forEach(el => revealObserver.observe(el));    /* Lightbox Modal Logic */  $$
 (".gallery-item img").forEach(img => {
   img.addEventListener("click", () => {
     const lightboxImage = $("#lightboxImage");

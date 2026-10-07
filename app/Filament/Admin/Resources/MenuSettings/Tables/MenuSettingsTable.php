@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Filament\Admin\Resources\AboutSettings\Tables;
+namespace App\Filament\Admin\Resources\MenuSettings\Tables;
 
 use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
-use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class AboutSettingsTable
+class MenuSettingsTable
 {
     public static function configure(
         Table $table
@@ -26,65 +26,39 @@ class AboutSettingsTable
 
                 /*
                 |--------------------------------------------------------------------------
-                | INTRO TITLE EN
+                | MENU PAGE TITLE
+                |--------------------------------------------------------------------------
+                |
+                | Always visible, including mobile.
+                |
+                */
+
+                TextColumn::make('title_en')
+                    ->label('Menu Page')
+                    ->searchable()
+                    ->sortable()
+                    ->wrap()
+                    ->limit(35)
+                    ->tooltip(
+                        fn (
+                            TextColumn $column
+                        ): ?string =>
+                            $column->getState()
+                    ),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | ACTIVE STATUS
                 |--------------------------------------------------------------------------
                 |
                 | Always visible.
-                | This is the main mobile column.
                 |
                 */
 
-                TextColumn::make(
-                    'intro_title.en'
-                )
-                    ->label(
-                        'Intro Title (EN)'
-                    )
-                    ->searchable()
-                    ->limit(35)
-                    ->wrap(),
-
-
-                /*
-                |--------------------------------------------------------------------------
-                | INTRO TITLE AR
-                |--------------------------------------------------------------------------
-                |
-                | Hidden on very small screens.
-                | Visible from tablet size.
-                |
-                */
-
-                TextColumn::make(
-                    'intro_title.ar'
-                )
-                    ->label(
-                        'Intro Title (AR)'
-                    )
-                    ->searchable()
-                    ->limit(35)
-                    ->wrap()
-                    ->visibleFrom('md'),
-
-
-                /*
-                |--------------------------------------------------------------------------
-                | FEATURE IMAGE
-                |--------------------------------------------------------------------------
-                |
-                | Hidden on mobile.
-                | Visible from small tablet / larger screens.
-                |
-                */
-
-                ImageColumn::make(
-                    'feat1_image'
-                )
-                    ->label(
-                        'Feature 1 Image'
-                    )
-                    ->square()
-                    ->visibleFrom('sm'),
+                IconColumn::make('is_active')
+                    ->label('Active')
+                    ->boolean(),
 
 
                 /*
@@ -92,21 +66,18 @@ class AboutSettingsTable
                 | LAST UPDATED
                 |--------------------------------------------------------------------------
                 |
-                | Desktop only.
+                | Hidden on mobile.
+                | Visible from medium screens upward.
                 |
                 */
 
-                TextColumn::make(
-                    'updated_at'
-                )
-                    ->label(
-                        'Last Updated'
-                    )
+                TextColumn::make('updated_at')
+                    ->label('Last Updated')
                     ->dateTime(
                         'd M Y h:i A'
                     )
                     ->sortable()
-                    ->visibleFrom('lg'),
+                    ->visibleFrom('md'),
 
             ])
 
@@ -128,11 +99,7 @@ class AboutSettingsTable
             | RECORD ACTIONS
             |--------------------------------------------------------------------------
             |
-            | Mobile:
-            |      ⋮
-            |
-            | Desktop:
-            |      still compact and clean
+            | Compact action menu is much better for mobile.
             |
             */
 
@@ -148,7 +115,7 @@ class AboutSettingsTable
 
                     EditAction::make()
                         ->label(
-                            'Edit About Setting'
+                            'Edit Menu'
                         )
                         ->icon(
                             'heroicon-o-pencil-square'
@@ -166,7 +133,7 @@ class AboutSettingsTable
 
                     DeleteAction::make()
                         ->label(
-                            'Delete About Setting'
+                            'Delete Menu'
                         )
                         ->icon(
                             'heroicon-o-trash'

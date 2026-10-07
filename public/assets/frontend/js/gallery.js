@@ -9,47 +9,100 @@
    ============================================================ */
 
 const CONFIG = {
-    phoneDisplay: "+974 3385 8316",
-    phoneDial: "+97433858316",
-    whatsapp: "97433858316",
-    email: "hello@zaitoona.qa",
-    address: "Old Airport, Near Food Place, Building No. 26, Zone 45, Street No 840, Doha Qatar"
+
+    phoneDisplay:
+        "+974 3385 8316",
+
+    phoneDial:
+        "+97433858316",
+
+    whatsapp:
+        "97433858316",
+
+    email:
+        "hello@zaitoona.qa",
+
+    address:
+        "Old Airport, Near Food Place, Building No. 26, Zone 45, Street No 840, Doha Qatar"
 };
 
 
 /* ============================================================
    SHARED TRANSLATIONS
-   Header / Announcement / Footer remain exactly as before.
-   Gallery page-specific content comes from Filament.
+
+   Gallery-specific page content comes from Filament.
+   Header / footer translations remain here.
    ============================================================ */
 
 const I18N = {
 
     en: {
 
-        announce1: "Doha, Qatar",
-        announce2: "Restaurant · Shisha · Coffee Lounge",
-        announce3: "Reservations Recommended",
+        announce1:
+            "Doha, Qatar",
 
-        navHome: "Home",
-        navMenu: "Menu",
-        navExperience: "Experience",
-        navGallery: "Gallery",
-        navContact: "Contact",
-        bookTable: "Book a table",
+        announce2:
+            "Restaurant · Shisha · Coffee Lounge",
 
-        brand: "Zaitoona Al Andalaus",
-        brandSub: "Restaurant · Shisha · Coffee",
+        announce3:
+            "Reservations Recommended",
+
+        navHome:
+            "Home",
+
+        navMenu:
+            "Menu",
+
+        navExperience:
+            "Experience",
+
+        navGallery:
+            "Gallery",
+
+        navContact:
+            "Contact",
+
+        /*
+        |--------------------------------------------------------------------------
+        | FIXED
+        |--------------------------------------------------------------------------
+        */
+
+        navAbout:
+            "About",
+
+        navBlog:
+            "Blog",
+
+        bookTable:
+            "Book a table",
+
+        brand:
+            "Zaitoona Al Andalaus",
+
+        brandSub:
+            "Restaurant · Shisha · Coffee",
 
         footerAbout:
             "A premium Doha restaurant and lounge for Mediterranean food, refined shisha, specialty coffee and relaxed evenings.",
 
-        footerExplore: "Explore",
-        footerContact: "Contact",
-        footerFollow: "Follow",
-        instagram: "Instagram",
-        tiktok: "TikTok",
-        rights: "All rights reserved.",
+        footerExplore:
+            "Explore",
+
+        footerContact:
+            "Contact",
+
+        footerFollow:
+            "Follow",
+
+        instagram:
+            "Instagram",
+
+        tiktok:
+            "TikTok",
+
+        rights:
+            "All rights reserved.",
 
         footerLine:
             "Restaurant · Shisha · Coffee Lounge · Doha, Qatar"
@@ -58,29 +111,71 @@ const I18N = {
 
     ar: {
 
-        announce1: "الدوحة، قطر",
-        announce2: "مطعم · شيشة · قهوة ولاونج",
-        announce3: "يفضل الحجز مسبقاً",
+        announce1:
+            "الدوحة، قطر",
 
-        navHome: "الرئيسية",
-        navMenu: "القائمة",
-        navExperience: "التجربة",
-        navGallery: "الصور",
-        navContact: "تواصل",
-        bookTable: "احجز طاولة",
+        announce2:
+            "مطعم · شيشة · قهوة ولاونج",
 
-        brand: "زيتونة الأندلس",
-        brandSub: "مطعم · شيشة · قهوة",
+        announce3:
+            "يفضل الحجز مسبقاً",
+
+        navHome:
+            "الرئيسية",
+
+        navMenu:
+            "القائمة",
+
+        navExperience:
+            "التجربة",
+
+        navGallery:
+            "الصور",
+
+        navContact:
+            "تواصل",
+
+        /*
+        |--------------------------------------------------------------------------
+        | FIXED
+        |--------------------------------------------------------------------------
+        */
+
+        navAbout:
+            "من نحن",
+
+        navBlog:
+            "المدونة",
+
+        bookTable:
+            "احجز طاولة",
+
+        brand:
+            "زيتونة الأندلس",
+
+        brandSub:
+            "مطعم · شيشة · قهوة",
 
         footerAbout:
             "مطعم ولاونج راقٍ في الدوحة للمأكولات المتوسطية والشيشة والقهوة المختصة والأمسيات الهادئة.",
 
-        footerExplore: "استكشف",
-        footerContact: "تواصل",
-        footerFollow: "تابعنا",
-        instagram: "إنستغرام",
-        tiktok: "تيك توك",
-        rights: "جميع الحقوق محفوظة.",
+        footerExplore:
+            "استكشف",
+
+        footerContact:
+            "تواصل",
+
+        footerFollow:
+            "تابعنا",
+
+        instagram:
+            "إنستغرام",
+
+        tiktok:
+            "تيك توك",
+
+        rights:
+            "جميع الحقوق محفوظة.",
 
         footerLine:
             "مطعم · شيشة · قهوة ولاونج · الدوحة، قطر"
@@ -92,11 +187,28 @@ const I18N = {
    HELPERS
    ============================================================ */
 
-const $ = (selector, root = document) =>
-    root.querySelector(selector);
+const $ = (
+    selector,
+    root = document
+) => {
 
-const $$ = (selector, root = document) =>
-    [...root.querySelectorAll(selector)];
+    return root.querySelector(
+        selector
+    );
+};
+
+
+const $$ = (
+    selector,
+    root = document
+) => {
+
+    return [
+        ...root.querySelectorAll(
+            selector
+        )
+    ];
+};
 
 
 /* ============================================================
@@ -104,19 +216,26 @@ const $$ = (selector, root = document) =>
    ============================================================ */
 
 let lang =
-    localStorage.getItem("zaitoona-lang") || "en";
+    localStorage.getItem(
+        "zaitoona-lang"
+    ) || "en";
 
 
 /* ============================================================
    LOAD FILAMENT GALLERY DATA
    ============================================================ */
 
-let GALLERY_DATA = null;
+let GALLERY_DATA =
+    null;
+
 
 const galleryDataElement =
     $("#galleryDynamicData");
 
-if (galleryDataElement) {
+
+if (
+    galleryDataElement
+) {
 
     try {
 
@@ -141,54 +260,205 @@ if (galleryDataElement) {
 
 function applyConfig() {
 
+
+    /* Phone text */
+
     $$(".js-phone")
-        .forEach(element => {
+        .forEach(
+            element => {
 
-            element.textContent =
-                CONFIG.phoneDisplay;
-        });
+                element.textContent =
+                    CONFIG.phoneDisplay;
+            }
+        );
 
+
+    /* Phone links */
 
     $$(".js-phone-link")
-        .forEach(element => {
+        .forEach(
+            element => {
 
-            element.href =
-                `tel:${CONFIG.phoneDial}`;
-        });
+                element.href =
+                    `tel:${CONFIG.phoneDial}`;
+            }
+        );
 
+
+    /* Email */
 
     $$(".js-email-link")
-        .forEach(element => {
+        .forEach(
+            element => {
 
-            element.href =
-                `mailto:${CONFIG.email}`;
-        });
+                element.href =
+                    `mailto:${CONFIG.email}`;
+            }
+        );
 
+
+    /* Address */
 
     $$(".js-address")
-        .forEach(element => {
+        .forEach(
+            element => {
 
-            element.textContent =
-                CONFIG.address;
-        });
+                element.textContent =
+                    CONFIG.address;
+            }
+        );
 
+
+    /* WhatsApp */
 
     const whatsappUrl =
         `https://wa.me/${CONFIG.whatsapp}`;
 
 
-    if ($("#floatingWhatsapp")) {
+    if (
+        $("#floatingWhatsapp")
+    ) {
 
         $("#floatingWhatsapp").href =
             whatsappUrl;
     }
 
 
-    if ($("#footerWhatsapp")) {
+    if (
+        $("#footerWhatsapp")
+    ) {
 
         $("#footerWhatsapp").href =
             whatsappUrl;
     }
+
+
+    /* Mobile call */
+
+    if (
+        $("#mobileCall")
+    ) {
+
+        $("#mobileCall").href =
+            `tel:${CONFIG.phoneDial}`;
+    }
+}
+
+
+/* ============================================================
+   HEADER ABOUT + BLOG TRANSLATION FIX
+   ============================================================ */
+
+function applyHeaderNavigationLanguage() {
+
+    const translations =
+        I18N[lang];
+
+
+    if (
+        !translations
+    ) {
+
+        return;
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | ABOUT
+    |--------------------------------------------------------------------------
+    |
+    | Supports:
+    |
+    | /about
+    | #about
+    | /#about
+    | full absolute URL ending #about
+    |
+    */
+
+    $$(
+        'a[href="/about"], ' +
+        'a[href$="/about"], ' +
+        'a[href="#about"], ' +
+        'a[href="/#about"], ' +
+        'a[href$="#about"]'
+    )
+        .forEach(
+            link => {
+
+                const translatedChild =
+                    link.querySelector(
+                        '[data-i18n="navAbout"]'
+                    );
+
+
+                if (
+                    translatedChild
+                ) {
+
+                    translatedChild.textContent =
+                        translations.navAbout;
+
+                    return;
+                }
+
+
+                /*
+                 * Current header appears to use a
+                 * normal text-only anchor.
+                 */
+
+                if (
+                    link.children.length === 0
+                ) {
+
+                    link.textContent =
+                        translations.navAbout;
+                }
+            }
+        );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | BLOG
+    |--------------------------------------------------------------------------
+    */
+
+    $$(
+        'a[href="/blog"], ' +
+        'a[href$="/blog"]'
+    )
+        .forEach(
+            link => {
+
+                const translatedChild =
+                    link.querySelector(
+                        '[data-i18n="navBlog"]'
+                    );
+
+
+                if (
+                    translatedChild
+                ) {
+
+                    translatedChild.textContent =
+                        translations.navBlog;
+
+                    return;
+                }
+
+
+                if (
+                    link.children.length === 0
+                ) {
+
+                    link.textContent =
+                        translations.navBlog;
+                }
+            }
+        );
 }
 
 
@@ -196,7 +466,15 @@ function applyConfig() {
    BASIC SHARED LANGUAGE
    ============================================================ */
 
-function applyLanguage(newLang) {
+function applyLanguage(
+    newLang
+) {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Normalize language
+    |--------------------------------------------------------------------------
+    */
 
     lang =
         newLang === "ar"
@@ -204,15 +482,33 @@ function applyLanguage(newLang) {
             : "en";
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Save language
+    |--------------------------------------------------------------------------
+    */
+
     localStorage.setItem(
         "zaitoona-lang",
         lang
     );
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | HTML language
+    |--------------------------------------------------------------------------
+    */
+
     document.documentElement.lang =
         lang;
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | LTR / RTL
+    |--------------------------------------------------------------------------
+    */
 
     document.documentElement.dir =
         lang === "ar"
@@ -220,28 +516,63 @@ function applyLanguage(newLang) {
             : "ltr";
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Arabic body class
+    |--------------------------------------------------------------------------
+    */
+
     document.body.classList.toggle(
         "ar",
         lang === "ar"
     );
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Normal data-i18n translations
+    |--------------------------------------------------------------------------
+    */
+
     $$("[data-i18n]")
-        .forEach(element => {
+        .forEach(
+            element => {
 
-            const key =
-                element.dataset.i18n;
+                const key =
+                    element.dataset.i18n;
 
-            const value =
-                I18N?.[lang]?.[key];
 
-            if (value) {
+                if (
+                    I18N[lang]
+                    && Object.prototype
+                        .hasOwnProperty
+                        .call(
+                            I18N[lang],
+                            key
+                        )
+                ) {
 
-                element.textContent =
-                    value;
+                    element.textContent =
+                        I18N[lang][key];
+                }
             }
-        });
+        );
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | ABOUT + BLOG fallback
+    |--------------------------------------------------------------------------
+    */
+
+    applyHeaderNavigationLanguage();
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Language button text
+    |--------------------------------------------------------------------------
+    */
 
     const languageButtonText =
         lang === "en"
@@ -249,57 +580,90 @@ function applyLanguage(newLang) {
             : "<span>AR</span> / <span>EN</span>";
 
 
-    if ($("#langToggle")) {
+    if (
+        $("#langToggle")
+    ) {
 
         $("#langToggle").innerHTML =
             languageButtonText;
     }
 
 
-    if ($("#mobileLang")) {
+    if (
+        $("#mobileLang")
+    ) {
 
         $("#mobileLang").innerHTML =
             languageButtonText;
     }
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Dynamic gallery translation
+    |--------------------------------------------------------------------------
+    */
+
     applyGalleryLanguage();
 }
 
 
 /* ============================================================
-   DYNAMIC GALLERY LANGUAGE
+   DYNAMIC GALLERY HELPERS
    ============================================================ */
 
-function setText(id, value) {
+function setText(
+    id,
+    value
+) {
 
     const element =
-        document.getElementById(id);
+        document.getElementById(
+            id
+        );
 
-    if (!element) {
+
+    if (
+        !element
+    ) {
+
         return;
     }
+
 
     if (
         value === undefined
         || value === null
     ) {
+
         return;
     }
+
 
     element.textContent =
         value;
 }
 
 
-function setMeta(id, value) {
+function setMeta(
+    id,
+    value
+) {
 
     const element =
-        document.getElementById(id);
+        document.getElementById(
+            id
+        );
 
-    if (!element || !value) {
+
+    if (
+        !element
+        || !value
+    ) {
+
         return;
     }
+
 
     element.setAttribute(
         "content",
@@ -308,9 +672,16 @@ function setMeta(id, value) {
 }
 
 
+/* ============================================================
+   DYNAMIC GALLERY LANGUAGE
+   ============================================================ */
+
 function applyGalleryLanguage() {
 
-    if (!GALLERY_DATA) {
+    if (
+        !GALLERY_DATA
+    ) {
+
         return;
     }
 
@@ -320,14 +691,17 @@ function applyGalleryLanguage() {
         || GALLERY_DATA.en;
 
 
-    if (!content) {
+    if (
+        !content
+    ) {
+
         return;
     }
 
 
-    /* --------------------------------------------------------
+    /* ========================================================
        HERO
-       -------------------------------------------------------- */
+       ======================================================== */
 
     setText(
         "galleryHeroTitle",
@@ -338,16 +712,19 @@ function applyGalleryLanguage() {
     const heroImage =
         $("#galleryHeroImage");
 
-    if (heroImage) {
+
+    if (
+        heroImage
+    ) {
 
         heroImage.alt =
             content.heroAlt || "";
     }
 
 
-    /* --------------------------------------------------------
+    /* ========================================================
        INTRO
-       -------------------------------------------------------- */
+       ======================================================== */
 
     setText(
         "galleryIntroHeading",
@@ -361,59 +738,77 @@ function applyGalleryLanguage() {
     );
 
 
-    /* --------------------------------------------------------
-       IMAGE ALT TEXT
-       -------------------------------------------------------- */
+    /* ========================================================
+       GALLERY IMAGE ALT TEXT
+       ======================================================== */
 
     $$(".masonry-item img")
-        .forEach(image => {
+        .forEach(
+            image => {
 
-            const alt =
-                lang === "ar"
-                    ? image.dataset.altAr
-                    : image.dataset.altEn;
+                const alt =
+                    lang === "ar"
+                        ? image.dataset.altAr
+                        : image.dataset.altEn;
 
-            if (alt) {
 
-                image.alt =
-                    alt;
+                if (
+                    alt
+                ) {
+
+                    image.alt =
+                        alt;
+                }
             }
-        });
+        );
 
 
-    /* --------------------------------------------------------
-       HOVER / ARIA LABEL
-       -------------------------------------------------------- */
+    /* ========================================================
+       GALLERY HOVER / ARIA
+       ======================================================== */
 
     $$(".masonry-item")
-        .forEach(item => {
+        .forEach(
+            item => {
 
-            item.dataset.viewLabel =
-                content.viewLabel || "";
-
-            item.setAttribute(
-                "aria-label",
-                content.viewLabel || ""
-            );
-        });
+                item.dataset.viewLabel =
+                    content.viewLabel || "";
 
 
-    /* --------------------------------------------------------
-       SEO
-       -------------------------------------------------------- */
+                item.setAttribute(
+                    "aria-label",
+                    content.viewLabel || ""
+                );
+            }
+        );
 
-    if (content.seoTitle) {
+
+    /* ========================================================
+       SEO TITLE
+       ======================================================== */
+
+    if (
+        content.seoTitle
+    ) {
 
         document.title =
             content.seoTitle;
     }
 
 
+    /* ========================================================
+       SEO DESCRIPTION
+       ======================================================== */
+
     setMeta(
         "gallerySeoDescription",
         content.seoDescription
     );
 
+
+    /* ========================================================
+       OPEN GRAPH
+       ======================================================== */
 
     setMeta(
         "galleryOgTitle",
@@ -433,15 +828,28 @@ function applyGalleryLanguage() {
     );
 
 
+    /* ========================================================
+       TWITTER / X
+       ======================================================== */
+
     setMeta(
         "galleryTwitterTitle",
-        content.ogTitle
+        content.twitterTitle
+        || content.ogTitle
     );
 
 
     setMeta(
         "galleryTwitterDescription",
-        content.ogDescription
+        content.twitterDescription
+        || content.ogDescription
+    );
+
+
+    setMeta(
+        "galleryTwitterImageAlt",
+        content.twitterImageAlt
+        || content.ogImageAlt
     );
 }
 
@@ -455,17 +863,24 @@ function closeMobile() {
     const mobileMenu =
         $("#mobileMenu");
 
-    if (!mobileMenu) {
+
+    if (
+        !mobileMenu
+    ) {
+
         return;
     }
+
 
     mobileMenu.classList.remove(
         "open"
     );
 
+
     document.body.classList.remove(
         "no-scroll"
     );
+
 
     mobileMenu.setAttribute(
         "aria-hidden",
@@ -474,11 +889,17 @@ function closeMobile() {
 }
 
 
+/* ============================================================
+   MOBILE MENU TOGGLE
+   ============================================================ */
+
 const menuToggle =
     $("#menuToggle");
 
 
-if (menuToggle) {
+if (
+    menuToggle
+) {
 
     menuToggle.addEventListener(
         "click",
@@ -487,7 +908,11 @@ if (menuToggle) {
             const mobileMenu =
                 $("#mobileMenu");
 
-            if (!mobileMenu) {
+
+            if (
+                !mobileMenu
+            ) {
+
                 return;
             }
 
@@ -504,7 +929,10 @@ if (menuToggle) {
 
             mobileMenu.setAttribute(
                 "aria-hidden",
-                mobileMenu.classList.contains("open")
+
+                mobileMenu.classList.contains(
+                    "open"
+                )
                     ? "false"
                     : "true"
             );
@@ -513,26 +941,33 @@ if (menuToggle) {
 }
 
 
-$$(
-    "#mobileMenu a"
-).forEach(link => {
+/* ============================================================
+   MOBILE MENU LINKS
+   ============================================================ */
 
-    link.addEventListener(
-        "click",
-        closeMobile
+$$("#mobileMenu a")
+    .forEach(
+        link => {
+
+            link.addEventListener(
+                "click",
+                closeMobile
+            );
+        }
     );
-});
 
 
 /* ============================================================
-   LANGUAGE BUTTONS
+   DESKTOP LANGUAGE BUTTON
    ============================================================ */
 
 const desktopLanguageButton =
     $("#langToggle");
 
 
-if (desktopLanguageButton) {
+if (
+    desktopLanguageButton
+) {
 
     desktopLanguageButton
         .addEventListener(
@@ -549,11 +984,17 @@ if (desktopLanguageButton) {
 }
 
 
+/* ============================================================
+   MOBILE LANGUAGE BUTTON
+   ============================================================ */
+
 const mobileLanguageButton =
     $("#mobileLang");
 
 
-if (mobileLanguageButton) {
+if (
+    mobileLanguageButton
+) {
 
     mobileLanguageButton
         .addEventListener(
@@ -577,82 +1018,98 @@ if (mobileLanguageButton) {
 const lightbox =
     $("#lightbox");
 
+
 const lightboxImage =
     $("#lightboxImage");
+
 
 const lightboxClose =
     $("#lightboxClose");
 
 
 $$(".masonry-item img")
-    .forEach(image => {
+    .forEach(
+        image => {
 
-        image.addEventListener(
-            "click",
-            () => {
+            image.addEventListener(
+                "click",
+                () => {
 
-                if (
-                    !lightbox
-                    || !lightboxImage
-                ) {
-                    return;
+                    if (
+                        !lightbox
+                        || !lightboxImage
+                    ) {
+
+                        return;
+                    }
+
+
+                    let highQualitySource =
+                        image.src;
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Unsplash high resolution
+                    |--------------------------------------------------------------------------
+                    |
+                    | Uploaded Laravel images keep their
+                    | original image source.
+                    |
+                    */
+
+                    if (
+                        highQualitySource.includes(
+                            "images.unsplash.com"
+                        )
+                    ) {
+
+                        highQualitySource =
+                            highQualitySource.replace(
+                                /w=\d+/,
+                                "w=1600"
+                            );
+                    }
+
+
+                    lightboxImage.src =
+                        highQualitySource;
+
+
+                    lightboxImage.alt =
+                        image.alt || "";
+
+
+                    lightbox.classList.add(
+                        "open"
+                    );
+
+
+                    lightbox.setAttribute(
+                        "aria-hidden",
+                        "false"
+                    );
+
+
+                    document.body.classList.add(
+                        "no-scroll"
+                    );
                 }
+            );
+        }
+    );
 
 
-                let highQualitySource =
-                    image.src;
-
-
-                /*
-                 * Keep original Unsplash behavior.
-                 * Uploaded Laravel images simply use their
-                 * original source.
-                 */
-
-                if (
-                    highQualitySource.includes(
-                        "images.unsplash.com"
-                    )
-                ) {
-
-                    highQualitySource =
-                        highQualitySource.replace(
-                            /w=\d+/,
-                            "w=1600"
-                        );
-                }
-
-
-                lightboxImage.src =
-                    highQualitySource;
-
-
-                lightboxImage.alt =
-                    image.alt || "";
-
-
-                lightbox.classList.add(
-                    "open"
-                );
-
-
-                lightbox.setAttribute(
-                    "aria-hidden",
-                    "false"
-                );
-
-
-                document.body.classList.add(
-                    "no-scroll"
-                );
-            }
-        );
-    });
-
+/* ============================================================
+   CLOSE LIGHTBOX
+   ============================================================ */
 
 function closeLightbox() {
 
-    if (!lightbox) {
+    if (
+        !lightbox
+    ) {
+
         return;
     }
 
@@ -674,7 +1131,11 @@ function closeLightbox() {
 }
 
 
-if (lightboxClose) {
+/* Close button */
+
+if (
+    lightboxClose
+) {
 
     lightboxClose.addEventListener(
         "click",
@@ -683,7 +1144,11 @@ if (lightboxClose) {
 }
 
 
-if (lightbox) {
+/* Click outside image */
+
+if (
+    lightbox
+) {
 
     lightbox.addEventListener(
         "click",
@@ -700,6 +1165,8 @@ if (lightbox) {
 }
 
 
+/* Escape */
+
 document.addEventListener(
     "keydown",
     event => {
@@ -709,6 +1176,7 @@ document.addEventListener(
         ) {
 
             closeLightbox();
+
             closeMobile();
         }
     }
@@ -724,7 +1192,8 @@ const revealElements =
 
 
 if (
-    "IntersectionObserver" in window
+    "IntersectionObserver"
+    in window
 ) {
 
     const revealObserver =
@@ -756,7 +1225,8 @@ if (
             },
 
             {
-                threshold: 0.15,
+                threshold:
+                    0.15,
 
                 rootMargin:
                     "0px 0px -50px"
@@ -765,22 +1235,26 @@ if (
 
 
     revealElements
-        .forEach(element => {
+        .forEach(
+            element => {
 
-            revealObserver.observe(
-                element
-            );
-        });
+                revealObserver.observe(
+                    element
+                );
+            }
+        );
 
 } else {
 
     revealElements
-        .forEach(element => {
+        .forEach(
+            element => {
 
-            element.classList.add(
-                "visible"
-            );
-        });
+                element.classList.add(
+                    "visible"
+                );
+            }
+        );
 }
 
 
@@ -800,11 +1274,16 @@ window.addEventListener(
             $(".gallery-hero img");
 
 
-        if (heroImage) {
+        if (
+            heroImage
+        ) {
 
             heroImage.style.transform =
                 `translateY(${scrolled * 0.3}px) scale(1)`;
         }
+    },
+    {
+        passive: true
     }
 );
 
@@ -817,10 +1296,13 @@ const year =
     $("#year");
 
 
-if (year) {
+if (
+    year
+) {
 
     year.textContent =
-        new Date().getFullYear();
+        new Date()
+            .getFullYear();
 }
 
 
@@ -830,4 +1312,6 @@ if (year) {
 
 applyConfig();
 
-applyLanguage(lang);
+applyLanguage(
+    lang
+);
