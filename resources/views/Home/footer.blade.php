@@ -22,17 +22,18 @@
                 <div>
                     <div class="footer-title" data-i18n="footerContact">Contact</div>
                     <div class="footer-links">
-                        <a class="js-phone-link" href="tel:+97400000000"><span class="js-phone">+974 0000 0000</span></a>
-                        <a class="js-email" href="mailto:hello@zaitoona.qa">hello@zaitoona.qa</a>
+                        <a class="js-phone-link" href="tel:+97433858316"><span class="js-phone">+974 3385 8316</span></a>
+                        <a class="js-email" href="mailto:hello@zaitonaalandalus.com">hello@zaitonaalandalus.com</a>
                         <span class="js-address">Doha, Qatar</span>
                     </div>
                 </div>
                 <div>
                     <div class="footer-title" data-i18n="footerFollow">Follow</div>
                     <div class="footer-links">
-                        <a href="#" data-i18n="instagram">Instagram</a>
-                        <a href="#" data-i18n="tiktok">TikTok</a>
-                        <a id="footerWhatsapp" href="#">WhatsApp</a>
+                        <a href="https://www.facebook.com/zaitoonaalandalus" target="_blank" rel="noopener" data-i18n="facebook">Facebook</a>
+                        <a href="https://www.instagram.com/zaitoonaalandalus" target="_blank" rel="noopener" data-i18n="instagram">Instagram</a>
+                        <a href="https://www.tiktok.com/@zaitoonaalandalus" target="_blank" rel="noopener" data-i18n="tiktok">TikTok</a>
+                        <a id="footerWhatsapp" href="https://wa.me/+97433858316" target="_blank" rel="noopener" data-i18n="whatsapp">WhatsApp</a>
                     </div>
                 </div>
             </div>
@@ -51,7 +52,7 @@
     </a>
 
     <div class="mobile-action-bar">
-        <a id="mobileCall" href="tel:+97400000000" data-i18n="callUs">Call us</a>
+        <a id="mobileCall" href="tel:+97433858316" data-i18n="callUs">Call us</a>
         <a href="/reserveatable" data-i18n="bookTable">Book a table</a>
     </div>
     <!-- End of Floating Action Buttons -->

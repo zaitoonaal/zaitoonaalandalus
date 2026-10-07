@@ -7,6 +7,12 @@ use App\Models\InstagramSection;
 
 class BlogController extends Controller
 {
+    /*
+    |--------------------------------------------------------------------------
+    | Blog Listing Page
+    |--------------------------------------------------------------------------
+    */
+
     public function index()
     {
         $posts =
@@ -17,6 +23,12 @@ class BlogController extends Controller
                 ->paginate(6);
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | Instagram Section
+        |--------------------------------------------------------------------------
+        */
+
         $instagramSections =
             InstagramSection::query()
                 ->where('is_active', true)
@@ -24,6 +36,16 @@ class BlogController extends Controller
                 ->orderBy('id', 'asc')
                 ->get();
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Blog Listing View
+        |--------------------------------------------------------------------------
+        |
+        | File:
+        | resources/views/Home/blog.blade.php
+        |
+        */
 
         return view(
             'Home.blog',
@@ -35,14 +57,32 @@ class BlogController extends Controller
     }
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Single Blog Post Page
+    |--------------------------------------------------------------------------
+    */
+
     public function show(string $slug)
     {
+        /*
+        |--------------------------------------------------------------------------
+        | Get Published Blog Post
+        |--------------------------------------------------------------------------
+        */
+
         $post =
             BlogPost::query()
                 ->published()
                 ->where('slug', $slug)
                 ->firstOrFail();
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Instagram Section
+        |--------------------------------------------------------------------------
+        */
 
         $instagramSections =
             InstagramSection::query()
@@ -52,8 +92,18 @@ class BlogController extends Controller
                 ->get();
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | Single Blog Post View
+        |--------------------------------------------------------------------------
+        |
+        | File:
+        | resources/views/Home/blogpage.blade.php
+        |
+        */
+
         return view(
-            'Home.blogshow',
+            'Home.blogpage',
             compact(
                 'post',
                 'instagramSections'
