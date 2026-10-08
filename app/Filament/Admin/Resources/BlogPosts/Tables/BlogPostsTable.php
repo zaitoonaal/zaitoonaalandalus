@@ -2,10 +2,10 @@
 
 namespace App\Filament\Admin\Resources\BlogPosts\Tables;
 
+use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Actions\BulkActionGroup;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -19,7 +19,19 @@ class BlogPostsTable
     ): Table {
         return $table
 
+            /*
+            |--------------------------------------------------------------------------
+            | Columns
+            |--------------------------------------------------------------------------
+            */
+
             ->columns([
+
+                /*
+                |--------------------------------------------------------------------------
+                | Featured Image
+                |--------------------------------------------------------------------------
+                */
 
                 ImageColumn::make(
                     'featured_image'
@@ -33,6 +45,12 @@ class BlogPostsTable
                     ->square(),
 
 
+                /*
+                |--------------------------------------------------------------------------
+                | English Title
+                |--------------------------------------------------------------------------
+                */
+
                 TextColumn::make(
                     'title'
                 )
@@ -45,6 +63,36 @@ class BlogPostsTable
                     ->limit(60),
 
 
+                /*
+                |--------------------------------------------------------------------------
+                | Arabic Title
+                |--------------------------------------------------------------------------
+                */
+
+                TextColumn::make(
+                    'title_ar'
+                )
+                    ->label(
+                        'Arabic Title'
+                    )
+                    ->searchable()
+                    ->sortable()
+                    ->wrap()
+                    ->limit(60)
+                    ->placeholder(
+                        'Not added'
+                    )
+                    ->visibleFrom(
+                        'lg'
+                    ),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | English Category
+                |--------------------------------------------------------------------------
+                */
+
                 TextColumn::make(
                     'category'
                 )
@@ -52,8 +100,39 @@ class BlogPostsTable
                         'Category'
                     )
                     ->badge()
-                    ->searchable(),
+                    ->searchable()
+                    ->placeholder(
+                        'No category'
+                    ),
 
+
+                /*
+                |--------------------------------------------------------------------------
+                | Arabic Category
+                |--------------------------------------------------------------------------
+                */
+
+                TextColumn::make(
+                    'category_ar'
+                )
+                    ->label(
+                        'Arabic Category'
+                    )
+                    ->badge()
+                    ->searchable()
+                    ->placeholder(
+                        'Not added'
+                    )
+                    ->visibleFrom(
+                        'xl'
+                    ),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | English Focus Keyword
+                |--------------------------------------------------------------------------
+                */
 
                 TextColumn::make(
                     'focus_keyword'
@@ -63,8 +142,85 @@ class BlogPostsTable
                     )
                     ->searchable()
                     ->limit(35)
-                    ->visibleFrom('lg'),
+                    ->placeholder(
+                        'Not added'
+                    )
+                    ->visibleFrom(
+                        'lg'
+                    ),
 
+
+                /*
+                |--------------------------------------------------------------------------
+                | Arabic Focus Keyword
+                |--------------------------------------------------------------------------
+                */
+
+                TextColumn::make(
+                    'focus_keyword_ar'
+                )
+                    ->label(
+                        'Arabic Focus Keyword'
+                    )
+                    ->searchable()
+                    ->limit(35)
+                    ->placeholder(
+                        'Not added'
+                    )
+                    ->visibleFrom(
+                        'xl'
+                    ),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | English SEO Title
+                |--------------------------------------------------------------------------
+                */
+
+                TextColumn::make(
+                    'seo_title'
+                )
+                    ->label(
+                        'SEO Title'
+                    )
+                    ->searchable()
+                    ->limit(45)
+                    ->placeholder(
+                        'Uses post title'
+                    )
+                    ->visibleFrom(
+                        'xl'
+                    ),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Arabic SEO Title
+                |--------------------------------------------------------------------------
+                */
+
+                TextColumn::make(
+                    'seo_title_ar'
+                )
+                    ->label(
+                        'Arabic SEO Title'
+                    )
+                    ->searchable()
+                    ->limit(45)
+                    ->placeholder(
+                        'Uses Arabic title'
+                    )
+                    ->visibleFrom(
+                        'xl'
+                    ),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Status
+                |--------------------------------------------------------------------------
+                */
 
                 TextColumn::make(
                     'status'
@@ -85,9 +241,16 @@ class BlogPostsTable
 
                                 default =>
                                     'gray',
+
                             }
                     ),
 
+
+                /*
+                |--------------------------------------------------------------------------
+                | Active
+                |--------------------------------------------------------------------------
+                */
 
                 IconColumn::make(
                     'is_active'
@@ -97,6 +260,12 @@ class BlogPostsTable
                     )
                     ->boolean(),
 
+
+                /*
+                |--------------------------------------------------------------------------
+                | Published Date
+                |--------------------------------------------------------------------------
+                */
 
                 TextColumn::make(
                     'published_at'
@@ -111,8 +280,16 @@ class BlogPostsTable
                     ->placeholder(
                         'Not published'
                     )
-                    ->visibleFrom('lg'),
+                    ->visibleFrom(
+                        'lg'
+                    ),
 
+
+                /*
+                |--------------------------------------------------------------------------
+                | Updated Date
+                |--------------------------------------------------------------------------
+                */
 
                 TextColumn::make(
                     'updated_at'
@@ -124,16 +301,33 @@ class BlogPostsTable
                         'd M Y'
                     )
                     ->sortable()
-                    ->visibleFrom('xl'),
+                    ->visibleFrom(
+                        'xl'
+                    ),
 
             ])
 
 
+            /*
+            |--------------------------------------------------------------------------
+            | Filters
+            |--------------------------------------------------------------------------
+            */
+
             ->filters([
+
+                /*
+                |--------------------------------------------------------------------------
+                | Status Filter
+                |--------------------------------------------------------------------------
+                */
 
                 SelectFilter::make(
                     'status'
                 )
+                    ->label(
+                        'Status'
+                    )
                     ->options([
 
                         'draft' =>
@@ -144,8 +338,119 @@ class BlogPostsTable
 
                     ]),
 
+
+                /*
+                |--------------------------------------------------------------------------
+                | Active Filter
+                |--------------------------------------------------------------------------
+                */
+
+                SelectFilter::make(
+                    'is_active'
+                )
+                    ->label(
+                        'Active Status'
+                    )
+                    ->options([
+
+                        '1' =>
+                            'Active',
+
+                        '0' =>
+                            'Inactive',
+
+                    ]),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Category Filter
+                |--------------------------------------------------------------------------
+                */
+
+                SelectFilter::make(
+                    'category'
+                )
+                    ->label(
+                        'Category'
+                    )
+                    ->options(
+                        fn (): array =>
+                            \App\Models\BlogPost::query()
+
+                                ->whereNotNull(
+                                    'category'
+                                )
+
+                                ->where(
+                                    'category',
+                                    '!=',
+                                    ''
+                                )
+
+                                ->distinct()
+
+                                ->orderBy(
+                                    'category'
+                                )
+
+                                ->pluck(
+                                    'category',
+                                    'category'
+                                )
+
+                                ->toArray()
+                    ),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Arabic Category Filter
+                |--------------------------------------------------------------------------
+                */
+
+                SelectFilter::make(
+                    'category_ar'
+                )
+                    ->label(
+                        'Arabic Category'
+                    )
+                    ->options(
+                        fn (): array =>
+                            \App\Models\BlogPost::query()
+
+                                ->whereNotNull(
+                                    'category_ar'
+                                )
+
+                                ->where(
+                                    'category_ar',
+                                    '!=',
+                                    ''
+                                )
+
+                                ->distinct()
+
+                                ->orderBy(
+                                    'category_ar'
+                                )
+
+                                ->pluck(
+                                    'category_ar',
+                                    'category_ar'
+                                )
+
+                                ->toArray()
+                    ),
+
             ])
 
+
+            /*
+            |--------------------------------------------------------------------------
+            | Record Actions
+            |--------------------------------------------------------------------------
+            */
 
             ->recordActions([
 
@@ -164,6 +469,12 @@ class BlogPostsTable
             ])
 
 
+            /*
+            |--------------------------------------------------------------------------
+            | Toolbar Actions
+            |--------------------------------------------------------------------------
+            */
+
             ->toolbarActions([
 
                 BulkActionGroup::make([
@@ -174,6 +485,12 @@ class BlogPostsTable
 
             ])
 
+
+            /*
+            |--------------------------------------------------------------------------
+            | Default Sorting
+            |--------------------------------------------------------------------------
+            */
 
             ->defaultSort(
                 'created_at',

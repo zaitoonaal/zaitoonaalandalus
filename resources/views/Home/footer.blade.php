@@ -24,7 +24,7 @@
                     <div class="footer-links">
                         <a class="js-phone-link" href="tel:+97433858316"><span class="js-phone">+974 3385 8316</span></a>
                         <a class="js-email" href="mailto:hello@zaitonaalandalus.com">hello@zaitonaalandalus.com</a>
-                        <span class="js-address">Doha, Qatar</span>
+                        <span class="js-address">Old Airport, Near Food Place, Building No. 26, Zone 45, Street No 840, Doha Qatar</span>
                     </div>
                 </div>
                 <div>

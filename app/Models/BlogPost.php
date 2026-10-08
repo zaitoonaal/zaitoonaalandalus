@@ -11,7 +11,7 @@ class BlogPost extends Model
 
         /*
         |--------------------------------------------------------------------------
-        | Content
+        | English Content
         |--------------------------------------------------------------------------
         */
 
@@ -30,6 +30,23 @@ class BlogPost extends Model
 
         /*
         |--------------------------------------------------------------------------
+        | Arabic Content
+        |--------------------------------------------------------------------------
+        */
+
+        'title_ar',
+        'excerpt_ar',
+        'content_ar',
+
+        'featured_image_alt_ar',
+
+        'category_ar',
+        'tags_ar',
+        'author_name_ar',
+
+
+        /*
+        |--------------------------------------------------------------------------
         | Publishing
         |--------------------------------------------------------------------------
         */
@@ -41,7 +58,7 @@ class BlogPost extends Model
 
         /*
         |--------------------------------------------------------------------------
-        | SEO
+        | English SEO
         |--------------------------------------------------------------------------
         */
 
@@ -56,7 +73,22 @@ class BlogPost extends Model
 
         /*
         |--------------------------------------------------------------------------
-        | Open Graph
+        | Arabic SEO
+        |--------------------------------------------------------------------------
+        */
+
+        'focus_keyword_ar',
+        'secondary_keywords_ar',
+
+        'seo_title_ar',
+        'meta_description_ar',
+        'canonical_url_ar',
+        'robots_ar',
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | English Open Graph
         |--------------------------------------------------------------------------
         */
 
@@ -67,7 +99,18 @@ class BlogPost extends Model
 
         /*
         |--------------------------------------------------------------------------
-        | Twitter / X
+        | Arabic Open Graph
+        |--------------------------------------------------------------------------
+        */
+
+        'og_title_ar',
+        'og_description_ar',
+        'og_image_ar',
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | English Twitter / X
         |--------------------------------------------------------------------------
         */
 
@@ -78,26 +121,74 @@ class BlogPost extends Model
 
         /*
         |--------------------------------------------------------------------------
-        | Schema
+        | Arabic Twitter / X
+        |--------------------------------------------------------------------------
+        */
+
+        'twitter_title_ar',
+        'twitter_description_ar',
+        'twitter_image_ar',
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Structured Data
         |--------------------------------------------------------------------------
         */
 
         'schema_type',
+
         'schema_headline',
         'schema_description',
         'schema_image',
+
+        'schema_headline_ar',
+        'schema_description_ar',
+        'schema_image_ar',
     ];
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Casts
+    |--------------------------------------------------------------------------
+    */
 
     protected function casts(): array
     {
         return [
+
+            /*
+            |--------------------------------------------------------------------------
+            | English
+            |--------------------------------------------------------------------------
+            */
 
             'tags' =>
                 'array',
 
             'secondary_keywords' =>
                 'array',
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Arabic
+            |--------------------------------------------------------------------------
+            */
+
+            'tags_ar' =>
+                'array',
+
+            'secondary_keywords_ar' =>
+                'array',
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Publishing
+            |--------------------------------------------------------------------------
+            */
 
             'published_at' =>
                 'datetime',
@@ -113,6 +204,12 @@ class BlogPost extends Model
     |--------------------------------------------------------------------------
     | Automatic Unique Slug
     |--------------------------------------------------------------------------
+    |
+    | Existing behavior is preserved.
+    |
+    | We use one stable slug for the article instead of automatically changing
+    | the URL when Arabic content is selected.
+    |
     */
 
     protected static function booted(): void
@@ -121,7 +218,9 @@ class BlogPost extends Model
             function (BlogPost $post) {
 
                 if (
-                    blank($post->slug)
+                    blank(
+                        $post->slug
+                    )
                 ) {
 
                     $post->slug =
@@ -137,17 +236,27 @@ class BlogPost extends Model
     }
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Generate Unique Slug
+    |--------------------------------------------------------------------------
+    */
+
     public static function generateUniqueSlug(
         string $title,
         ?int $ignoreId = null
     ): string {
 
         $baseSlug =
-            Str::slug($title);
+            Str::slug(
+                $title
+            );
 
 
         if (
-            blank($baseSlug)
+            blank(
+                $baseSlug
+            )
         ) {
 
             $baseSlug =
@@ -166,10 +275,12 @@ class BlogPost extends Model
 
         while (
             static::query()
+
                 ->where(
                     'slug',
                     $slug
                 )
+
                 ->when(
                     $ignoreId,
                     fn ($query) =>
@@ -179,6 +290,7 @@ class BlogPost extends Model
                             $ignoreId
                         )
                 )
+
                 ->exists()
         ) {
 
@@ -186,6 +298,7 @@ class BlogPost extends Model
                 $baseSlug
                 . '-'
                 . $counter;
+
 
             $counter++;
 
@@ -206,21 +319,26 @@ class BlogPost extends Model
         $query
     ) {
         return $query
+
             ->where(
                 'status',
                 'published'
             )
+
             ->where(
                 'is_active',
                 true
             )
+
             ->where(
                 function ($query) {
 
                     $query
+
                         ->whereNull(
                             'published_at'
                         )
+
                         ->orWhere(
                             'published_at',
                             '<=',
@@ -234,7 +352,7 @@ class BlogPost extends Model
 
     /*
     |--------------------------------------------------------------------------
-    | SEO Fallbacks
+    | English SEO Fallbacks
     |--------------------------------------------------------------------------
     */
 
@@ -247,6 +365,12 @@ class BlogPost extends Model
 
     public function getFinalMetaDescriptionAttribute(): string
     {
+        /*
+        |--------------------------------------------------------------------------
+        | Explicit Meta Description
+        |--------------------------------------------------------------------------
+        */
+
         if (
             filled(
                 $this->meta_description
@@ -254,8 +378,15 @@ class BlogPost extends Model
         ) {
 
             return $this->meta_description;
+
         }
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Excerpt Fallback
+        |--------------------------------------------------------------------------
+        */
 
         if (
             filled(
@@ -269,8 +400,15 @@ class BlogPost extends Model
                 ),
                 160
             );
+
         }
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Article Content Fallback
+        |--------------------------------------------------------------------------
+        */
 
         return Str::limit(
             strip_tags(
@@ -306,5 +444,342 @@ class BlogPost extends Model
     {
         return $this->twitter_description
             ?: $this->final_meta_description;
+    }
+
+
+    public function getFinalSchemaHeadlineAttribute(): string
+    {
+        return $this->schema_headline
+            ?: $this->title;
+    }
+
+
+    public function getFinalSchemaDescriptionAttribute(): string
+    {
+        return $this->schema_description
+            ?: $this->final_meta_description;
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Arabic Content Fallbacks
+    |--------------------------------------------------------------------------
+    |
+    | If an Arabic field has not been entered yet, Laravel safely falls back
+    | to the English content instead of returning blank content.
+    |
+    */
+
+    public function getFinalTitleArAttribute(): string
+    {
+        return $this->title_ar
+            ?: $this->title;
+    }
+
+
+    public function getFinalExcerptArAttribute(): string
+    {
+        if (
+            filled(
+                $this->excerpt_ar
+            )
+        ) {
+
+            return $this->excerpt_ar;
+
+        }
+
+
+        if (
+            filled(
+                $this->excerpt
+            )
+        ) {
+
+            return $this->excerpt;
+
+        }
+
+
+        return Str::limit(
+            strip_tags(
+                $this->content_ar
+                ?: $this->content
+            ),
+            180
+        );
+    }
+
+
+    public function getFinalContentArAttribute(): string
+    {
+        return $this->content_ar
+            ?: $this->content;
+    }
+
+
+    public function getFinalCategoryArAttribute(): string
+    {
+        return $this->category_ar
+            ?: (
+                $this->category
+                ?: 'Journal'
+            );
+    }
+
+
+    public function getFinalAuthorNameArAttribute(): string
+    {
+        return $this->author_name_ar
+            ?: (
+                $this->author_name
+                ?: 'Zaitoona Al Andalus'
+            );
+    }
+
+
+    public function getFinalFeaturedImageAltArAttribute(): string
+    {
+        return $this->featured_image_alt_ar
+            ?: (
+                $this->featured_image_alt
+                ?: $this->final_title_ar
+            );
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Arabic SEO Fallbacks
+    |--------------------------------------------------------------------------
+    */
+
+    public function getFinalSeoTitleArAttribute(): string
+    {
+        return $this->seo_title_ar
+            ?: $this->final_title_ar;
+    }
+
+
+    public function getFinalMetaDescriptionArAttribute(): string
+    {
+        /*
+        |--------------------------------------------------------------------------
+        | Arabic Meta Description
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            filled(
+                $this->meta_description_ar
+            )
+        ) {
+
+            return $this->meta_description_ar;
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Arabic Excerpt
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            filled(
+                $this->excerpt_ar
+            )
+        ) {
+
+            return Str::limit(
+                strip_tags(
+                    $this->excerpt_ar
+                ),
+                160
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Arabic Article Content
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            filled(
+                $this->content_ar
+            )
+        ) {
+
+            return Str::limit(
+                strip_tags(
+                    $this->content_ar
+                ),
+                160
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | English SEO Fallback
+        |--------------------------------------------------------------------------
+        */
+
+        return $this->final_meta_description;
+    }
+
+
+    public function getFinalCanonicalUrlArAttribute(): ?string
+    {
+        return $this->canonical_url_ar
+            ?: $this->canonical_url;
+    }
+
+
+    public function getFinalRobotsArAttribute(): string
+    {
+        return $this->robots_ar
+            ?: (
+                $this->robots
+                ?: 'index, follow'
+            );
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Arabic Open Graph Fallbacks
+    |--------------------------------------------------------------------------
+    */
+
+    public function getFinalOgTitleArAttribute(): string
+    {
+        return $this->og_title_ar
+            ?: $this->final_seo_title_ar;
+    }
+
+
+    public function getFinalOgDescriptionArAttribute(): string
+    {
+        return $this->og_description_ar
+            ?: $this->final_meta_description_ar;
+    }
+
+
+    public function getFinalOgImageArAttribute(): ?string
+    {
+        return $this->og_image_ar
+            ?: $this->og_image;
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Arabic Twitter / X Fallbacks
+    |--------------------------------------------------------------------------
+    */
+
+    public function getFinalTwitterTitleArAttribute(): string
+    {
+        return $this->twitter_title_ar
+            ?: $this->final_seo_title_ar;
+    }
+
+
+    public function getFinalTwitterDescriptionArAttribute(): string
+    {
+        return $this->twitter_description_ar
+            ?: $this->final_meta_description_ar;
+    }
+
+
+    public function getFinalTwitterImageArAttribute(): ?string
+    {
+        return $this->twitter_image_ar
+            ?: $this->twitter_image;
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Arabic Structured Data Fallbacks
+    |--------------------------------------------------------------------------
+    */
+
+    public function getFinalSchemaHeadlineArAttribute(): string
+    {
+        return $this->schema_headline_ar
+            ?: $this->final_title_ar;
+    }
+
+
+    public function getFinalSchemaDescriptionArAttribute(): string
+    {
+        return $this->schema_description_ar
+            ?: $this->final_meta_description_ar;
+    }
+
+
+    public function getFinalSchemaImageArAttribute(): ?string
+    {
+        return $this->schema_image_ar
+            ?: $this->schema_image;
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Language Helper
+    |--------------------------------------------------------------------------
+    |
+    | Allows Blade/controller code to request the appropriate content cleanly.
+    |
+    | Example:
+    |
+    | $post->localized('title', 'ar')
+    |
+    */
+
+    public function localized(
+        string $field,
+        ?string $locale = null
+    ): mixed {
+
+        $locale =
+            $locale
+            ?: app()->getLocale();
+
+
+        if (
+            $locale === 'ar'
+        ) {
+
+            $arabicField =
+                $field
+                . '_ar';
+
+
+            if (
+                filled(
+                    $this->{$arabicField}
+                    ?? null
+                )
+            ) {
+
+                return $this->{$arabicField};
+
+            }
+
+        }
+
+
+        return $this->{$field}
+            ?? null;
     }
 }

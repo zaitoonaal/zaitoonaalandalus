@@ -1,5 +1,11 @@
 /* =========================================================
-   BUSINESS CONFIG & GLOBAL DICTIONARY
+   ZAITOONA AL ANDALUS
+   BLOG LISTING PAGE
+   ========================================================= */
+
+
+/* =========================================================
+   BUSINESS CONFIG
    ========================================================= */
 
 const CONFIG = {
@@ -24,54 +30,43 @@ const I18N = {
     announce2: "Restaurant · Shisha · Coffee Lounge",
     announce3: "Reservations Recommended",
 
-
     /* Navigation */
     navHome: "Home",
     navMenu: "Menu",
     navExperience: "Experience",
     navGallery: "Gallery",
-
-    About: "About",
-
     navBlog: "Blog",
-
     navContact: "Contact",
-
+    navAbout: "About",
+    About: "About",
     bookTable: "Book a table",
-
 
     /* Brand */
     brand: "Zaitoona Al Andalus",
     brandSub: "Restaurant · Shisha · Coffee",
 
-
     /* Blog */
     blogHeroTitle: "Our Journal",
-
     blogIntroHeading: "Stories from the Table",
 
     blogIntroText:
       "Discover the inspiration behind our Mediterranean menus, the heritage of our premium shisha, and the delicate art of Arabic coffee. Welcome to the Zaitoona journal.",
 
     readMore: "Read More",
-
     loadMore: "Load More Articles",
 
+    noStoriesHeading: "Our Journal",
+    noStoriesText: "New stories are coming soon.",
 
     /* Footer */
     footerAbout:
       "A premium Doha restaurant and lounge for Mediterranean food, refined shisha, specialty coffee and relaxed evenings.",
 
     footerExplore: "Explore",
-
     footerContact: "Contact",
-
     footerFollow: "Follow",
-
     instagram: "Instagram",
-
     tiktok: "TikTok",
-
     rights: "All rights reserved.",
 
     footerLine:
@@ -83,63 +78,46 @@ const I18N = {
 
     /* Announcement */
     announce1: "الدوحة، قطر",
-
     announce2: "مطعم · شيشة · قهوة ولاونج",
-
     announce3: "يفضل الحجز مسبقاً",
-
 
     /* Navigation */
     navHome: "الرئيسية",
-
     navMenu: "القائمة",
-
     navExperience: "التجربة",
-
     navGallery: "الصور",
-
-    About: "من نحن",
-
     navBlog: "المدونة",
-
     navContact: "تواصل",
-
+    navAbout: "من نحن",
+    About: "من نحن",
     bookTable: "احجز طاولة",
-
 
     /* Brand */
     brand: "زيتونة الأندلس",
-
     brandSub: "مطعم · شيشة · قهوة",
-
 
     /* Blog */
     blogHeroTitle: "مجلتنا",
-
     blogIntroHeading: "قصص من المائدة",
 
     blogIntroText:
-      "اكتشف الإلهام وراء قوائمنا المتوسطية، وتراث الشيشة الفاخرة لدينا، والفن الدقيق لتحضير القهوة العربية. مرحبًا بك في مجلة زيتونة.",
+      "اكتشف الإلهام وراء قوائمنا المتوسطية، وتراث الشيشة الفاخرة لدينا، والفن الدقيق لتحضير القهوة العربية. مرحباً بك في مجلة زيتونة.",
 
     readMore: "اقرأ المزيد",
-
     loadMore: "تحميل المزيد من المقالات",
 
+    noStoriesHeading: "مجلتنا",
+    noStoriesText: "قصص جديدة قادمة قريباً.",
 
     /* Footer */
     footerAbout:
       "مطعم ولاونج راقٍ في الدوحة للمأكولات المتوسطية والشيشة والقهوة المختصة والأمسيات الهادئة.",
 
     footerExplore: "استكشف",
-
     footerContact: "تواصل",
-
     footerFollow: "تابعنا",
-
     instagram: "إنستغرام",
-
     tiktok: "تيك توك",
-
     rights: "جميع الحقوق محفوظة.",
 
     footerLine:
@@ -150,19 +128,13 @@ const I18N = {
 
 
 /* =========================================================
-   GLOBAL STATE & UTILITIES
+   GLOBAL STATE & HELPERS
    ========================================================= */
 
 let lang =
   localStorage.getItem("zaitoona-lang")
   || "en";
 
-
-/*
-|--------------------------------------------------------------------------
-| Protect against invalid stored language
-|--------------------------------------------------------------------------
-*/
 
 if (!I18N[lang]) {
   lang = "en";
@@ -172,19 +144,15 @@ if (!I18N[lang]) {
 const $ = (
   selector,
   root = document
-) => {
-  return root.querySelector(selector);
-};
+) => root.querySelector(selector);
 
 
 const $$ = (
   selector,
   root = document
-) => {
-  return [
-    ...root.querySelectorAll(selector)
-  ];
-};
+) => [
+  ...root.querySelectorAll(selector)
+];
 
 
 /* =========================================================
@@ -193,43 +161,21 @@ const $$ = (
 
 function applyConfig() {
 
-  /*
-  |--------------------------------------------------------------------------
-  | Phone text
-  |--------------------------------------------------------------------------
-  */
-
   $$(".js-phone").forEach(
     element => {
-
       element.textContent =
         CONFIG.phoneDisplay;
-
     }
   );
 
-
-  /*
-  |--------------------------------------------------------------------------
-  | Phone links
-  |--------------------------------------------------------------------------
-  */
 
   $$(".js-phone-link").forEach(
     element => {
-
       element.href =
         `tel:${CONFIG.phoneDial}`;
-
     }
   );
 
-
-  /*
-  |--------------------------------------------------------------------------
-  | Email
-  |--------------------------------------------------------------------------
-  */
 
   $$(".js-email").forEach(
     element => {
@@ -237,41 +183,32 @@ function applyConfig() {
       element.textContent =
         CONFIG.email;
 
+      if (
+        element.tagName === "A"
+      ) {
+        element.href =
+          `mailto:${CONFIG.email}`;
+      }
+
     }
   );
 
 
   $$(".js-email-link").forEach(
     element => {
-
       element.href =
         `mailto:${CONFIG.email}`;
-
     }
   );
 
-
-  /*
-  |--------------------------------------------------------------------------
-  | Address
-  |--------------------------------------------------------------------------
-  */
 
   $$(".js-address").forEach(
     element => {
-
       element.textContent =
         CONFIG.address;
-
     }
   );
 
-
-  /*
-  |--------------------------------------------------------------------------
-  | WhatsApp
-  |--------------------------------------------------------------------------
-  */
 
   const whatsappUrl =
     `https://wa.me/${CONFIG.whatsapp}`;
@@ -279,10 +216,8 @@ function applyConfig() {
 
   $$(".js-wa-btn").forEach(
     element => {
-
       element.href =
         whatsappUrl;
-
     }
   );
 
@@ -292,10 +227,8 @@ function applyConfig() {
 
 
   if (floatingWhatsapp) {
-
     floatingWhatsapp.href =
       whatsappUrl;
-
   }
 
 
@@ -304,96 +237,28 @@ function applyConfig() {
 
 
   if (footerWhatsapp) {
-
     footerWhatsapp.href =
       whatsappUrl;
-
   }
 
-
-  /*
-  |--------------------------------------------------------------------------
-  | Mobile call button
-  |--------------------------------------------------------------------------
-  */
 
   const mobileCall =
     $("#mobileCall");
 
 
   if (mobileCall) {
-
     mobileCall.href =
       `tel:${CONFIG.phoneDial}`;
-
   }
 
 }
 
 
 /* =========================================================
-   LANGUAGE SYSTEM
+   STATIC TRANSLATIONS
    ========================================================= */
 
-function applyLanguage(newLang) {
-
-  /*
-  |--------------------------------------------------------------------------
-  | Validate language
-  |--------------------------------------------------------------------------
-  */
-
-  lang =
-    newLang === "ar"
-      ? "ar"
-      : "en";
-
-
-  /*
-  |--------------------------------------------------------------------------
-  | Save preference
-  |--------------------------------------------------------------------------
-  */
-
-  localStorage.setItem(
-    "zaitoona-lang",
-    lang
-  );
-
-
-  /*
-  |--------------------------------------------------------------------------
-  | HTML language & direction
-  |--------------------------------------------------------------------------
-  */
-
-  document.documentElement.lang =
-    lang;
-
-
-  document.documentElement.dir =
-    lang === "ar"
-      ? "rtl"
-      : "ltr";
-
-
-  /*
-  |--------------------------------------------------------------------------
-  | Arabic body class
-  |--------------------------------------------------------------------------
-  */
-
-  document.body.classList.toggle(
-    "ar",
-    lang === "ar"
-  );
-
-
-  /*
-  |--------------------------------------------------------------------------
-  | Translate every data-i18n element
-  |--------------------------------------------------------------------------
-  */
+function applyStaticTranslations() {
 
   $$("[data-i18n]").forEach(
     element => {
@@ -419,35 +284,44 @@ function applyLanguage(newLang) {
     }
   );
 
+}
+
+
+/* =========================================================
+   DYNAMIC DATABASE TRANSLATIONS
+   ========================================================= */
+
+function applyDatabaseTranslations() {
 
   /*
   |--------------------------------------------------------------------------
-  | Dynamic database text
+  | Dynamic Text
   |--------------------------------------------------------------------------
-  |
-  | Keeps compatibility with dynamic sections using:
-  |
-  | data-db-i18n
-  | data-en=""
-  | data-ar=""
-  |
   */
 
   $$("[data-db-i18n]").forEach(
     element => {
 
       const english =
-        element.dataset.en
+        element.getAttribute(
+          "data-en"
+        )
         || "";
 
+
       const arabic =
-        element.dataset.ar
+        element.getAttribute(
+          "data-ar"
+        )
         || english;
 
 
       element.textContent =
         lang === "ar"
-          ? arabic
+          ? (
+              arabic
+              || english
+            )
           : english;
 
     }
@@ -456,7 +330,7 @@ function applyLanguage(newLang) {
 
   /*
   |--------------------------------------------------------------------------
-  | Dynamic ALT translation
+  | Dynamic ALT
   |--------------------------------------------------------------------------
   */
 
@@ -464,17 +338,25 @@ function applyLanguage(newLang) {
     image => {
 
       const english =
-        image.dataset.altEn
+        image.getAttribute(
+          "data-alt-en"
+        )
         || "";
 
+
       const arabic =
-        image.dataset.altAr
+        image.getAttribute(
+          "data-alt-ar"
+        )
         || english;
 
 
       image.alt =
         lang === "ar"
-          ? arabic
+          ? (
+              arabic
+              || english
+            )
           : english;
 
     }
@@ -483,41 +365,320 @@ function applyLanguage(newLang) {
 
   /*
   |--------------------------------------------------------------------------
-  | Desktop language button
+  | Dynamic Links
   |--------------------------------------------------------------------------
   */
+
+  $$("[data-db-href]").forEach(
+    element => {
+
+      const englishUrl =
+        element.getAttribute(
+          "data-href-en"
+        );
+
+
+      const arabicUrl =
+        element.getAttribute(
+          "data-href-ar"
+        )
+        || englishUrl;
+
+
+      const finalUrl =
+        lang === "ar"
+          ? arabicUrl
+          : englishUrl;
+
+
+      if (finalUrl) {
+        element.href =
+          finalUrl;
+      }
+
+    }
+  );
+
+
+  /*
+  |--------------------------------------------------------------------------
+  | Dynamic ARIA Labels
+  |--------------------------------------------------------------------------
+  */
+
+  $$("[data-db-aria]").forEach(
+    element => {
+
+      const english =
+        element.getAttribute(
+          "data-aria-en"
+        )
+        || "";
+
+
+      const arabic =
+        element.getAttribute(
+          "data-aria-ar"
+        )
+        || english;
+
+
+      const finalLabel =
+        lang === "ar"
+          ? arabic
+          : english;
+
+
+      if (finalLabel) {
+
+        element.setAttribute(
+          "aria-label",
+          finalLabel
+        );
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   BLOG LISTING SEO SWITCH
+   ========================================================= */
+
+function setMetaByName(
+  name,
+  content
+) {
+
+  if (!content) {
+    return;
+  }
+
+
+  const meta =
+    document.querySelector(
+      `meta[name="${name}"]`
+    );
+
+
+  if (meta) {
+    meta.setAttribute(
+      "content",
+      content
+    );
+  }
+
+}
+
+
+function setMetaByProperty(
+  property,
+  content
+) {
+
+  if (!content) {
+    return;
+  }
+
+
+  const meta =
+    document.querySelector(
+      `meta[property="${property}"]`
+    );
+
+
+  if (meta) {
+    meta.setAttribute(
+      "content",
+      content
+    );
+  }
+
+}
+
+
+function updateListingSeo() {
+
+  const seoElement =
+    $("#blogListingSeoData");
+
+
+  if (!seoElement) {
+    return;
+  }
+
+
+  try {
+
+    const seoData =
+      JSON.parse(
+        seoElement.textContent
+      );
+
+
+    const seo =
+      seoData[lang]
+      || seoData.en;
+
+
+    if (!seo) {
+      return;
+    }
+
+
+    if (seo.title) {
+      document.title =
+        seo.title;
+    }
+
+
+    setMetaByName(
+      "description",
+      seo.description
+    );
+
+
+    setMetaByName(
+      "robots",
+      seo.robots
+    );
+
+
+    setMetaByProperty(
+      "og:title",
+      seo.title
+    );
+
+
+    setMetaByProperty(
+      "og:description",
+      seo.description
+    );
+
+
+    setMetaByProperty(
+      "og:url",
+      seo.url
+    );
+
+
+    setMetaByProperty(
+      "og:locale",
+      seo.locale
+    );
+
+
+    setMetaByName(
+      "twitter:title",
+      seo.title
+    );
+
+
+    setMetaByName(
+      "twitter:description",
+      seo.description
+    );
+
+
+    const canonical =
+      document.querySelector(
+        'link[rel="canonical"]'
+      );
+
+
+    if (
+      canonical
+      &&
+      seo.url
+    ) {
+
+      canonical.href =
+        seo.url;
+
+    }
+
+  } catch (error) {
+
+    console.warn(
+      "Unable to update blog listing SEO."
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   LANGUAGE SYSTEM
+   ========================================================= */
+
+function applyLanguage(
+  newLang
+) {
+
+  lang =
+    newLang === "ar"
+      ? "ar"
+      : "en";
+
+
+  localStorage.setItem(
+    "zaitoona-lang",
+    lang
+  );
+
+
+  document.documentElement.lang =
+    lang;
+
+
+  document.documentElement.dir =
+    lang === "ar"
+      ? "rtl"
+      : "ltr";
+
+
+  document.body.classList.toggle(
+    "ar",
+    lang === "ar"
+  );
+
+
+  applyStaticTranslations();
+
+
+  applyDatabaseTranslations();
+
+
+  updateListingSeo();
+
+
+  const languageMarkup =
+    lang === "en"
+      ? "<span>EN</span> / <span>AR</span>"
+      : "<span>AR</span> / <span>EN</span>";
+
 
   const langToggle =
     $("#langToggle");
 
 
   if (langToggle) {
-
     langToggle.innerHTML =
-      lang === "en"
-        ? "<span>EN</span> / <span>AR</span>"
-        : "<span>AR</span> / <span>EN</span>";
-
+      languageMarkup;
   }
 
-
-  /*
-  |--------------------------------------------------------------------------
-  | Mobile language button
-  |--------------------------------------------------------------------------
-  */
 
   const mobileLang =
     $("#mobileLang");
 
 
   if (mobileLang) {
-
     mobileLang.innerHTML =
-      lang === "en"
-        ? "<span>EN</span> / <span>AR</span>"
-        : "<span>AR</span> / <span>EN</span>";
-
+      languageMarkup;
   }
 
 }
@@ -624,12 +785,6 @@ if (
 
 }
 
-
-/*
-|--------------------------------------------------------------------------
-| Close mobile menu when clicking a link
-|--------------------------------------------------------------------------
-*/
 
 $$(
   "#mobileMenu a"
@@ -755,12 +910,6 @@ if (
 
 } else {
 
-  /*
-  |--------------------------------------------------------------------------
-  | Browser fallback
-  |--------------------------------------------------------------------------
-  */
-
   revealElements.forEach(
     element => {
 
@@ -805,7 +954,7 @@ window.addEventListener(
 
 
 /* =========================================================
-   KEYBOARD SUPPORT
+   KEYBOARD
    ========================================================= */
 
 document.addEventListener(
@@ -825,7 +974,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   INITIALIZATION
+   YEAR
    ========================================================= */
 
 const year =
@@ -841,20 +990,12 @@ if (year) {
 }
 
 
-/*
-|--------------------------------------------------------------------------
-| Apply business details
-|--------------------------------------------------------------------------
-*/
+/* =========================================================
+   INITIALIZATION
+   ========================================================= */
 
 applyConfig();
 
-
-/*
-|--------------------------------------------------------------------------
-| Apply saved language
-|--------------------------------------------------------------------------
-*/
 
 applyLanguage(
   lang
@@ -862,5 +1003,5 @@ applyLanguage(
 
 
 /* =========================================================
-   END OF BLOG JAVASCRIPT
+   END
    ========================================================= */

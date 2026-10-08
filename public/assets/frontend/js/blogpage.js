@@ -1,6 +1,6 @@
 /* =========================================================
    ZAITOONA AL ANDALUS
-   BLOG POST PAGE
+   SINGLE BLOG POST PAGE
    ========================================================= */
 
 
@@ -36,8 +36,6 @@ const I18N = {
 
   en: {
 
-    /* Announcement */
-
     announce1:
       "Doha, Qatar",
 
@@ -47,8 +45,6 @@ const I18N = {
     announce3:
       "Reservations Recommended",
 
-
-    /* Navigation */
 
     navHome:
       "Home",
@@ -68,6 +64,9 @@ const I18N = {
     navContact:
       "Contact",
 
+    navAbout:
+      "About",
+
     About:
       "About",
 
@@ -75,16 +74,12 @@ const I18N = {
       "Book a table",
 
 
-    /* Brand */
-
     brand:
       "Zaitoona Al Andalus",
 
     brandSub:
       "Restaurant · Shisha · Coffee",
 
-
-    /* Blog Article */
 
     backJournal:
       "Back to Journal",
@@ -110,8 +105,6 @@ const I18N = {
     topic:
       "Topic",
 
-
-    /* Footer */
 
     footerAbout:
       "A premium Doha restaurant and lounge for Mediterranean food, refined shisha, specialty coffee and relaxed evenings.",
@@ -142,8 +135,6 @@ const I18N = {
 
   ar: {
 
-    /* Announcement */
-
     announce1:
       "الدوحة، قطر",
 
@@ -153,8 +144,6 @@ const I18N = {
     announce3:
       "يفضل الحجز مسبقاً",
 
-
-    /* Navigation */
 
     navHome:
       "الرئيسية",
@@ -174,6 +163,9 @@ const I18N = {
     navContact:
       "تواصل",
 
+    navAbout:
+      "من نحن",
+
     About:
       "من نحن",
 
@@ -181,16 +173,12 @@ const I18N = {
       "احجز طاولة",
 
 
-    /* Brand */
-
     brand:
       "زيتونة الأندلس",
 
     brandSub:
       "مطعم · شيشة · قهوة",
 
-
-    /* Blog Article */
 
     backJournal:
       "العودة إلى المدونة",
@@ -216,8 +204,6 @@ const I18N = {
     topic:
       "الموضوع",
 
-
-    /* Footer */
 
     footerAbout:
       "مطعم ولاونج راقٍ في الدوحة للمأكولات المتوسطية والشيشة والقهوة المختصة والأمسيات الهادئة.",
@@ -259,13 +245,8 @@ let lang =
   || "en";
 
 
-if (
-  !I18N[lang]
-) {
-
-  lang =
-    "en";
-
+if (!I18N[lang]) {
+  lang = "en";
 }
 
 
@@ -299,123 +280,77 @@ const $$ = (
 
 function applyConfig() {
 
-  /*
-  |--------------------------------------------------------------------------
-  | Phone text
-  |--------------------------------------------------------------------------
-  */
-
-  $$(".js-phone")
-    .forEach(
-      element => {
-
-        element.textContent =
-          CONFIG.phoneDisplay;
-
-      }
-    );
+  $$(".js-phone").forEach(
+    element => {
+      element.textContent =
+        CONFIG.phoneDisplay;
+    }
+  );
 
 
-  /*
-  |--------------------------------------------------------------------------
-  | Phone links
-  |--------------------------------------------------------------------------
-  */
-
-  $$(".js-phone-link")
-    .forEach(
-      element => {
-
-        element.href =
-          `tel:${CONFIG.phoneDial}`;
-
-      }
-    );
+  $$(".js-phone-link").forEach(
+    element => {
+      element.href =
+        `tel:${CONFIG.phoneDial}`;
+    }
+  );
 
 
-  /*
-  |--------------------------------------------------------------------------
-  | Email text
-  |--------------------------------------------------------------------------
-  */
+  $$(".js-email").forEach(
+    element => {
 
-  $$(".js-email")
-    .forEach(
-      element => {
-
-        element.textContent =
-          CONFIG.email;
-
-      }
-    );
+      element.textContent =
+        CONFIG.email;
 
 
-  /*
-  |--------------------------------------------------------------------------
-  | Email links
-  |--------------------------------------------------------------------------
-  */
-
-  $$(".js-email-link")
-    .forEach(
-      element => {
+      if (
+        element.tagName === "A"
+      ) {
 
         element.href =
           `mailto:${CONFIG.email}`;
 
       }
-    );
+
+    }
+  );
 
 
-  /*
-  |--------------------------------------------------------------------------
-  | Address
-  |--------------------------------------------------------------------------
-  */
-
-  $$(".js-address")
-    .forEach(
-      element => {
-
-        element.textContent =
-          CONFIG.address;
-
-      }
-    );
+  $$(".js-email-link").forEach(
+    element => {
+      element.href =
+        `mailto:${CONFIG.email}`;
+    }
+  );
 
 
-  /*
-  |--------------------------------------------------------------------------
-  | WhatsApp
-  |--------------------------------------------------------------------------
-  */
+  $$(".js-address").forEach(
+    element => {
+      element.textContent =
+        CONFIG.address;
+    }
+  );
+
 
   const whatsappUrl =
     `https://wa.me/${CONFIG.whatsapp}`;
 
 
-  $$(".js-wa-btn")
-    .forEach(
-      element => {
-
-        element.href =
-          whatsappUrl;
-
-      }
-    );
+  $$(".js-wa-btn").forEach(
+    element => {
+      element.href =
+        whatsappUrl;
+    }
+  );
 
 
   const floatingWhatsapp =
     $("#floatingWhatsapp");
 
 
-  if (
-    floatingWhatsapp
-  ) {
-
+  if (floatingWhatsapp) {
     floatingWhatsapp.href =
       whatsappUrl;
-
   }
 
 
@@ -423,103 +358,29 @@ function applyConfig() {
     $("#footerWhatsapp");
 
 
-  if (
-    footerWhatsapp
-  ) {
-
+  if (footerWhatsapp) {
     footerWhatsapp.href =
       whatsappUrl;
-
   }
 
-
-  /*
-  |--------------------------------------------------------------------------
-  | Mobile Call
-  |--------------------------------------------------------------------------
-  */
 
   const mobileCall =
     $("#mobileCall");
 
 
-  if (
-    mobileCall
-  ) {
-
+  if (mobileCall) {
     mobileCall.href =
       `tel:${CONFIG.phoneDial}`;
-
   }
 
 }
 
 
 /* =========================================================
-   LANGUAGE
+   STATIC TRANSLATIONS
    ========================================================= */
 
-function applyLanguage(
-  selectedLanguage
-) {
-
-  /*
-  |--------------------------------------------------------------------------
-  | Validate Language
-  |--------------------------------------------------------------------------
-  */
-
-  lang =
-    selectedLanguage === "ar"
-      ? "ar"
-      : "en";
-
-
-  /*
-  |--------------------------------------------------------------------------
-  | Save Language
-  |--------------------------------------------------------------------------
-  */
-
-  localStorage.setItem(
-    "zaitoona-lang",
-    lang
-  );
-
-
-  /*
-  |--------------------------------------------------------------------------
-  | Document Language
-  |--------------------------------------------------------------------------
-  */
-
-  document.documentElement.lang =
-    lang;
-
-
-  document.documentElement.dir =
-    lang === "ar"
-      ? "rtl"
-      : "ltr";
-
-
-  /*
-  |--------------------------------------------------------------------------
-  | Body Arabic Class
-  |--------------------------------------------------------------------------
-  */
-
-  document.body.classList.toggle(
-    "ar",
-    lang === "ar"
-  );
-
-
-  /*
-  |--------------------------------------------------------------------------
-  | Static Translations
-  |--------------------------------------------------------------------------
-  */
+function applyStaticTranslations() {
 
   $$(
     "[data-i18n]"
@@ -534,12 +395,10 @@ function applyLanguage(
         if (
           I18N[lang]
           &&
-          Object.prototype
-            .hasOwnProperty
-            .call(
-              I18N[lang],
-              key
-            )
+          Object.prototype.hasOwnProperty.call(
+            I18N[lang],
+            key
+          )
         ) {
 
           element.textContent =
@@ -550,12 +409,14 @@ function applyLanguage(
       }
     );
 
+}
 
-  /*
-  |--------------------------------------------------------------------------
-  | Dynamic Database Translations
-  |--------------------------------------------------------------------------
-  */
+
+/* =========================================================
+   DYNAMIC DATABASE TEXT
+   ========================================================= */
+
+function applyDatabaseTranslations() {
 
   $$(
     "[data-db-i18n]"
@@ -564,29 +425,30 @@ function applyLanguage(
       element => {
 
         const english =
-          element.dataset.en
+          element.getAttribute(
+            "data-en"
+          )
           || "";
 
 
         const arabic =
-          element.dataset.ar
+          element.getAttribute(
+            "data-ar"
+          )
           || english;
 
 
         element.textContent =
           lang === "ar"
-            ? arabic
+            ? (
+                arabic
+                || english
+              )
             : english;
 
       }
     );
 
-
-  /*
-  |--------------------------------------------------------------------------
-  | Dynamic Image ALT
-  |--------------------------------------------------------------------------
-  */
 
   $$(
     "[data-db-alt]"
@@ -595,64 +457,416 @@ function applyLanguage(
       image => {
 
         const english =
-          image.dataset.altEn
+          image.getAttribute(
+            "data-alt-en"
+          )
           || "";
 
 
         const arabic =
-          image.dataset.altAr
+          image.getAttribute(
+            "data-alt-ar"
+          )
           || english;
 
 
         image.alt =
           lang === "ar"
-            ? arabic
+            ? (
+                arabic
+                || english
+              )
             : english;
 
       }
     );
 
 
-  /*
-  |--------------------------------------------------------------------------
-  | Desktop Language Button
-  |--------------------------------------------------------------------------
-  */
+  $$(
+    "[data-db-href]"
+  )
+    .forEach(
+      element => {
+
+        const englishUrl =
+          element.getAttribute(
+            "data-href-en"
+          );
+
+
+        const arabicUrl =
+          element.getAttribute(
+            "data-href-ar"
+          )
+          || englishUrl;
+
+
+        const finalUrl =
+          lang === "ar"
+            ? arabicUrl
+            : englishUrl;
+
+
+        if (finalUrl) {
+
+          element.href =
+            finalUrl;
+
+        }
+
+      }
+    );
+
+
+  $$(
+    "[data-db-aria]"
+  )
+    .forEach(
+      element => {
+
+        const english =
+          element.getAttribute(
+            "data-aria-en"
+          )
+          || "";
+
+
+        const arabic =
+          element.getAttribute(
+            "data-aria-ar"
+          )
+          || english;
+
+
+        const value =
+          lang === "ar"
+            ? arabic
+            : english;
+
+
+        if (value) {
+
+          element.setAttribute(
+            "aria-label",
+            value
+          );
+
+        }
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   RICH ARTICLE CONTENT SWITCH
+   ========================================================= */
+
+function applyArticleContent() {
+
+  $$(
+    "[data-lang-block]"
+  )
+    .forEach(
+      element => {
+
+        const blockLanguage =
+          element.getAttribute(
+            "data-lang-block"
+          );
+
+
+        element.hidden =
+          blockLanguage !== lang;
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   SEO HELPERS
+   ========================================================= */
+
+function setMetaByName(
+  name,
+  content
+) {
+
+  if (!content) {
+    return;
+  }
+
+
+  const element =
+    document.querySelector(
+      `meta[name="${name}"]`
+    );
+
+
+  if (element) {
+
+    element.setAttribute(
+      "content",
+      content
+    );
+
+  }
+
+}
+
+
+function setMetaByProperty(
+  property,
+  content
+) {
+
+  if (!content) {
+    return;
+  }
+
+
+  const element =
+    document.querySelector(
+      `meta[property="${property}"]`
+    );
+
+
+  if (element) {
+
+    element.setAttribute(
+      "content",
+      content
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   ARTICLE SEO SWITCH
+   ========================================================= */
+
+function updateArticleSeo() {
+
+  const element =
+    $("#blogSeoData");
+
+
+  if (!element) {
+    return;
+  }
+
+
+  try {
+
+    const seoData =
+      JSON.parse(
+        element.textContent
+      );
+
+
+    const seo =
+      seoData[lang]
+      || seoData.en;
+
+
+    if (!seo) {
+      return;
+    }
+
+
+    if (seo.title) {
+
+      document.title =
+        seo.title;
+
+    }
+
+
+    setMetaByName(
+      "description",
+      seo.description
+    );
+
+
+    setMetaByName(
+      "robots",
+      seo.robots
+    );
+
+
+    setMetaByProperty(
+      "og:title",
+      seo.ogTitle
+    );
+
+
+    setMetaByProperty(
+      "og:description",
+      seo.ogDescription
+    );
+
+
+    setMetaByProperty(
+      "og:url",
+      seo.canonical
+    );
+
+
+    setMetaByProperty(
+      "og:image",
+      seo.ogImage
+    );
+
+
+    setMetaByProperty(
+      "og:locale",
+      seo.ogLocale
+    );
+
+
+    setMetaByName(
+      "twitter:title",
+      seo.twitterTitle
+    );
+
+
+    setMetaByName(
+      "twitter:description",
+      seo.twitterDescription
+    );
+
+
+    setMetaByName(
+      "twitter:image",
+      seo.twitterImage
+    );
+
+
+    const canonical =
+      document.querySelector(
+        'link[rel="canonical"]'
+      );
+
+
+    if (
+      canonical
+      &&
+      seo.canonical
+    ) {
+
+      canonical.href =
+        seo.canonical;
+
+    }
+
+
+    const schema =
+      $("#articleSchema");
+
+
+    if (
+      schema
+      &&
+      seo.schema
+    ) {
+
+      schema.textContent =
+        JSON.stringify(
+          seo.schema
+        );
+
+    }
+
+  } catch (error) {
+
+    console.warn(
+      "Unable to update blog article SEO."
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   LANGUAGE
+   ========================================================= */
+
+function applyLanguage(
+  selectedLanguage
+) {
+
+  lang =
+    selectedLanguage === "ar"
+      ? "ar"
+      : "en";
+
+
+  localStorage.setItem(
+    "zaitoona-lang",
+    lang
+  );
+
+
+  document.documentElement.lang =
+    lang;
+
+
+  document.documentElement.dir =
+    lang === "ar"
+      ? "rtl"
+      : "ltr";
+
+
+  document.body.classList.toggle(
+    "ar",
+    lang === "ar"
+  );
+
+
+  applyStaticTranslations();
+
+
+  applyDatabaseTranslations();
+
+
+  applyArticleContent();
+
+
+  updateArticleSeo();
+
+
+  const languageMarkup =
+    lang === "en"
+      ? "<span>EN</span> / <span>AR</span>"
+      : "<span>AR</span> / <span>EN</span>";
+
 
   const langToggle =
     $("#langToggle");
 
 
-  if (
-    langToggle
-  ) {
+  if (langToggle) {
 
     langToggle.innerHTML =
-      lang === "en"
-        ? "<span>EN</span> / <span>AR</span>"
-        : "<span>AR</span> / <span>EN</span>";
+      languageMarkup;
 
   }
 
-
-  /*
-  |--------------------------------------------------------------------------
-  | Mobile Language Button
-  |--------------------------------------------------------------------------
-  */
 
   const mobileLang =
     $("#mobileLang");
 
 
-  if (
-    mobileLang
-  ) {
+  if (mobileLang) {
 
     mobileLang.innerHTML =
-      lang === "en"
-        ? "<span>EN</span> / <span>AR</span>"
-        : "<span>AR</span> / <span>EN</span>";
+      languageMarkup;
 
   }
 
@@ -667,9 +881,7 @@ const desktopLanguageButton =
   $("#langToggle");
 
 
-if (
-  desktopLanguageButton
-) {
+if (desktopLanguageButton) {
 
   desktopLanguageButton
     .addEventListener(
@@ -692,9 +904,7 @@ const mobileLanguageButton =
   $("#mobileLang");
 
 
-if (
-  mobileLanguageButton
-) {
+if (mobileLanguageButton) {
 
   mobileLanguageButton
     .addEventListener(
@@ -723,12 +933,8 @@ function closeMobile() {
     $("#mobileMenu");
 
 
-  if (
-    !mobileMenu
-  ) {
-
+  if (!mobileMenu) {
     return;
-
   }
 
 
@@ -752,9 +958,7 @@ function closeMobile() {
     $("#menuToggle");
 
 
-  if (
-    menuToggle
-  ) {
+  if (menuToggle) {
 
     menuToggle.setAttribute(
       "aria-expanded",
@@ -789,11 +993,9 @@ if (
     () => {
 
       const isOpen =
-        mobileMenu
-          .classList
-          .toggle(
-            "open"
-          );
+        mobileMenu.classList.toggle(
+          "open"
+        );
 
 
       document.body.classList.toggle(
@@ -822,12 +1024,6 @@ if (
 
 }
 
-
-/*
-|--------------------------------------------------------------------------
-| Close Menu Links
-|--------------------------------------------------------------------------
-*/
 
 $$(
   "#mobileMenu a"
@@ -869,17 +1065,14 @@ if (
               entry.isIntersecting
             ) {
 
-              entry.target
-                .classList
-                .add(
-                  "visible"
-                );
+              entry.target.classList.add(
+                "visible"
+              );
 
 
-              revealObserver
-                .unobserve(
-                  entry.target
-                );
+              revealObserver.unobserve(
+                entry.target
+              );
 
             }
 
@@ -890,7 +1083,7 @@ if (
 
       {
         threshold:
-          .1,
+          0.1,
 
         rootMargin:
           "0px 0px -40px"
@@ -902,10 +1095,9 @@ if (
   revealElements.forEach(
     element => {
 
-      revealObserver
-        .observe(
-          element
-        );
+      revealObserver.observe(
+        element
+      );
 
     }
   );
@@ -937,12 +1129,8 @@ window.addEventListener(
       $(".article-hero-image");
 
 
-    if (
-      !articleHeroImage
-    ) {
-
+    if (!articleHeroImage) {
       return;
-
     }
 
 
@@ -955,7 +1143,7 @@ window.addEventListener(
 
   },
   {
-    passive:true
+    passive: true
   }
 );
 
@@ -988,9 +1176,7 @@ const year =
   $("#year");
 
 
-if (
-  year
-) {
+if (year) {
 
   year.textContent =
     new Date()

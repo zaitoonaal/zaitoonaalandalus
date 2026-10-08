@@ -23,7 +23,7 @@ class BlogPostForm
 
                 /*
                 |--------------------------------------------------------------------------
-                | BLOG CONTENT
+                | ENGLISH BLOG CONTENT
                 |--------------------------------------------------------------------------
                 */
 
@@ -31,7 +31,7 @@ class BlogPostForm
                     'Blog Content'
                 )
                     ->description(
-                        'Write and manage the main blog article.'
+                        'Write and manage the main English blog article.'
                     )
                     ->columns(2)
                     ->schema([
@@ -64,7 +64,7 @@ class BlogPostForm
                                 'best-restaurant-in-doha'
                             )
                             ->helperText(
-                                'Leave empty to generate automatically from the title.'
+                                'Leave empty to generate automatically from the English title.'
                             ),
 
 
@@ -168,6 +168,149 @@ class BlogPostForm
 
                 /*
                 |--------------------------------------------------------------------------
+                | ARABIC BLOG CONTENT
+                |--------------------------------------------------------------------------
+                */
+
+                Section::make(
+                    'Arabic Blog Content'
+                )
+                    ->description(
+                        'Write and manage the Arabic version of the blog article.'
+                    )
+                    ->columns(2)
+                    ->schema([
+
+                        TextInput::make(
+                            'title_ar'
+                        )
+                            ->label(
+                                'Arabic Post Title / عنوان المقال'
+                            )
+                            ->maxLength(255)
+                            ->columnSpanFull()
+                            ->helperText(
+                                'Enter the Arabic version of the article title.'
+                            ),
+
+
+                        TextInput::make(
+                            'slug_ar'
+                        )
+                            ->label(
+                                'Arabic URL Slug / الرابط العربي'
+                            )
+                            ->unique(
+                                ignoreRecord: true
+                            )
+                            ->maxLength(255)
+                            ->placeholder(
+                                'عنوان-المقال'
+                            )
+                            ->helperText(
+                                'Leave empty to generate automatically from the Arabic title if your model supports Arabic slug generation.'
+                            ),
+
+
+                        TextInput::make(
+                            'category_ar'
+                        )
+                            ->label(
+                                'Arabic Category / التصنيف'
+                            )
+                            ->placeholder(
+                                'المأكولات'
+                            )
+                            ->maxLength(150),
+
+
+                        TagsInput::make(
+                            'tags_ar'
+                        )
+                            ->label(
+                                'Arabic Post Tags / وسوم المقال'
+                            )
+                            ->placeholder(
+                                'أضف وسم'
+                            )
+                            ->helperText(
+                                'Examples: مطاعم الدوحة، المأكولات المتوسطية، الشيشة'
+                            )
+                            ->columnSpanFull(),
+
+
+                        Textarea::make(
+                            'excerpt_ar'
+                        )
+                            ->label(
+                                'Arabic Post Excerpt / ملخص المقال'
+                            )
+                            ->rows(3)
+                            ->maxLength(500)
+                            ->columnSpanFull()
+                            ->helperText(
+                                'Arabic summary displayed in the Arabic blog listing and used as an Arabic SEO fallback.'
+                            ),
+
+
+                        RichEditor::make(
+                            'content_ar'
+                        )
+                            ->label(
+                                'Arabic Article Content / محتوى المقال'
+                            )
+                            ->columnSpanFull()
+                            ->toolbarButtons([
+
+                                [
+                                    'undo',
+                                    'redo',
+                                ],
+
+                                [
+                                    'h2',
+                                    'h3',
+                                    'h4',
+                                ],
+
+                                [
+                                    'bold',
+                                    'italic',
+                                    'underline',
+                                    'strike',
+                                ],
+
+                                [
+                                    'link',
+                                    'blockquote',
+                                ],
+
+                                [
+                                    'bulletList',
+                                    'orderedList',
+                                ],
+
+                                [
+                                    'table',
+                                    'attachFiles',
+                                ],
+
+                            ])
+                            ->fileAttachmentsDisk(
+                                'public'
+                            )
+                            ->fileAttachmentsDirectory(
+                                'blog-content'
+                            )
+                            ->helperText(
+                                'Use Arabic H2/H3 headings to structure the article. The Arabic post title should remain the page H1.'
+                            ),
+
+                    ]),
+
+
+                /*
+                |--------------------------------------------------------------------------
                 | FEATURED IMAGE
                 |--------------------------------------------------------------------------
                 */
@@ -216,6 +359,19 @@ class BlogPostForm
                                 'Describe the actual image naturally. Do not stuff keywords.'
                             ),
 
+
+                        TextInput::make(
+                            'featured_image_alt_ar'
+                        )
+                            ->label(
+                                'Arabic Featured Image ALT / النص البديل العربي'
+                            )
+                            ->maxLength(255)
+                            ->helperText(
+                                'Describe the same featured image naturally in Arabic.'
+                            )
+                            ->columnSpanFull(),
+
                     ]),
 
 
@@ -239,6 +395,18 @@ class BlogPostForm
                             )
                             ->placeholder(
                                 'Zaitoona Al Andalus'
+                            )
+                            ->maxLength(150),
+
+
+                        TextInput::make(
+                            'author_name_ar'
+                        )
+                            ->label(
+                                'Arabic Author Name / اسم الكاتب'
+                            )
+                            ->placeholder(
+                                'زيتونة الأندلس'
                             )
                             ->maxLength(150),
 
@@ -284,14 +452,15 @@ class BlogPostForm
                             )
                             ->default(
                                 true
-                            ),
+                            )
+                            ->columnSpanFull(),
 
                     ]),
 
 
                 /*
                 |--------------------------------------------------------------------------
-                | PRIMARY SEO
+                | ENGLISH PRIMARY SEO
                 |--------------------------------------------------------------------------
                 */
 
@@ -299,7 +468,7 @@ class BlogPostForm
                     'SEO Optimization'
                 )
                     ->description(
-                        'Main Google search settings for this post.'
+                        'Main Google search settings for the English article.'
                     )
                     ->columns(2)
                     ->schema([
@@ -344,7 +513,7 @@ class BlogPostForm
                                 'Best Mediterranean Restaurant in Doha | Zaitoona Al Andalus'
                             )
                             ->helperText(
-                                'Leave empty to use the post title. Keep it descriptive and concise.'
+                                'Leave empty to use the English post title. Keep it descriptive and concise.'
                             )
                             ->columnSpanFull(),
 
@@ -373,7 +542,7 @@ class BlogPostForm
                             ->maxLength(500)
                             ->columnSpanFull()
                             ->helperText(
-                                'Normally leave empty and use the post URL automatically. Only set this when another URL should be canonical.'
+                                'Normally leave empty and use the English post URL automatically.'
                             ),
 
 
@@ -408,7 +577,124 @@ class BlogPostForm
 
                 /*
                 |--------------------------------------------------------------------------
-                | OPEN GRAPH
+                | ARABIC PRIMARY SEO
+                |--------------------------------------------------------------------------
+                */
+
+                Section::make(
+                    'Arabic SEO Optimization'
+                )
+                    ->description(
+                        'Arabic Google search settings for this article.'
+                    )
+                    ->columns(2)
+                    ->schema([
+
+                        TextInput::make(
+                            'focus_keyword_ar'
+                        )
+                            ->label(
+                                'Arabic Focus Keyword / الكلمة المفتاحية الرئيسية'
+                            )
+                            ->placeholder(
+                                'أفضل مطعم متوسطي في الدوحة'
+                            )
+                            ->maxLength(255)
+                            ->helperText(
+                                'Used internally for Arabic SEO planning.'
+                            ),
+
+
+                        TagsInput::make(
+                            'secondary_keywords_ar'
+                        )
+                            ->label(
+                                'Arabic Secondary Keywords / الكلمات المفتاحية الثانوية'
+                            )
+                            ->placeholder(
+                                'أضف كلمة مفتاحية'
+                            )
+                            ->helperText(
+                                'Add natural Arabic related search phrases.'
+                            ),
+
+
+                        TextInput::make(
+                            'seo_title_ar'
+                        )
+                            ->label(
+                                'Arabic SEO Title / عنوان SEO العربي'
+                            )
+                            ->maxLength(255)
+                            ->placeholder(
+                                'أفضل مطعم متوسطي في الدوحة | زيتونة الأندلس'
+                            )
+                            ->helperText(
+                                'Leave empty to use the Arabic post title.'
+                            )
+                            ->columnSpanFull(),
+
+
+                        Textarea::make(
+                            'meta_description_ar'
+                        )
+                            ->label(
+                                'Arabic Meta Description / وصف الميتا العربي'
+                            )
+                            ->rows(3)
+                            ->maxLength(320)
+                            ->columnSpanFull()
+                            ->helperText(
+                                'Write a natural Arabic search description for this article.'
+                            ),
+
+
+                        TextInput::make(
+                            'canonical_url_ar'
+                        )
+                            ->label(
+                                'Arabic Canonical URL'
+                            )
+                            ->url()
+                            ->maxLength(500)
+                            ->columnSpanFull()
+                            ->helperText(
+                                'Normally leave empty so Laravel can use the Arabic article URL automatically.'
+                            ),
+
+
+                        Select::make(
+                            'robots_ar'
+                        )
+                            ->label(
+                                'Arabic Robots'
+                            )
+                            ->options([
+
+                                'index, follow' =>
+                                    'Index, Follow',
+
+                                'noindex, follow' =>
+                                    'Noindex, Follow',
+
+                                'index, nofollow' =>
+                                    'Index, Nofollow',
+
+                                'noindex, nofollow' =>
+                                    'Noindex, Nofollow',
+
+                            ])
+                            ->default(
+                                'index, follow'
+                            )
+                            ->required(),
+
+                    ]),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | ENGLISH OPEN GRAPH
                 |--------------------------------------------------------------------------
                 */
 
@@ -416,7 +702,7 @@ class BlogPostForm
                     'Facebook / Open Graph'
                 )
                     ->description(
-                        'Optional. If empty, the normal SEO values will be used.'
+                        'Optional English social sharing overrides. If empty, normal English SEO values will be used.'
                     )
                     ->columns(2)
                     ->collapsed()
@@ -461,6 +747,9 @@ class BlogPostForm
                             ->maxSize(
                                 5120
                             )
+                            ->helperText(
+                                'This image can be shared by both English and Arabic versions.'
+                            )
                             ->columnSpanFull(),
 
                     ]),
@@ -468,7 +757,45 @@ class BlogPostForm
 
                 /*
                 |--------------------------------------------------------------------------
-                | TWITTER / X
+                | ARABIC OPEN GRAPH
+                |--------------------------------------------------------------------------
+                */
+
+                Section::make(
+                    'Arabic Facebook / Open Graph'
+                )
+                    ->description(
+                        'Arabic social sharing text. The same OG image can be reused.'
+                    )
+                    ->columns(2)
+                    ->collapsed()
+                    ->schema([
+
+                        TextInput::make(
+                            'og_title_ar'
+                        )
+                            ->label(
+                                'Arabic OG Title'
+                            )
+                            ->maxLength(255)
+                            ->columnSpanFull(),
+
+
+                        Textarea::make(
+                            'og_description_ar'
+                        )
+                            ->label(
+                                'Arabic OG Description'
+                            )
+                            ->rows(3)
+                            ->columnSpanFull(),
+
+                    ]),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | ENGLISH TWITTER / X
                 |--------------------------------------------------------------------------
                 */
 
@@ -476,7 +803,7 @@ class BlogPostForm
                     'X / Twitter SEO'
                 )
                     ->description(
-                        'Optional social sharing overrides.'
+                        'Optional English social sharing overrides.'
                     )
                     ->columns(2)
                     ->collapsed()
@@ -521,6 +848,47 @@ class BlogPostForm
                             ->maxSize(
                                 5120
                             )
+                            ->helperText(
+                                'This image can be shared by both language versions.'
+                            )
+                            ->columnSpanFull(),
+
+                    ]),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | ARABIC TWITTER / X
+                |--------------------------------------------------------------------------
+                */
+
+                Section::make(
+                    'Arabic X / Twitter SEO'
+                )
+                    ->description(
+                        'Arabic social sharing title and description.'
+                    )
+                    ->columns(2)
+                    ->collapsed()
+                    ->schema([
+
+                        TextInput::make(
+                            'twitter_title_ar'
+                        )
+                            ->label(
+                                'Arabic X / Twitter Title'
+                            )
+                            ->maxLength(255)
+                            ->columnSpanFull(),
+
+
+                        Textarea::make(
+                            'twitter_description_ar'
+                        )
+                            ->label(
+                                'Arabic X / Twitter Description'
+                            )
+                            ->rows(3)
                             ->columnSpanFull(),
 
                     ]),
@@ -574,7 +942,7 @@ class BlogPostForm
                             )
                             ->maxLength(255)
                             ->helperText(
-                                'Leave empty to use the post title.'
+                                'Leave empty to use the English post title.'
                             ),
 
 
@@ -587,7 +955,33 @@ class BlogPostForm
                             ->rows(3)
                             ->columnSpanFull()
                             ->helperText(
-                                'Leave empty to use the meta description.'
+                                'Leave empty to use the English meta description.'
+                            ),
+
+
+                        TextInput::make(
+                            'schema_headline_ar'
+                        )
+                            ->label(
+                                'Arabic Schema Headline'
+                            )
+                            ->maxLength(255)
+                            ->helperText(
+                                'Leave empty to use the Arabic post title.'
+                            )
+                            ->columnSpanFull(),
+
+
+                        Textarea::make(
+                            'schema_description_ar'
+                        )
+                            ->label(
+                                'Arabic Schema Description'
+                            )
+                            ->rows(3)
+                            ->columnSpanFull()
+                            ->helperText(
+                                'Leave empty to use the Arabic meta description.'
                             ),
 
 
@@ -609,6 +1003,9 @@ class BlogPostForm
                             )
                             ->maxSize(
                                 5120
+                            )
+                            ->helperText(
+                                'The same structured-data image can be used for both English and Arabic.'
                             )
                             ->columnSpanFull(),
 

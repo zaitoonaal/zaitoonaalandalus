@@ -5,8 +5,27 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\TableReservationController;
 use Illuminate\Support\Facades\Route;
+
+
+/*
+|--------------------------------------------------------------------------
+| XML Sitemap
+|--------------------------------------------------------------------------
+|
+| Public dynamic sitemap for Google Search Console.
+|
+| URL:
+| /sitemap.xml
+|
+*/
+
+Route::get(
+    '/sitemap.xml',
+    [SitemapController::class, 'index']
+)->name('sitemap');
 
 
 /*
@@ -47,7 +66,7 @@ Route::get(
 
 /*
 |--------------------------------------------------------------------------
-| Blog Listing Page
+| English Blog Listing Page
 |--------------------------------------------------------------------------
 */
 
@@ -59,7 +78,7 @@ Route::get(
 
 /*
 |--------------------------------------------------------------------------
-| Single Blog Post Page
+| English Single Blog Post Page
 |--------------------------------------------------------------------------
 */
 
@@ -67,6 +86,38 @@ Route::get(
     '/blog/{slug}',
     [BlogController::class, 'show']
 )->name('blog.show');
+
+
+/*
+|--------------------------------------------------------------------------
+| Arabic Blog Listing Page
+|--------------------------------------------------------------------------
+|
+| Example:
+| /ar/blog
+|
+*/
+
+Route::get(
+    '/ar/blog',
+    [BlogController::class, 'indexArabic']
+)->name('blog.ar');
+
+
+/*
+|--------------------------------------------------------------------------
+| Arabic Single Blog Post Page
+|--------------------------------------------------------------------------
+|
+| Example:
+| /ar/blog/المزة-المتوسطية-في-الدوحة
+|
+*/
+
+Route::get(
+    '/ar/blog/{slug}',
+    [BlogController::class, 'showArabic']
+)->name('blog.ar.show');
 
 
 /*
@@ -85,6 +136,12 @@ Route::get(
     'reservations.create'
 );
 
+
+/*
+|--------------------------------------------------------------------------
+| Submit Table Reservation
+|--------------------------------------------------------------------------
+*/
 
 Route::post(
     '/reserveatable',

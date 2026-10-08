@@ -2,32 +2,70 @@
 
     /*
     |--------------------------------------------------------------------------
-    | SEO FALLBACKS
+    | INITIAL LANGUAGE
     |--------------------------------------------------------------------------
     */
 
-    $seoTitle =
-        $post->seo_title
-        ?: $post->title;
+    $initialLocale =
+        (
+            ($locale ?? app()->getLocale())
+            === 'ar'
+        )
+            ? 'ar'
+            : 'en';
 
 
-    $metaDescription =
-        $post->meta_description
-        ?: (
-            $post->excerpt
-            ?: \Illuminate\Support\Str::limit(
-                strip_tags($post->content),
-                160
-            )
-        );
+    $isArabic =
+        $initialLocale
+        === 'ar';
 
 
-    $canonicalUrl =
-        $post->canonical_url
-        ?: route(
-            'blog.show',
-            $post->slug
-        );
+    /*
+    |--------------------------------------------------------------------------
+    | IMAGE URL HELPER
+    |--------------------------------------------------------------------------
+    */
+
+    $getImageUrl =
+        function ($image) {
+
+            if (
+                blank(
+                    $image
+                )
+            ) {
+
+                return null;
+
+            }
+
+
+            if (
+                str_starts_with(
+                    $image,
+                    'http://'
+                )
+                ||
+                str_starts_with(
+                    $image,
+                    'https://'
+                )
+            ) {
+
+                return $image;
+
+            }
+
+
+            return asset(
+                'storage/'
+                . ltrim(
+                    $image,
+                    '/'
+                )
+            );
+
+        };
 
 
     /*
@@ -36,42 +74,255 @@
     |--------------------------------------------------------------------------
     */
 
-    $getImageUrl = function ($image) {
-
-        if (blank($image)) {
-            return null;
-        }
-
-
-        if (
-            str_starts_with($image, 'http://')
-            ||
-            str_starts_with($image, 'https://')
-        ) {
-
-            return $image;
-
-        }
-
-
-        return asset(
-            'storage/' . ltrim($image, '/')
-        );
-    };
-
-
     $featuredImage =
         $getImageUrl(
             $post->featured_image
         );
 
 
-    if (blank($featuredImage)) {
+    if (
+        blank(
+            $featuredImage
+        )
+    ) {
 
         $featuredImage =
             'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1800&q=85';
 
     }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | ENGLISH ARTICLE CONTENT
+    |--------------------------------------------------------------------------
+    */
+
+    $titleEn =
+        $post->title;
+
+
+    $excerptEn =
+        $post->excerpt
+        ?: \Illuminate\Support\Str::limit(
+            strip_tags(
+                $post->content
+            ),
+            180
+        );
+
+
+    $contentEn =
+        $post->content;
+
+
+    $categoryEn =
+        $post->category
+        ?: 'Journal';
+
+
+    $authorEn =
+        $post->author_name
+        ?: 'Zaitoona Al Andalus';
+
+
+    $imageAltEn =
+        $post->featured_image_alt
+        ?: $titleEn;
+
+
+    $tagsEn =
+        collect(
+            $post->tags
+            ?? []
+        )
+            ->filter()
+            ->values();
+
+
+    $focusKeywordEn =
+        $post->focus_keyword
+        ?: '';
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | ARABIC ARTICLE CONTENT
+    |--------------------------------------------------------------------------
+    */
+
+    $titleAr =
+        $post->title_ar
+        ?: $titleEn;
+
+
+    $excerptAr =
+        $post->excerpt_ar
+        ?: (
+            filled(
+                $post->content_ar
+            )
+                ? \Illuminate\Support\Str::limit(
+                    strip_tags(
+                        $post->content_ar
+                    ),
+                    180
+                )
+                : $excerptEn
+        );
+
+
+    $contentAr =
+        $post->content_ar
+        ?: $contentEn;
+
+
+    $categoryAr =
+        $post->category_ar
+        ?: $categoryEn;
+
+
+    $authorAr =
+        $post->author_name_ar
+        ?: $authorEn;
+
+
+    $imageAltAr =
+        $post->featured_image_alt_ar
+        ?: $imageAltEn;
+
+
+    $tagsAr =
+        collect(
+            $post->tags_ar
+            ?? []
+        )
+            ->filter()
+            ->values();
+
+
+    if (
+        $tagsAr->isEmpty()
+    ) {
+
+        $tagsAr =
+            $tagsEn;
+
+    }
+
+
+    $focusKeywordAr =
+        $post->focus_keyword_ar
+        ?: $focusKeywordEn;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | DATES
+    |--------------------------------------------------------------------------
+    */
+
+    $publishedDate =
+        $post->published_at
+        ?: $post->created_at;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | ENGLISH / ARABIC URLS
+    |--------------------------------------------------------------------------
+    */
+
+    $englishUrl =
+        route(
+            'blog.show',
+            $post->slug
+        );
+
+
+    $arabicUrl =
+        (
+            \Illuminate\Support\Facades\Route::has(
+                'blog.ar.show'
+            )
+            &&
+            filled(
+                $post->slug_ar
+            )
+        )
+            ? route(
+                'blog.ar.show',
+                $post->slug_ar
+            )
+            : $englishUrl;
+
+
+    $englishBlogUrl =
+        route(
+            'blog'
+        );
+
+
+    $arabicBlogUrl =
+        \Illuminate\Support\Facades\Route::has(
+            'blog.ar'
+        )
+            ? route(
+                'blog.ar'
+            )
+            : $englishBlogUrl;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | ENGLISH SEO
+    |--------------------------------------------------------------------------
+    */
+
+    $seoTitleEn =
+        $post->seo_title
+        ?: $titleEn;
+
+
+    $metaDescriptionEn =
+        $post->meta_description
+        ?: $excerptEn;
+
+
+    $robotsEn =
+        $post->robots
+        ?: 'index, follow';
+
+
+    $canonicalEn =
+        $post->canonical_url
+        ?: $englishUrl;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | ARABIC SEO
+    |--------------------------------------------------------------------------
+    */
+
+    $seoTitleAr =
+        $post->seo_title_ar
+        ?: $titleAr;
+
+
+    $metaDescriptionAr =
+        $post->meta_description_ar
+        ?: $excerptAr;
+
+
+    $robotsAr =
+        $post->robots_ar
+        ?: $robotsEn;
+
+
+    $canonicalAr =
+        $post->canonical_url_ar
+        ?: $arabicUrl;
 
 
     /*
@@ -103,66 +354,68 @@
 
     /*
     |--------------------------------------------------------------------------
-    | SOCIAL CONTENT
+    | ENGLISH SOCIAL SEO
     |--------------------------------------------------------------------------
     */
 
-    $ogTitle =
+    $ogTitleEn =
         $post->og_title
-        ?: $seoTitle;
+        ?: $seoTitleEn;
 
 
-    $ogDescription =
+    $ogDescriptionEn =
         $post->og_description
-        ?: $metaDescription;
+        ?: $metaDescriptionEn;
 
 
-    $twitterTitle =
+    $twitterTitleEn =
         $post->twitter_title
-        ?: $seoTitle;
+        ?: $seoTitleEn;
 
 
-    $twitterDescription =
+    $twitterDescriptionEn =
         $post->twitter_description
-        ?: $metaDescription;
+        ?: $metaDescriptionEn;
 
 
     /*
     |--------------------------------------------------------------------------
-    | ARTICLE DETAILS
+    | ARABIC SOCIAL SEO
     |--------------------------------------------------------------------------
     */
 
-    $author =
-        $post->author_name
-        ?: 'Zaitoona Al Andalus';
+    $ogTitleAr =
+        $post->og_title_ar
+        ?: $seoTitleAr;
 
 
-    $category =
-        $post->category
-        ?: 'Journal';
+    $ogDescriptionAr =
+        $post->og_description_ar
+        ?: $metaDescriptionAr;
 
 
-    $publishedDate =
-        $post->published_at
-        ?: $post->created_at;
+    $twitterTitleAr =
+        $post->twitter_title_ar
+        ?: $seoTitleAr;
 
 
-    $imageAlt =
-        $post->featured_image_alt
-        ?: $post->title;
+    $twitterDescriptionAr =
+        $post->twitter_description_ar
+        ?: $metaDescriptionAr;
 
 
     /*
     |--------------------------------------------------------------------------
-    | SCHEMA
+    | SCHEMA TYPE
     |--------------------------------------------------------------------------
     */
 
     $allowedSchemaTypes = [
+
         'BlogPosting',
         'Article',
         'NewsArticle',
+
     ];
 
 
@@ -176,17 +429,23 @@
             : 'BlogPosting';
 
 
-    $schemaHeadline =
+    /*
+    |--------------------------------------------------------------------------
+    | ENGLISH SCHEMA
+    |--------------------------------------------------------------------------
+    */
+
+    $schemaHeadlineEn =
         $post->schema_headline
-        ?: $post->title;
+        ?: $titleEn;
 
 
-    $schemaDescription =
+    $schemaDescriptionEn =
         $post->schema_description
-        ?: $metaDescription;
+        ?: $metaDescriptionEn;
 
 
-    $schemaData = [
+    $schemaEn = [
 
         '@context' =>
             'https://schema.org',
@@ -194,31 +453,39 @@
         '@type' =>
             $schemaType,
 
+        'inLanguage' =>
+            'en',
+
         'headline' =>
-            $schemaHeadline,
+            $schemaHeadlineEn,
 
         'description' =>
-            $schemaDescription,
+            $schemaDescriptionEn,
 
         'image' => [
             $schemaImage,
         ],
 
         'datePublished' =>
-            $publishedDate?->toIso8601String(),
+            $publishedDate
+                ?->toIso8601String(),
 
         'dateModified' =>
-            $post->updated_at?->toIso8601String(),
+            $post->updated_at
+                ?->toIso8601String(),
 
         'author' => [
+
             '@type' =>
                 'Organization',
 
             'name' =>
-                $author,
+                $authorEn,
+
         ],
 
         'publisher' => [
+
             '@type' =>
                 'Organization',
 
@@ -227,14 +494,17 @@
 
             'url' =>
                 url('/'),
+
         ],
 
         'mainEntityOfPage' => [
+
             '@type' =>
                 'WebPage',
 
             '@id' =>
-                $canonicalUrl,
+                $canonicalEn,
+
         ],
 
     ];
@@ -242,16 +512,173 @@
 
     /*
     |--------------------------------------------------------------------------
-    | TAGS
+    | ARABIC SCHEMA
     |--------------------------------------------------------------------------
     */
 
-    $tags =
-        collect(
-            $post->tags ?? []
-        )
-        ->filter()
-        ->values();
+    $schemaHeadlineAr =
+        $post->schema_headline_ar
+        ?: $titleAr;
+
+
+    $schemaDescriptionAr =
+        $post->schema_description_ar
+        ?: $metaDescriptionAr;
+
+
+    $schemaAr = [
+
+        '@context' =>
+            'https://schema.org',
+
+        '@type' =>
+            $schemaType,
+
+        'inLanguage' =>
+            'ar',
+
+        'headline' =>
+            $schemaHeadlineAr,
+
+        'description' =>
+            $schemaDescriptionAr,
+
+        'image' => [
+            $schemaImage,
+        ],
+
+        'datePublished' =>
+            $publishedDate
+                ?->toIso8601String(),
+
+        'dateModified' =>
+            $post->updated_at
+                ?->toIso8601String(),
+
+        'author' => [
+
+            '@type' =>
+                'Organization',
+
+            'name' =>
+                $authorAr,
+
+        ],
+
+        'publisher' => [
+
+            '@type' =>
+                'Organization',
+
+            'name' =>
+                'زيتونة الأندلس',
+
+            'url' =>
+                url('/'),
+
+        ],
+
+        'mainEntityOfPage' => [
+
+            '@type' =>
+                'WebPage',
+
+            '@id' =>
+                $canonicalAr,
+
+        ],
+
+    ];
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | INITIAL VALUES
+    |--------------------------------------------------------------------------
+    */
+
+    $initialTitle =
+        $isArabic
+            ? $titleAr
+            : $titleEn;
+
+
+    $initialExcerpt =
+        $isArabic
+            ? $excerptAr
+            : $excerptEn;
+
+
+    $initialCategory =
+        $isArabic
+            ? $categoryAr
+            : $categoryEn;
+
+
+    $initialAuthor =
+        $isArabic
+            ? $authorAr
+            : $authorEn;
+
+
+    $initialImageAlt =
+        $isArabic
+            ? $imageAltAr
+            : $imageAltEn;
+
+
+    $initialSeoTitle =
+        $isArabic
+            ? $seoTitleAr
+            : $seoTitleEn;
+
+
+    $initialMetaDescription =
+        $isArabic
+            ? $metaDescriptionAr
+            : $metaDescriptionEn;
+
+
+    $initialRobots =
+        $isArabic
+            ? $robotsAr
+            : $robotsEn;
+
+
+    $initialCanonical =
+        $isArabic
+            ? $canonicalAr
+            : $canonicalEn;
+
+
+    $initialOgTitle =
+        $isArabic
+            ? $ogTitleAr
+            : $ogTitleEn;
+
+
+    $initialOgDescription =
+        $isArabic
+            ? $ogDescriptionAr
+            : $ogDescriptionEn;
+
+
+    $initialTwitterTitle =
+        $isArabic
+            ? $twitterTitleAr
+            : $twitterTitleEn;
+
+
+    $initialTwitterDescription =
+        $isArabic
+            ? $twitterDescriptionAr
+            : $twitterDescriptionEn;
+
+
+    $initialSchema =
+        $isArabic
+            ? $schemaAr
+            : $schemaEn;
 
 @endphp
 
@@ -259,8 +686,8 @@
 <!DOCTYPE html>
 
 <html
-    lang="en"
-    dir="ltr"
+    lang="{{ $initialLocale }}"
+    dir="{{ $isArabic ? 'rtl' : 'ltr' }}"
 >
 
 <head>
@@ -284,24 +711,61 @@
          PRIMARY SEO
          ============================================================ -->
 
-    <title>{{ $seoTitle }}</title>
+    <title>{{ $initialSeoTitle }}</title>
 
 
     <meta
         name="description"
-        content="{{ $metaDescription }}"
+        content="{{ $initialMetaDescription }}"
     >
 
 
     <meta
         name="robots"
-        content="{{ $post->robots ?: 'index, follow' }}"
+        content="{{ $initialRobots }}"
     >
 
 
     <link
         rel="canonical"
-        href="{{ $canonicalUrl }}"
+        href="{{ $initialCanonical }}"
+    >
+
+
+    <!-- ============================================================
+         HREFLANG
+         ============================================================ -->
+
+    <link
+        rel="alternate"
+        hreflang="en"
+        href="{{ $englishUrl }}"
+    >
+
+
+    @if(
+        \Illuminate\Support\Facades\Route::has(
+            'blog.ar.show'
+        )
+        &&
+        filled(
+            $post->slug_ar
+        )
+    )
+
+        <link
+            rel="alternate"
+            hreflang="ar"
+            href="{{ $arabicUrl }}"
+        >
+
+    @endif
+
+
+    <link
+        rel="alternate"
+        hreflang="x-default"
+        href="{{ $englishUrl }}"
     >
 
 
@@ -317,19 +781,19 @@
 
     <meta
         property="og:title"
-        content="{{ $ogTitle }}"
+        content="{{ $initialOgTitle }}"
     >
 
 
     <meta
         property="og:description"
-        content="{{ $ogDescription }}"
+        content="{{ $initialOgDescription }}"
     >
 
 
     <meta
         property="og:url"
-        content="{{ $canonicalUrl }}"
+        content="{{ $initialCanonical }}"
     >
 
 
@@ -340,12 +804,26 @@
 
 
     <meta
+        property="og:image:alt"
+        content="{{ $initialImageAlt }}"
+    >
+
+
+    <meta
         property="og:site_name"
         content="Zaitoona Al Andalus"
     >
 
 
-    @if($publishedDate)
+    <meta
+        property="og:locale"
+        content="{{ $isArabic ? 'ar_QA' : 'en_US' }}"
+    >
+
+
+    @if(
+        $publishedDate
+    )
 
         <meta
             property="article:published_time"
@@ -355,7 +833,9 @@
     @endif
 
 
-    @if($post->updated_at)
+    @if(
+        $post->updated_at
+    )
 
         <meta
             property="article:modified_time"
@@ -366,7 +846,7 @@
 
 
     <!-- ============================================================
-         X / TWITTER
+         TWITTER / X
          ============================================================ -->
 
     <meta
@@ -377,13 +857,13 @@
 
     <meta
         name="twitter:title"
-        content="{{ $twitterTitle }}"
+        content="{{ $initialTwitterTitle }}"
     >
 
 
     <meta
         name="twitter:description"
-        content="{{ $twitterDescription }}"
+        content="{{ $initialTwitterDescription }}"
     >
 
 
@@ -393,18 +873,28 @@
     >
 
 
+    <meta
+        name="twitter:image:alt"
+        content="{{ $initialImageAlt }}"
+    >
+
+
     <!-- ============================================================
          ARTICLE STRUCTURED DATA
          ============================================================ -->
 
-    <script type="application/ld+json">
-        {!! json_encode(
-            $schemaData,
-            JSON_UNESCAPED_UNICODE
-            | JSON_UNESCAPED_SLASHES
-            | JSON_PRETTY_PRINT
-        ) !!}
-    </script>
+    <script
+        type="application/ld+json"
+        id="articleSchema"
+    >{!! json_encode(
+        $initialSchema,
+        JSON_UNESCAPED_UNICODE
+        | JSON_UNESCAPED_SLASHES
+        | JSON_HEX_TAG
+        | JSON_HEX_AMP
+        | JSON_HEX_APOS
+        | JSON_HEX_QUOT
+    ) !!}</script>
 
 
     <!-- ============================================================
@@ -442,7 +932,7 @@
 </head>
 
 
-<body>
+<body class="{{ $isArabic ? 'ar' : '' }}">
 
 
     <!-- ============================================================
@@ -464,9 +954,18 @@
 
             <img
                 src="{{ $featuredImage }}"
-                alt="{{ $imageAlt }}"
+
+                alt="{{ $initialImageAlt }}"
+
                 class="article-hero-image"
+
                 fetchpriority="high"
+
+                data-db-alt
+
+                data-alt-en="{{ $imageAltEn }}"
+
+                data-alt-ar="{{ $imageAltAr }}"
             >
 
 
@@ -477,9 +976,17 @@
 
 
                 <a
-                    href="{{ route('blog') }}"
+                    href="{{ $isArabic ? $arabicBlogUrl : $englishBlogUrl }}"
+
                     class="article-back reveal"
+
+                    data-db-href
+
+                    data-href-en="{{ $englishBlogUrl }}"
+
+                    data-href-ar="{{ $arabicBlogUrl }}"
                 >
+
 
                     <svg
                         viewBox="0 0 24 24"
@@ -496,45 +1003,66 @@
                     </svg>
 
 
-                    <span data-i18n="backJournal">
+                    <span
+                        data-i18n="backJournal"
+                    >
                         Back to Journal
                     </span>
+
 
                 </a>
 
 
-                <div class="article-category reveal">
+                <div
+                    class="article-category reveal"
 
-                    {{ $category }}
+                    data-db-i18n
 
+                    data-en="{{ $categoryEn }}"
+
+                    data-ar="{{ $categoryAr }}"
+                >
+                    {{ $initialCategory }}
                 </div>
 
 
-                <h1 class="article-title reveal">
+                <h1
+                    class="article-title reveal"
 
-                    {{ $post->title }}
+                    data-db-i18n
 
+                    data-en="{{ $titleEn }}"
+
+                    data-ar="{{ $titleAr }}"
+                >
+                    {{ $initialTitle }}
                 </h1>
 
 
-                @if(filled($post->excerpt))
+                <p
+                    class="article-excerpt reveal"
 
-                    <p class="article-excerpt reveal">
+                    data-db-i18n
 
-                        {{ $post->excerpt }}
+                    data-en="{{ $excerptEn }}"
 
-                    </p>
-
-                @endif
+                    data-ar="{{ $excerptAr }}"
+                >
+                    {{ $initialExcerpt }}
+                </p>
 
 
                 <div class="article-meta reveal">
 
 
-                    <span>
+                    <span
+                        data-db-i18n
 
-                        {{ $author }}
+                        data-en="{{ $authorEn }}"
 
+                        data-ar="{{ $authorAr }}"
+                    >
+                        {{ $initialAuthor }}
                     </span>
 
 
@@ -546,9 +1074,7 @@
                     <time
                         datetime="{{ $publishedDate?->toDateString() }}"
                     >
-
                         {{ $publishedDate?->format('F d, Y') }}
-
                     </time>
 
 
@@ -559,8 +1085,6 @@
 
 
         </section>
-
-        <!-- End Article Hero -->
 
 
         <!-- ========================================================
@@ -580,35 +1104,114 @@
                 <article class="article-main reveal">
 
 
-                    <div class="article-content">
+                    <!-- English Article -->
 
-                        {!! $post->content !!}
+                    <div
+                        class="article-content"
 
+                        data-lang-block="en"
+
+                        @if(
+                            $isArabic
+                        )
+                            hidden
+                        @endif
+                    >
+                        {!! $contentEn !!}
+                    </div>
+
+
+                    <!-- Arabic Article -->
+
+                    <div
+                        class="article-content"
+
+                        data-lang-block="ar"
+
+                        @if(
+                            ! $isArabic
+                        )
+                            hidden
+                        @endif
+                    >
+                        {!! $contentAr !!}
                     </div>
 
 
                     <!-- =============================================
-                         TAGS
+                         ENGLISH TAGS
                          ============================================= -->
 
-                    @if($tags->isNotEmpty())
+                    @if(
+                        $tagsEn->isNotEmpty()
+                    )
 
-                        <div class="article-tags">
+                        <div
+                            class="article-tags"
+
+                            data-lang-block="en"
+
+                            @if(
+                                $isArabic
+                            )
+                                hidden
+                            @endif
+                        >
+
 
                             @foreach(
-                                $tags
+                                $tagsEn
                                 as $tag
                             )
 
                                 <span class="article-tag">
-
                                     {{ $tag }}
-
                                 </span>
 
                             @endforeach
 
+
                         </div>
+
+
+                    @endif
+
+
+                    <!-- =============================================
+                         ARABIC TAGS
+                         ============================================= -->
+
+                    @if(
+                        $tagsAr->isNotEmpty()
+                    )
+
+                        <div
+                            class="article-tags"
+
+                            data-lang-block="ar"
+
+                            @if(
+                                ! $isArabic
+                            )
+                                hidden
+                            @endif
+                        >
+
+
+                            @foreach(
+                                $tagsAr
+                                as $tag
+                            )
+
+                                <span class="article-tag">
+                                    {{ $tag }}
+                                </span>
+
+                            @endforeach
+
+
+                        </div>
+
 
                     @endif
 
@@ -631,10 +1234,14 @@
                             </span>
 
 
-                            <strong>
+                            <strong
+                                data-db-i18n
 
-                                {{ $author }}
+                                data-en="{{ $authorEn }}"
 
+                                data-ar="{{ $authorAr }}"
+                            >
+                                {{ $initialAuthor }}
                             </strong>
 
 
@@ -654,7 +1261,7 @@
 
                             <strong>
 
-                                {{ $post->updated_at->format('F d, Y') }}
+                                {{ $post->updated_at?->format('F d, Y') }}
 
                             </strong>
 
@@ -670,11 +1277,21 @@
                          ============================================= -->
 
                     <a
-                        href="{{ route('blog') }}"
+                        href="{{ $isArabic ? $arabicBlogUrl : $englishBlogUrl }}"
+
                         class="btn article-return"
+
+                        data-db-href
+
+                        data-href-en="{{ $englishBlogUrl }}"
+
+                        data-href-ar="{{ $arabicBlogUrl }}"
                     >
 
-                        <span data-i18n="backJournal">
+
+                        <span
+                            data-i18n="backJournal"
+                        >
                             Back to Journal
                         </span>
 
@@ -693,6 +1310,7 @@
                             />
 
                         </svg>
+
 
                     </a>
 
@@ -720,39 +1338,68 @@
 
                         <div class="article-sidebar-row">
 
-                            <span data-i18n="category">
+
+                            <span
+                                data-i18n="category"
+                            >
                                 Category
                             </span>
 
-                            <strong>
-                                {{ $category }}
+
+                            <strong
+                                data-db-i18n
+
+                                data-en="{{ $categoryEn }}"
+
+                                data-ar="{{ $categoryAr }}"
+                            >
+                                {{ $initialCategory }}
                             </strong>
+
 
                         </div>
 
 
                         <div class="article-sidebar-row">
 
-                            <span data-i18n="published">
+
+                            <span
+                                data-i18n="published"
+                            >
                                 Published
                             </span>
 
+
                             <strong>
+
                                 {{ $publishedDate?->format('M d, Y') }}
+
                             </strong>
+
 
                         </div>
 
 
                         <div class="article-sidebar-row">
 
-                            <span data-i18n="author">
+
+                            <span
+                                data-i18n="author"
+                            >
                                 Author
                             </span>
 
-                            <strong>
-                                {{ $author }}
+
+                            <strong
+                                data-db-i18n
+
+                                data-en="{{ $authorEn }}"
+
+                                data-ar="{{ $authorAr }}"
+                            >
+                                {{ $initialAuthor }}
                             </strong>
+
 
                         </div>
 
@@ -762,9 +1409,14 @@
 
                     @if(
                         filled(
-                            $post->focus_keyword
+                            $focusKeywordEn
+                        )
+                        ||
+                        filled(
+                            $focusKeywordAr
                         )
                     )
+
 
                         <div class="article-sidebar-card">
 
@@ -777,14 +1429,25 @@
                             </div>
 
 
-                            <p class="article-topic">
+                            <p
+                                class="article-topic"
 
-                                {{ $post->focus_keyword }}
+                                data-db-i18n
 
+                                data-en="{{ $focusKeywordEn }}"
+
+                                data-ar="{{ $focusKeywordAr }}"
+                            >
+                                {{
+                                    $isArabic
+                                        ? $focusKeywordAr
+                                        : $focusKeywordEn
+                                }}
                             </p>
 
 
                         </div>
+
 
                     @endif
 
@@ -813,6 +1476,106 @@
          ============================================================ -->
 
     @include('Home.footer')
+
+
+    <!-- ============================================================
+         BLOG SEO LANGUAGE DATA
+         ============================================================ -->
+
+    <script
+        type="application/json"
+        id="blogSeoData"
+    >{!! json_encode(
+        [
+            'en' => [
+
+                'title' =>
+                    $seoTitleEn,
+
+                'description' =>
+                    $metaDescriptionEn,
+
+                'robots' =>
+                    $robotsEn,
+
+                'canonical' =>
+                    $canonicalEn,
+
+                'ogTitle' =>
+                    $ogTitleEn,
+
+                'ogDescription' =>
+                    $ogDescriptionEn,
+
+                'ogImage' =>
+                    $ogImage,
+
+                'ogLocale' =>
+                    'en_US',
+
+                'twitterTitle' =>
+                    $twitterTitleEn,
+
+                'twitterDescription' =>
+                    $twitterDescriptionEn,
+
+                'twitterImage' =>
+                    $twitterImage,
+
+                'schema' =>
+                    $schemaEn,
+
+            ],
+
+
+            'ar' => [
+
+                'title' =>
+                    $seoTitleAr,
+
+                'description' =>
+                    $metaDescriptionAr,
+
+                'robots' =>
+                    $robotsAr,
+
+                'canonical' =>
+                    $canonicalAr,
+
+                'ogTitle' =>
+                    $ogTitleAr,
+
+                'ogDescription' =>
+                    $ogDescriptionAr,
+
+                'ogImage' =>
+                    $ogImage,
+
+                'ogLocale' =>
+                    'ar_QA',
+
+                'twitterTitle' =>
+                    $twitterTitleAr,
+
+                'twitterDescription' =>
+                    $twitterDescriptionAr,
+
+                'twitterImage' =>
+                    $twitterImage,
+
+                'schema' =>
+                    $schemaAr,
+
+            ],
+
+        ],
+        JSON_UNESCAPED_UNICODE
+        | JSON_UNESCAPED_SLASHES
+        | JSON_HEX_TAG
+        | JSON_HEX_AMP
+        | JSON_HEX_APOS
+        | JSON_HEX_QUOT
+    ) !!}</script>
 
 
     <!-- ============================================================
