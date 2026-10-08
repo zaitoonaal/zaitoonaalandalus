@@ -2,11 +2,11 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Admin\Pages\Dashboard;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
@@ -20,8 +20,9 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class AdminPanelProvider extends PanelProvider
 {
-    public function panel(Panel $panel): Panel
-    {
+    public function panel(
+        Panel $panel
+    ): Panel {
         return $panel
 
             /*
@@ -31,8 +32,14 @@ class AdminPanelProvider extends PanelProvider
             */
 
             ->default()
-            ->id('admin')
-            ->path('admin')
+
+            ->id(
+                'admin'
+            )
+
+            ->path(
+                'admin'
+            )
 
 
             /*
@@ -42,7 +49,10 @@ class AdminPanelProvider extends PanelProvider
             */
 
             ->login()
-            ->authGuard('web')
+
+            ->authGuard(
+                'web'
+            )
 
 
             /*
@@ -50,20 +60,28 @@ class AdminPanelProvider extends PanelProvider
             | Branding
             |--------------------------------------------------------------------------
             |
-            | Replaces the default "Laravel" text with your website logo.
+            | Existing branding remains unchanged.
             |
             */
 
-            ->brandName('Zaitoona Al Andalaus')
-
-            ->brandLogo(
-                asset('assets/frontend/img/image1.png')
+            ->brandName(
+                'Zaitoona Al Andalus'
             )
 
-            ->brandLogoHeight('3rem')
+            ->brandLogo(
+                asset(
+                    'assets/frontend/img/image1.png'
+                )
+            )
+
+            ->brandLogoHeight(
+                '3rem'
+            )
 
             ->favicon(
-                asset('assets/frontend/img/image1.png')
+                asset(
+                    'assets/frontend/img/image1.png'
+                )
             )
 
 
@@ -74,7 +92,10 @@ class AdminPanelProvider extends PanelProvider
             */
 
             ->colors([
-                'primary' => Color::Amber,
+
+                'primary' =>
+                    Color::Amber,
+
             ])
 
 
@@ -85,8 +106,15 @@ class AdminPanelProvider extends PanelProvider
             */
 
             ->discoverResources(
-                in: app_path('Filament/Admin/Resources'),
-                for: 'App\\Filament\\Admin\\Resources',
+
+                in:
+                    app_path(
+                        'Filament/Admin/Resources'
+                    ),
+
+                for:
+                    'App\\Filament\\Admin\\Resources',
+
             )
 
 
@@ -94,15 +122,31 @@ class AdminPanelProvider extends PanelProvider
             |--------------------------------------------------------------------------
             | Pages
             |--------------------------------------------------------------------------
+            |
+            | Uses your custom Dashboard page.
+            |
+            | Custom Dashboard:
+            |
+            | app/Filament/Admin/Pages/Dashboard.php
+            |
             */
 
             ->discoverPages(
-                in: app_path('Filament/Admin/Pages'),
-                for: 'App\\Filament\\Admin\\Pages',
+
+                in:
+                    app_path(
+                        'Filament/Admin/Pages'
+                    ),
+
+                for:
+                    'App\\Filament\\Admin\\Pages',
+
             )
 
             ->pages([
+
                 Dashboard::class,
+
             ])
 
 
@@ -113,18 +157,26 @@ class AdminPanelProvider extends PanelProvider
             |
             | AccountWidget remains.
             |
-            | FilamentInfoWidget has been removed, so the Filament
-            | documentation / GitHub block will no longer appear.
+            | FilamentInfoWidget remains removed.
             |
             */
 
             ->discoverWidgets(
-                in: app_path('Filament/Admin/Widgets'),
-                for: 'App\\Filament\\Admin\\Widgets',
+
+                in:
+                    app_path(
+                        'Filament/Admin/Widgets'
+                    ),
+
+                for:
+                    'App\\Filament\\Admin\\Widgets',
+
             )
 
             ->widgets([
+
                 AccountWidget::class,
+
             ])
 
 
@@ -135,15 +187,25 @@ class AdminPanelProvider extends PanelProvider
             */
 
             ->middleware([
+
                 EncryptCookies::class,
+
                 AddQueuedCookiesToResponse::class,
+
                 StartSession::class,
+
                 AuthenticateSession::class,
+
                 ShareErrorsFromSession::class,
+
                 PreventRequestForgery::class,
+
                 SubstituteBindings::class,
+
                 DisableBladeIconComponents::class,
+
                 DispatchServingFilamentEvent::class,
+
             ])
 
 
@@ -154,7 +216,9 @@ class AdminPanelProvider extends PanelProvider
             */
 
             ->authMiddleware([
+
                 Authenticate::class,
+
             ]);
     }
 }
