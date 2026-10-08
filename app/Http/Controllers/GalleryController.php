@@ -12,7 +12,7 @@ class GalleryController extends Controller
     {
         /*
         |--------------------------------------------------------------------------
-        | GALLERY PAGE SETTINGS
+        | Gallery Page Settings
         |--------------------------------------------------------------------------
         */
 
@@ -23,59 +23,64 @@ class GalleryController extends Controller
 
         /*
         |--------------------------------------------------------------------------
-        | HIDE GALLERY PAGE WHEN DISABLED
+        | Hide Gallery Page When Disabled
         |--------------------------------------------------------------------------
         */
 
         if (
             $gallery
-            && ! $gallery->is_active
+            &&
+            ! $gallery->is_active
         ) {
+
             abort(404);
+
         }
 
 
         /*
         |--------------------------------------------------------------------------
-        | INSTAGRAM GRID
+        | Instagram Grid
         |--------------------------------------------------------------------------
-        |
-        | Loads the same active Instagram Grid Setting used on the homepage,
-        | reservation page, and contact page.
-        |
         */
 
         $instagramSections =
             InstagramSection::query()
+
                 ->where(
                     'is_active',
                     true
                 )
+
                 ->orderBy(
                     'sort_order',
                     'asc'
                 )
+
                 ->orderBy(
                     'id',
                     'asc'
                 )
+
                 ->get();
 
 
         /*
         |--------------------------------------------------------------------------
-        | GALLERY PAGE VIEW
+        | Gallery Page
         |--------------------------------------------------------------------------
         */
 
         return view(
             'Home.gallerypage',
             [
+
                 'gallery' =>
                     $gallery,
 
                 'instagramSections' =>
                     $instagramSections,
+
             ]
         );
     }

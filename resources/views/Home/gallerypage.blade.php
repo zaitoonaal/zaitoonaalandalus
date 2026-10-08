@@ -2,157 +2,163 @@
 
     /*
     |--------------------------------------------------------------------------
-    | IMAGE URL HELPER
+    | Image URL Helper
     |--------------------------------------------------------------------------
     */
 
-    $galleryImageUrl = function (?string $path, ?string $fallback = null) {
-
-        if (!$path) {
-            return $fallback;
-        }
-
-        if (
-            \Illuminate\Support\Str::startsWith(
-                $path,
-                ['http://', 'https://']
-            )
+    $galleryImageUrl =
+        function (
+            ?string $path,
+            ?string $fallback = null
         ) {
-            return $path;
-        }
 
-        return asset(
-            'storage/' . ltrim($path, '/')
-        );
-    };
+            if (
+                blank(
+                    $path
+                )
+            ) {
+
+                return $fallback;
+
+            }
+
+
+            if (
+                \Illuminate\Support\Str::startsWith(
+                    $path,
+                    [
+                        'http://',
+                        'https://',
+                    ]
+                )
+            ) {
+
+                return $path;
+
+            }
+
+
+            return asset(
+                'storage/'
+                . ltrim(
+                    $path,
+                    '/'
+                )
+            );
+
+        };
 
 
     /*
     |--------------------------------------------------------------------------
-    | ORIGINAL HERO FALLBACK
+    | Hero Image
     |--------------------------------------------------------------------------
     */
 
     $defaultHeroImage =
         'https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&w=1800&q=80';
 
-    $heroImage = $galleryImageUrl(
-        $gallery?->hero_image,
-        $defaultHeroImage
-    );
+
+    $heroImage =
+        $galleryImageUrl(
+            $gallery?->hero_image,
+            $defaultHeroImage
+        );
 
 
     /*
     |--------------------------------------------------------------------------
-    | ORIGINAL GALLERY BLOCKS
+    | Default Gallery
     |--------------------------------------------------------------------------
-    | These reproduce your existing Gallery design when the database
-    | does not yet contain Gallery blocks.
-    |--------------------------------------------------------------------------
+    |
+    | Only used when there are no database gallery blocks.
+    |
     */
 
     $defaultGalleryBlocks = [
 
         [
-            'type' => 'tall',
-            'delay' => '0',
-            'image' => 'https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&w=800&q=80',
-            'alt_en' => 'Plating a signature dish',
-            'alt_ar' => 'تقديم طبق مميز',
+            'type' =>
+                'tall',
+
+            'delay' =>
+                '0',
+
+            'image' =>
+                'https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&w=800&q=80',
+
+            'alt_en' =>
+                'Plating a signature dish',
+
+            'alt_ar' =>
+                'تقديم طبق مميز',
         ],
+
 
         [
-            'type' => 'normal',
-            'delay' => '0.1',
-            'image' => 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80',
-            'alt_en' => 'Restaurant Interior',
-            'alt_ar' => 'التصميم الداخلي للمطعم',
+            'type' =>
+                'normal',
+
+            'delay' =>
+                '0.1',
+
+            'image' =>
+                'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80',
+
+            'alt_en' =>
+                'Restaurant Interior',
+
+            'alt_ar' =>
+                'التصميم الداخلي للمطعم',
         ],
+
 
         [
-            'type' => 'large',
-            'delay' => '0.2',
-            'image' => 'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=1200&q=80',
-            'alt_en' => 'Pouring sauce over dessert',
-            'alt_ar' => 'تقديم الحلوى',
+            'type' =>
+                'large',
+
+            'delay' =>
+                '0.2',
+
+            'image' =>
+                'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=1200&q=80',
+
+            'alt_en' =>
+                'Dessert presentation',
+
+            'alt_ar' =>
+                'تقديم الحلوى',
         ],
 
-        [
-            'type' => 'normal',
-            'delay' => '0',
-            'image' => 'https://images.unsplash.com/photo-1560684352-8497838a2229?auto=format&fit=crop&w=800&q=80',
-            'alt_en' => 'Fresh pasta dish',
-            'alt_ar' => 'طبق باستا طازج',
-        ],
-
-        [
-            'type' => 'stack',
-            'delay' => '0.1',
-
-            'stack_image_1' => 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80',
-            'stack_alt_1_en' => 'Restaurant Ambiance',
-            'stack_alt_1_ar' => 'أجواء المطعم',
-
-            'stack_image_2' => 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80',
-            'stack_alt_2_en' => 'Healthy salad bowl',
-            'stack_alt_2_ar' => 'طبق سلطة صحية',
-        ],
-
-        [
-            'type' => 'normal',
-            'delay' => '0',
-            'image' => 'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80',
-            'alt_en' => 'Appetizers',
-            'alt_ar' => 'مقبلات',
-        ],
-
-        [
-            'type' => 'tall',
-            'delay' => '0.1',
-            'image' => 'https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=800&q=80',
-            'alt_en' => 'Premium Shisha',
-            'alt_ar' => 'شيشة فاخرة',
-        ],
-
-        [
-            'type' => 'normal',
-            'delay' => '0.2',
-            'image' => 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80',
-            'alt_en' => 'Specialty Arabic Coffee',
-            'alt_ar' => 'قهوة عربية مميزة',
-        ],
-
-        [
-            'type' => 'wide',
-            'delay' => '0',
-            'image' => 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80',
-            'alt_en' => 'Elegant dining experience',
-            'alt_ar' => 'تجربة طعام أنيقة',
-        ],
-
-        [
-            'type' => 'normal',
-            'delay' => '0.1',
-            'image' => 'https://images.unsplash.com/photo-1606312619070-d48b4c652a52?auto=format&fit=crop&w=800&q=80',
-            'alt_en' => 'Dessert Presentation',
-            'alt_ar' => 'تقديم الحلوى',
-        ],
     ];
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Stored Gallery
+    |--------------------------------------------------------------------------
+    */
+
     $storedGalleryBlocks =
-        $gallery?->gallery_blocks ?? [];
+        $gallery?->gallery_blocks
+        ?? [];
+
 
     $galleryBlocks =
-        is_array($storedGalleryBlocks)
-        && count($storedGalleryBlocks)
+        is_array(
+            $storedGalleryBlocks
+        )
+        &&
+        count(
+            $storedGalleryBlocks
+        )
             ? $storedGalleryBlocks
             : $defaultGalleryBlocks;
 
 
     /*
     |--------------------------------------------------------------------------
-    | PAGE CONTENT
+    | Page Content
     |--------------------------------------------------------------------------
     */
 
@@ -182,29 +188,30 @@
 
             'seoTitle' =>
                 $gallery?->seo_title_en
-                ?: 'Gallery | Zaitoona Al Andalaus',
+                ?: 'Gallery | Zaitoona Al Andalus',
 
             'seoDescription' =>
                 $gallery?->seo_description_en
-                ?: 'View the gallery of Zaitoona Al Andalaus — a premium restaurant, shisha and coffee lounge in Doha, Qatar.',
+                ?: 'View the gallery of Zaitoona Al Andalus — a premium restaurant, shisha and coffee lounge in Doha, Qatar.',
 
             'ogTitle' =>
                 $gallery?->og_title_en
                 ?: (
                     $gallery?->seo_title_en
-                    ?: 'Gallery | Zaitoona Al Andalaus'
+                    ?: 'Gallery | Zaitoona Al Andalus'
                 ),
 
             'ogDescription' =>
                 $gallery?->og_description_en
                 ?: (
                     $gallery?->seo_description_en
-                    ?: 'View the gallery of Zaitoona Al Andalaus — a premium restaurant, shisha and coffee lounge in Doha, Qatar.'
+                    ?: 'View the gallery of Zaitoona Al Andalus — a premium restaurant, shisha and coffee lounge in Doha, Qatar.'
                 ),
 
             'ogImageAlt' =>
                 $gallery?->og_image_alt_en
-                ?: 'Zaitoona Al Andalaus Gallery',
+                ?: 'Zaitoona Al Andalus Gallery',
+
         ],
 
 
@@ -255,7 +262,9 @@
             'ogImageAlt' =>
                 $gallery?->og_image_alt_ar
                 ?: 'معرض زيتونة الأندلس',
+
         ],
+
     ];
 
 
@@ -269,14 +278,20 @@
         $gallery?->canonical_url
         ?: url()->current();
 
+
     $robotsContent =
-        (($gallery?->robots_index ?? true)
-            ? 'index'
-            : 'noindex')
+        (
+            ($gallery?->robots_index ?? true)
+                ? 'index'
+                : 'noindex'
+        )
         . ', '
-        . (($gallery?->robots_follow ?? true)
-            ? 'follow'
-            : 'nofollow');
+        . (
+            ($gallery?->robots_follow ?? true)
+                ? 'follow'
+                : 'nofollow'
+        );
+
 
     $ogImage =
         $galleryImageUrl(
@@ -286,121 +301,143 @@
 
 @endphp
 
+
 <!DOCTYPE html>
 
-<html lang="en" dir="ltr">
+<html
+    lang="en"
+    dir="ltr"
+>
 
 <head>
 
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
+
 
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
-    />
+    >
+
 
     <meta
         name="theme-color"
         content="#ffffff"
-    />
+    >
 
 
-    <!-- =====================================================
-         GALLERY PAGE SEO
-    ====================================================== -->
+    <!-- ============================================================
+         SEO
+         ============================================================ -->
 
     <title id="gallerySeoTitle">
         {{ $galleryData['en']['seoTitle'] }}
     </title>
 
+
     <meta
         id="gallerySeoDescription"
         name="description"
         content="{{ $galleryData['en']['seoDescription'] }}"
-    />
+    >
+
 
     <meta
         id="galleryRobots"
         name="robots"
         content="{{ $robotsContent }}"
-    />
+    >
+
 
     <link
         rel="canonical"
         href="{{ $canonicalUrl }}"
-    />
+    >
 
 
-    <!-- Open Graph -->
+    <!-- ============================================================
+         Open Graph
+         ============================================================ -->
 
     <meta
         property="og:type"
         content="website"
-    />
+    >
+
 
     <meta
         id="galleryOgTitle"
         property="og:title"
         content="{{ $galleryData['en']['ogTitle'] }}"
-    />
+    >
+
 
     <meta
         id="galleryOgDescription"
         property="og:description"
         content="{{ $galleryData['en']['ogDescription'] }}"
-    />
+    >
+
 
     <meta
         property="og:url"
         content="{{ $canonicalUrl }}"
-    />
+    >
+
 
     <meta
         id="galleryOgImage"
         property="og:image"
         content="{{ $ogImage }}"
-    />
+    >
+
 
     <meta
         id="galleryOgImageAlt"
         property="og:image:alt"
         content="{{ $galleryData['en']['ogImageAlt'] }}"
-    />
+    >
 
 
-    <!-- Twitter / X -->
+    <!-- ============================================================
+         Twitter / X
+         ============================================================ -->
 
     <meta
         name="twitter:card"
         content="summary_large_image"
-    />
+    >
+
 
     <meta
         id="galleryTwitterTitle"
         name="twitter:title"
         content="{{ $galleryData['en']['ogTitle'] }}"
-    />
+    >
+
 
     <meta
         id="galleryTwitterDescription"
         name="twitter:description"
         content="{{ $galleryData['en']['ogDescription'] }}"
-    />
+    >
+
 
     <meta
         name="twitter:image"
         content="{{ $ogImage }}"
-    />
+    >
 
 
-    <!-- =====================================================
-         FONTS
-    ====================================================== -->
+    <!-- ============================================================
+         Fonts
+         ============================================================ -->
 
     <link
         rel="preconnect"
         href="https://fonts.googleapis.com"
     >
+
 
     <link
         rel="preconnect"
@@ -408,13 +445,16 @@
         crossorigin
     >
 
+
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@300;400;500;600&family=Noto+Kufi+Arabic:wght@400;500;600;700&display=swap"
         rel="stylesheet"
     >
 
 
-    <!-- Main Gallery Stylesheet -->
+    <!-- ============================================================
+         Existing Gallery CSS
+         ============================================================ -->
 
     <link
         rel="stylesheet"
@@ -427,28 +467,34 @@
 <body>
 
 
-
     @include('Home.header')
 
 
     <main>
 
 
-        <!-- =====================================================
-             GALLERY HERO
-        ====================================================== -->
+        <!-- ========================================================
+             Gallery Hero
+             ======================================================== -->
 
         <section class="gallery-hero">
 
+
             <img
                 id="galleryHeroImage"
+
                 src="{{ $heroImage }}"
+
                 alt="{{ $galleryData['en']['heroAlt'] }}"
+
                 data-alt-en="{{ $galleryData['en']['heroAlt'] }}"
+
                 data-alt-ar="{{ $galleryData['ar']['heroAlt'] }}"
             >
 
+
             <div class="gallery-hero-content">
+
 
                 <h1
                     id="galleryHeroTitle"
@@ -457,94 +503,254 @@
                     {{ $galleryData['en']['heroTitle'] }}
                 </h1>
 
+
             </div>
+
 
         </section>
 
 
-        <!-- =====================================================
-             INTRO
-        ====================================================== -->
+        <!-- ========================================================
+             Intro
+             ======================================================== -->
 
         <div class="gallery-intro reveal">
+
 
             <h2 id="galleryIntroHeading">
                 {{ $galleryData['en']['introHeading'] }}
             </h2>
 
+
             <p id="galleryIntroText">
                 {{ $galleryData['en']['introText'] }}
             </p>
 
+
         </div>
 
 
-        <!-- =====================================================
-             MASONRY GALLERY
-        ====================================================== -->
+        <!-- ========================================================
+             Masonry Gallery
+             ======================================================== -->
 
         <div class="masonry-wrap">
 
+
             <div class="masonry-grid">
 
-                @foreach($galleryBlocks as $block)
+
+                @foreach(
+                    $galleryBlocks
+                    as $block
+                )
+
 
                     @php
 
-                        $type = $block['type'] ?? 'normal';
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Block Type
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $type =
+                            $block['type']
+                            ?? 'normal';
+
 
                         $allowedTypes = [
+
                             'normal',
                             'tall',
                             'wide',
                             'large',
                             'stack',
+
                         ];
 
-                        if (!in_array($type, $allowedTypes, true)) {
-                            $type = 'normal';
+
+                        if (
+                            ! in_array(
+                                $type,
+                                $allowedTypes,
+                                true
+                            )
+                        ) {
+
+                            $type =
+                                'normal';
+
                         }
 
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Delay
+                        |--------------------------------------------------------------------------
+                        */
 
                         $delay =
-                            (string) ($block['delay'] ?? '0');
+                            (string) (
+                                $block['delay']
+                                ?? '0'
+                            );
 
-                        if (!in_array(
-                            $delay,
-                            ['0', '0.1', '0.2'],
-                            true
-                        )) {
-                            $delay = '0';
+
+                        if (
+                            ! in_array(
+                                $delay,
+                                [
+                                    '0',
+                                    '0.1',
+                                    '0.2',
+                                ],
+                                true
+                            )
+                        ) {
+
+                            $delay =
+                                '0';
+
                         }
 
 
-                        $layoutClass = match ($type) {
-                            'tall' => 'item-tall',
-                            'wide' => 'item-wide',
-                            'large' => 'item-large',
-                            default => '',
-                        };
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Main Image Layout
+                        |--------------------------------------------------------------------------
+                        |
+                        | Stack is treated as normal for Main Image because the
+                        | additional Stack Image 1 & 2 are rendered separately.
+                        |
+                        */
+
+                        $layoutClass =
+                            match (
+                                $type
+                            ) {
+
+                                'tall' =>
+                                    'item-tall',
+
+                                'wide' =>
+                                    'item-wide',
+
+                                'large' =>
+                                    'item-large',
+
+                                default =>
+                                    '',
+
+                            };
 
                     @endphp
 
 
-                    {{-- ==========================================
-                         STACK BLOCK
-                    =========================================== --}}
+                    {{-- =====================================================
+                         MAIN IMAGE
 
-                    @if($type === 'stack')
+                         IMPORTANT:
+                         Main image is now rendered for EVERY block whenever
+                         one exists.
+                         ===================================================== --}}
+
+                    @if(
+                        ! empty(
+                            $block['image']
+                        )
+                    )
+
+
+                        @php
+
+                            $mainImage =
+                                $galleryImageUrl(
+                                    $block['image']
+                                );
+
+                        @endphp
+
+
+                        <div
+                            class="masonry-item {{ $layoutClass }} reveal"
+
+                            aria-label="{{ $galleryData['en']['viewLabel'] }}"
+
+                            data-view-label="{{ $galleryData['en']['viewLabel'] }}"
+
+                            @if(
+                                $delay !== '0'
+                            )
+                                style="transition-delay: {{ $delay }}s;"
+                            @endif
+                        >
+
+
+                            <img
+                                src="{{ $mainImage }}"
+
+                                alt="{{ $block['alt_en'] ?? 'Gallery image' }}"
+
+                                data-alt-en="{{ $block['alt_en'] ?? 'Gallery image' }}"
+
+                                data-alt-ar="{{ $block['alt_ar'] ?? $block['alt_en'] ?? 'Gallery image' }}"
+
+                                loading="lazy"
+                            >
+
+
+                        </div>
+
+
+                    @endif
+
+
+                    {{-- =====================================================
+                         STACK IMAGES
+
+                         IMPORTANT FIX:
+                         These are now rendered whenever they exist,
+                         regardless of whether Block Layout is Normal,
+                         Tall, Wide, Large or Stack.
+                         ===================================================== --}}
+
+                    @if(
+                        ! empty(
+                            $block['stack_image_1']
+                        )
+                        ||
+                        ! empty(
+                            $block['stack_image_2']
+                        )
+                    )
+
 
                         <div
                             class="masonry-stack reveal"
+
                             style="
-                                @if($delay !== '0')
+                                @if(
+                                    $delay !== '0'
+                                )
                                     transition-delay: {{ $delay }}s;
                                 @endif
+
                                 grid-row: span 2;
                             "
                         >
 
-                            @if(!empty($block['stack_image_1']))
+
+                            {{-- =============================================
+                                 Stack Image 1
+                                 ============================================= --}}
+
+                            @if(
+                                ! empty(
+                                    $block['stack_image_1']
+                                )
+                            )
+
 
                                 @php
 
@@ -555,26 +761,45 @@
 
                                 @endphp
 
+
                                 <div
                                     class="masonry-item"
+
                                     aria-label="{{ $galleryData['en']['viewLabel'] }}"
+
                                     data-view-label="{{ $galleryData['en']['viewLabel'] }}"
                                 >
 
+
                                     <img
                                         src="{{ $stackImage1 }}"
+
                                         alt="{{ $block['stack_alt_1_en'] ?? 'Gallery image' }}"
+
                                         data-alt-en="{{ $block['stack_alt_1_en'] ?? 'Gallery image' }}"
+
                                         data-alt-ar="{{ $block['stack_alt_1_ar'] ?? $block['stack_alt_1_en'] ?? 'Gallery image' }}"
+
                                         loading="lazy"
                                     >
 
+
                                 </div>
+
 
                             @endif
 
 
-                            @if(!empty($block['stack_image_2']))
+                            {{-- =============================================
+                                 Stack Image 2
+                                 ============================================= --}}
+
+                            @if(
+                                ! empty(
+                                    $block['stack_image_2']
+                                )
+                            )
+
 
                                 @php
 
@@ -585,79 +810,60 @@
 
                                 @endphp
 
+
                                 <div
                                     class="masonry-item"
+
                                     aria-label="{{ $galleryData['en']['viewLabel'] }}"
+
                                     data-view-label="{{ $galleryData['en']['viewLabel'] }}"
                                 >
 
+
                                     <img
                                         src="{{ $stackImage2 }}"
+
                                         alt="{{ $block['stack_alt_2_en'] ?? 'Gallery image' }}"
+
                                         data-alt-en="{{ $block['stack_alt_2_en'] ?? 'Gallery image' }}"
+
                                         data-alt-ar="{{ $block['stack_alt_2_ar'] ?? $block['stack_alt_2_en'] ?? 'Gallery image' }}"
+
                                         loading="lazy"
                                     >
 
+
                                 </div>
 
+
                             @endif
+
 
                         </div>
 
-
-                    {{-- ==========================================
-                         STANDARD BLOCK
-                    =========================================== --}}
-
-                    @elseif(!empty($block['image']))
-
-                        @php
-
-                            $image =
-                                $galleryImageUrl(
-                                    $block['image']
-                                );
-
-                        @endphp
-
-                        <div
-                            class="masonry-item {{ $layoutClass }} reveal"
-                            aria-label="{{ $galleryData['en']['viewLabel'] }}"
-                            data-view-label="{{ $galleryData['en']['viewLabel'] }}"
-                            @if($delay !== '0')
-                                style="transition-delay: {{ $delay }}s;"
-                            @endif
-                        >
-
-                            <img
-                                src="{{ $image }}"
-                                alt="{{ $block['alt_en'] ?? 'Gallery image' }}"
-                                data-alt-en="{{ $block['alt_en'] ?? 'Gallery image' }}"
-                                data-alt-ar="{{ $block['alt_ar'] ?? $block['alt_en'] ?? 'Gallery image' }}"
-                                loading="lazy"
-                            >
-
-                        </div>
 
                     @endif
 
+
                 @endforeach
 
+
             </div>
+
 
         </div>
 
 
-        <!-- =====================================================
-             LIGHTBOX
-        ====================================================== -->
+        <!-- ========================================================
+             Lightbox
+             ======================================================== -->
 
         <div
             class="lightbox"
             id="lightbox"
             aria-hidden="true"
         >
+
 
             <button
                 type="button"
@@ -668,14 +874,20 @@
                 ×
             </button>
 
+
             <img
                 id="lightboxImage"
                 src=""
                 alt=""
             >
 
+
         </div>
 
+
+        <!-- ========================================================
+             Instagram
+             ======================================================== -->
 
         @include('Home.instagramgrid')
 
@@ -685,9 +897,10 @@
 
     @include('Home.footer')
 
-    <!-- =====================================================
-         DYNAMIC GALLERY DATA
-    ====================================================== -->
+
+    <!-- ============================================================
+         Dynamic Gallery Language / SEO Data
+         ============================================================ -->
 
     <script
         type="application/json"
@@ -705,7 +918,9 @@
     </script>
 
 
-    <!-- Gallery JavaScript -->
+    <!-- ============================================================
+         Existing Gallery JS
+         ============================================================ -->
 
     <script
         src="{{ asset('assets/frontend/js/gallery.js') }}"
