@@ -8,6 +8,8 @@ use Filament\Actions\EditAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class AboutSettingsTable
 {
@@ -28,10 +30,6 @@ class AboutSettingsTable
                 |--------------------------------------------------------------------------
                 | INTRO TITLE EN
                 |--------------------------------------------------------------------------
-                |
-                | Always visible.
-                | This is the main mobile column.
-                |
                 */
 
                 TextColumn::make(
@@ -49,10 +47,6 @@ class AboutSettingsTable
                 |--------------------------------------------------------------------------
                 | INTRO TITLE AR
                 |--------------------------------------------------------------------------
-                |
-                | Hidden on very small screens.
-                | Visible from tablet size.
-                |
                 */
 
                 TextColumn::make(
@@ -64,7 +58,9 @@ class AboutSettingsTable
                     ->searchable()
                     ->limit(35)
                     ->wrap()
-                    ->visibleFrom('md'),
+                    ->visibleFrom(
+                        'md'
+                    ),
 
 
                 /*
@@ -72,8 +68,13 @@ class AboutSettingsTable
                 | FEATURE IMAGE
                 |--------------------------------------------------------------------------
                 |
-                | Hidden on mobile.
-                | Visible from small tablet / larger screens.
+                | Supports:
+                |
+                | 1. Filament public disk uploads
+                | 2. Full external image URLs
+                | 3. /storage/... URLs
+                | 4. storage/... URLs
+                | 5. Array value if old data was saved as an array
                 |
                 */
 
@@ -83,17 +84,153 @@ class AboutSettingsTable
                     ->label(
                         'Feature 1 Image'
                     )
+                    ->getStateUsing(
+                        function ($record): ?string {
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Get Stored Image
+                            |--------------------------------------------------------------------------
+                            */
+
+                            $image =
+                                $record->feat1_image;
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Handle Array Value
+                            |--------------------------------------------------------------------------
+                            */
+
+                            if (
+                                is_array(
+                                    $image
+                                )
+                            ) {
+
+                                $image =
+                                    collect(
+                                        $image
+                                    )
+                                        ->filter()
+                                        ->first();
+
+                            }
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | No Image
+                            |--------------------------------------------------------------------------
+                            */
+
+                            if (
+                                blank(
+                                    $image
+                                )
+                            ) {
+
+                                return null;
+
+                            }
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | External URL
+                            |--------------------------------------------------------------------------
+                            */
+
+                            if (
+                                Str::startsWith(
+                                    $image,
+                                    [
+                                        'http://',
+                                        'https://',
+                                    ]
+                                )
+                            ) {
+
+                                return $image;
+
+                            }
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Already /storage/... URL
+                            |--------------------------------------------------------------------------
+                            */
+
+                            if (
+                                Str::startsWith(
+                                    $image,
+                                    '/storage/'
+                                )
+                            ) {
+
+                                return url(
+                                    $image
+                                );
+
+                            }
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Already storage/... URL
+                            |--------------------------------------------------------------------------
+                            */
+
+                            if (
+                                Str::startsWith(
+                                    $image,
+                                    'storage/'
+                                )
+                            ) {
+
+                                return url(
+                                    '/'
+                                    . ltrim(
+                                        $image,
+                                        '/'
+                                    )
+                                );
+
+                            }
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Filament Public Disk File
+                            |--------------------------------------------------------------------------
+                            */
+
+                            return Storage::disk(
+                                'public'
+                            )->url(
+                                ltrim(
+                                    $image,
+                                    '/'
+                                )
+                            );
+
+                        }
+                    )
                     ->square()
-                    ->visibleFrom('sm'),
+                    ->size(
+                        60
+                    )
+                    ->visibleFrom(
+                        'sm'
+                    ),
 
 
                 /*
                 |--------------------------------------------------------------------------
                 | LAST UPDATED
                 |--------------------------------------------------------------------------
-                |
-                | Desktop only.
-                |
                 */
 
                 TextColumn::make(
@@ -106,7 +243,9 @@ class AboutSettingsTable
                         'd M Y h:i A'
                     )
                     ->sortable()
-                    ->visibleFrom('lg'),
+                    ->visibleFrom(
+                        'lg'
+                    ),
 
             ])
 
@@ -127,13 +266,6 @@ class AboutSettingsTable
             |--------------------------------------------------------------------------
             | RECORD ACTIONS
             |--------------------------------------------------------------------------
-            |
-            | Mobile:
-            |      ⋮
-            |
-            | Desktop:
-            |      still compact and clean
-            |
             */
 
             ->recordActions([
