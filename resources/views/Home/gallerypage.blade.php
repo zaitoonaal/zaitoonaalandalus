@@ -70,16 +70,13 @@
     |--------------------------------------------------------------------------
     | Default Gallery
     |--------------------------------------------------------------------------
-    |
-    | Only used when there are no database gallery blocks.
-    |
     */
 
     $defaultGalleryBlocks = [
 
         [
             'type' =>
-                'tall',
+                'normal',
 
             'delay' =>
                 '0',
@@ -93,7 +90,6 @@
             'alt_ar' =>
                 'تقديم طبق مميز',
         ],
-
 
         [
             'type' =>
@@ -112,10 +108,9 @@
                 'التصميم الداخلي للمطعم',
         ],
 
-
         [
             'type' =>
-                'large',
+                'normal',
 
             'delay' =>
                 '0.2',
@@ -128,6 +123,23 @@
 
             'alt_ar' =>
                 'تقديم الحلوى',
+        ],
+
+        [
+            'type' =>
+                'normal',
+
+            'delay' =>
+                '0',
+
+            'image' =>
+                'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80',
+
+            'alt_en' =>
+                'Zaitoona Al Andalus restaurant',
+
+            'alt_ar' =>
+                'مطعم زيتونة الأندلس',
         ],
 
     ];
@@ -145,12 +157,14 @@
 
 
     $galleryBlocks =
-        is_array(
-            $storedGalleryBlocks
-        )
-        &&
-        count(
-            $storedGalleryBlocks
+        (
+            is_array(
+                $storedGalleryBlocks
+            )
+            &&
+            count(
+                $storedGalleryBlocks
+            ) > 0
         )
             ? $storedGalleryBlocks
             : $defaultGalleryBlocks;
@@ -531,7 +545,7 @@
 
 
         <!-- ========================================================
-             Masonry Gallery
+             Gallery Grid
              ======================================================== -->
 
         <div class="masonry-wrap">
@@ -550,7 +564,7 @@
 
                         /*
                         |--------------------------------------------------------------------------
-                        | Block Type
+                        | Block Layout
                         |--------------------------------------------------------------------------
                         */
 
@@ -560,13 +574,11 @@
 
 
                         $allowedTypes = [
-
                             'normal',
                             'tall',
                             'wide',
                             'large',
                             'stack',
-
                         ];
 
 
@@ -620,8 +632,7 @@
                         | Main Image Layout
                         |--------------------------------------------------------------------------
                         |
-                        | Stack is treated as normal for Main Image because the
-                        | additional Stack Image 1 & 2 are rendered separately.
+                        | Existing layout behavior stays unchanged.
                         |
                         */
 
@@ -644,32 +655,45 @@
 
                             };
 
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Images
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $mainImage =
+                            $galleryImageUrl(
+                                $block['image']
+                                ?? null
+                            );
+
+
+                        $stackImage1 =
+                            $galleryImageUrl(
+                                $block['stack_image_1']
+                                ?? null
+                            );
+
+
+                        $stackImage2 =
+                            $galleryImageUrl(
+                                $block['stack_image_2']
+                                ?? null
+                            );
+
                     @endphp
 
 
                     {{-- =====================================================
-                         MAIN IMAGE
-
-                         IMPORTANT:
-                         Main image is now rendered for EVERY block whenever
-                         one exists.
+                         1. MAIN IMAGE
                          ===================================================== --}}
 
                     @if(
-                        ! empty(
-                            $block['image']
+                        filled(
+                            $mainImage
                         )
                     )
-
-
-                        @php
-
-                            $mainImage =
-                                $galleryImageUrl(
-                                    $block['image']
-                                );
-
-                        @endphp
 
 
                         <div
@@ -707,136 +731,94 @@
 
 
                     {{-- =====================================================
-                         STACK IMAGES
+                         2. STACK IMAGE 1
 
-                         IMPORTANT FIX:
-                         These are now rendered whenever they exist,
-                         regardless of whether Block Layout is Normal,
-                         Tall, Wide, Large or Stack.
+                         IMPORTANT:
+                         It is now a DIRECT child of .masonry-grid.
+                         No nested masonry-stack wrapper.
                          ===================================================== --}}
 
                     @if(
-                        ! empty(
-                            $block['stack_image_1']
-                        )
-                        ||
-                        ! empty(
-                            $block['stack_image_2']
+                        filled(
+                            $stackImage1
                         )
                     )
 
 
                         <div
-                            class="masonry-stack reveal"
+                            class="masonry-item reveal"
 
-                            style="
-                                @if(
-                                    $delay !== '0'
-                                )
-                                    transition-delay: {{ $delay }}s;
-                                @endif
+                            aria-label="{{ $galleryData['en']['viewLabel'] }}"
 
-                                grid-row: span 2;
-                            "
+                            data-view-label="{{ $galleryData['en']['viewLabel'] }}"
+
+                            @if(
+                                $delay !== '0'
+                            )
+                                style="transition-delay: {{ $delay }}s;"
+                            @endif
                         >
 
 
-                            {{-- =============================================
-                                 Stack Image 1
-                                 ============================================= --}}
+                            <img
+                                src="{{ $stackImage1 }}"
+
+                                alt="{{ $block['stack_alt_1_en'] ?? 'Gallery image' }}"
+
+                                data-alt-en="{{ $block['stack_alt_1_en'] ?? 'Gallery image' }}"
+
+                                data-alt-ar="{{ $block['stack_alt_1_ar'] ?? $block['stack_alt_1_en'] ?? 'Gallery image' }}"
+
+                                loading="lazy"
+                            >
+
+
+                        </div>
+
+
+                    @endif
+
+
+                    {{-- =====================================================
+                         3. STACK IMAGE 2
+
+                         IMPORTANT:
+                         It is also a DIRECT child of .masonry-grid.
+                         ===================================================== --}}
+
+                    @if(
+                        filled(
+                            $stackImage2
+                        )
+                    )
+
+
+                        <div
+                            class="masonry-item reveal"
+
+                            aria-label="{{ $galleryData['en']['viewLabel'] }}"
+
+                            data-view-label="{{ $galleryData['en']['viewLabel'] }}"
 
                             @if(
-                                ! empty(
-                                    $block['stack_image_1']
-                                )
+                                $delay !== '0'
                             )
-
-
-                                @php
-
-                                    $stackImage1 =
-                                        $galleryImageUrl(
-                                            $block['stack_image_1']
-                                        );
-
-                                @endphp
-
-
-                                <div
-                                    class="masonry-item"
-
-                                    aria-label="{{ $galleryData['en']['viewLabel'] }}"
-
-                                    data-view-label="{{ $galleryData['en']['viewLabel'] }}"
-                                >
-
-
-                                    <img
-                                        src="{{ $stackImage1 }}"
-
-                                        alt="{{ $block['stack_alt_1_en'] ?? 'Gallery image' }}"
-
-                                        data-alt-en="{{ $block['stack_alt_1_en'] ?? 'Gallery image' }}"
-
-                                        data-alt-ar="{{ $block['stack_alt_1_ar'] ?? $block['stack_alt_1_en'] ?? 'Gallery image' }}"
-
-                                        loading="lazy"
-                                    >
-
-
-                                </div>
-
-
+                                style="transition-delay: {{ $delay }}s;"
                             @endif
+                        >
 
 
-                            {{-- =============================================
-                                 Stack Image 2
-                                 ============================================= --}}
+                            <img
+                                src="{{ $stackImage2 }}"
 
-                            @if(
-                                ! empty(
-                                    $block['stack_image_2']
-                                )
-                            )
+                                alt="{{ $block['stack_alt_2_en'] ?? 'Gallery image' }}"
 
+                                data-alt-en="{{ $block['stack_alt_2_en'] ?? 'Gallery image' }}"
 
-                                @php
+                                data-alt-ar="{{ $block['stack_alt_2_ar'] ?? $block['stack_alt_2_en'] ?? 'Gallery image' }}"
 
-                                    $stackImage2 =
-                                        $galleryImageUrl(
-                                            $block['stack_image_2']
-                                        );
-
-                                @endphp
-
-
-                                <div
-                                    class="masonry-item"
-
-                                    aria-label="{{ $galleryData['en']['viewLabel'] }}"
-
-                                    data-view-label="{{ $galleryData['en']['viewLabel'] }}"
-                                >
-
-
-                                    <img
-                                        src="{{ $stackImage2 }}"
-
-                                        alt="{{ $block['stack_alt_2_en'] ?? 'Gallery image' }}"
-
-                                        data-alt-en="{{ $block['stack_alt_2_en'] ?? 'Gallery image' }}"
-
-                                        data-alt-ar="{{ $block['stack_alt_2_ar'] ?? $block['stack_alt_2_en'] ?? 'Gallery image' }}"
-
-                                        loading="lazy"
-                                    >
-
-
-                                </div>
-
-
-                            @endif
+                                loading="lazy"
+                            >
 
 
                         </div>
