@@ -7,10 +7,24 @@ use App\Models\User;
 
 class TableReservationPolicy
 {
+    /*
+    |--------------------------------------------------------------------------
+    | Reservation Access
+    |--------------------------------------------------------------------------
+    |
+    | Only ACTIVE users with either:
+    |
+    | - admin
+    | - employee
+    |
+    | can access Table Reservations.
+    |
+    */
+
     private function canManage(
         User $user
     ): bool {
-        return $user->is_active
+        return (bool) $user->is_active
             && in_array(
                 $user->role,
                 [
@@ -22,6 +36,12 @@ class TableReservationPolicy
     }
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | View Reservation List
+    |--------------------------------------------------------------------------
+    */
+
     public function viewAny(
         User $user
     ): bool {
@@ -30,6 +50,12 @@ class TableReservationPolicy
         );
     }
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | View Single Reservation
+    |--------------------------------------------------------------------------
+    */
 
     public function view(
         User $user,
@@ -41,6 +67,12 @@ class TableReservationPolicy
     }
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Create Reservation From Admin
+    |--------------------------------------------------------------------------
+    */
+
     public function create(
         User $user
     ): bool {
@@ -49,6 +81,12 @@ class TableReservationPolicy
         );
     }
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Update Reservation
+    |--------------------------------------------------------------------------
+    */
 
     public function update(
         User $user,
@@ -60,6 +98,12 @@ class TableReservationPolicy
     }
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Delete Reservation
+    |--------------------------------------------------------------------------
+    */
+
     public function delete(
         User $user,
         TableReservation $tableReservation
@@ -70,6 +114,12 @@ class TableReservationPolicy
     }
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Bulk Delete
+    |--------------------------------------------------------------------------
+    */
+
     public function deleteAny(
         User $user
     ): bool {
@@ -78,6 +128,12 @@ class TableReservationPolicy
         );
     }
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Restore
+    |--------------------------------------------------------------------------
+    */
 
     public function restore(
         User $user,
@@ -93,6 +149,12 @@ class TableReservationPolicy
         return false;
     }
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Force Delete
+    |--------------------------------------------------------------------------
+    */
 
     public function forceDelete(
         User $user,

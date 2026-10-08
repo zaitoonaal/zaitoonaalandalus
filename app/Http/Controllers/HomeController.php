@@ -6,6 +6,7 @@ use App\Models\AboutSetting;
 use App\Models\ExperienceSection;
 use App\Models\GallerySetting;
 use App\Models\InstagramSection;
+use App\Models\ShishaShowcaseSetting;
 use App\Models\TestimonialSection;
 
 class HomeController extends Controller
@@ -19,7 +20,8 @@ class HomeController extends Controller
         */
 
         $aboutSettings =
-            AboutSetting::first();
+            AboutSetting::query()
+                ->first();
 
 
         /*
@@ -29,7 +31,8 @@ class HomeController extends Controller
         */
 
         $gallerySetting =
-            GallerySetting::first();
+            GallerySetting::query()
+                ->first();
 
 
         /*
@@ -40,19 +43,40 @@ class HomeController extends Controller
 
         $experienceSections =
             ExperienceSection::query()
+
                 ->where(
                     'is_active',
                     true
                 )
+
                 ->orderBy(
                     'sort_order',
                     'asc'
                 )
+
                 ->orderBy(
                     'id',
                     'asc'
                 )
+
                 ->get();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Shisha Showcase
+        |--------------------------------------------------------------------------
+        */
+
+        $shishaShowcase =
+            ShishaShowcaseSetting::query()
+
+                ->where(
+                    'is_active',
+                    true
+                )
+
+                ->first();
 
 
         /*
@@ -63,18 +87,22 @@ class HomeController extends Controller
 
         $instagramSections =
             InstagramSection::query()
+
                 ->where(
                     'is_active',
                     true
                 )
+
                 ->orderBy(
                     'sort_order',
                     'asc'
                 )
+
                 ->orderBy(
                     'id',
                     'asc'
                 )
+
                 ->get();
 
 
@@ -86,10 +114,12 @@ class HomeController extends Controller
 
         $testimonialSection =
             TestimonialSection::query()
+
                 ->where(
                     'is_active',
                     true
                 )
+
                 ->first();
 
 
@@ -115,6 +145,7 @@ class HomeController extends Controller
                 'aboutSettings',
                 'gallerySetting',
                 'experienceSections',
+                'shishaShowcase',
                 'instagramSections',
                 'testimonialSection',
                 'hero'

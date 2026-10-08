@@ -8,6 +8,7 @@ use App\Filament\Admin\Resources\TableReservations\Pages\ListTableReservations;
 use App\Filament\Admin\Resources\TableReservations\Schemas\TableReservationForm;
 use App\Filament\Admin\Resources\TableReservations\Tables\TableReservationsTable;
 use App\Models\TableReservation;
+use App\Models\User;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -16,19 +17,153 @@ use Filament\Tables\Table;
 
 class TableReservationResource extends Resource
 {
-    protected static ?string $model = TableReservation::class;
+    /*
+    |--------------------------------------------------------------------------
+    | Model
+    |--------------------------------------------------------------------------
+    */
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static ?string $model =
+        TableReservation::class;
 
-    public static function form(Schema $schema): Schema
+
+    /*
+    |--------------------------------------------------------------------------
+    | Navigation
+    |--------------------------------------------------------------------------
+    |
+    | Booking / reservation calendar icon.
+    |
+    */
+
+    protected static string|BackedEnum|null $navigationIcon =
+        Heroicon::OutlinedCalendarDays;
+
+
+    protected static ?string $navigationLabel =
+        'Table Reservations';
+
+
+    protected static ?string $modelLabel =
+        'Table Reservation';
+
+
+    protected static ?string $pluralModelLabel =
+        'Table Reservations';
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Access Control
+    |--------------------------------------------------------------------------
+    |
+    | Only:
+    |
+    | - Active Admin
+    | - Active Employee
+    |
+    | can access Table Reservations.
+    |
+    */
+
+    private static function canAccessReservations(): bool
     {
-        return TableReservationForm::configure($schema);
+        $user =
+            auth()->user();
+
+
+        if (
+            ! $user instanceof User
+        ) {
+            return false;
+        }
+
+
+        if (
+            ! (bool) $user->is_active
+        ) {
+            return false;
+        }
+
+
+        return in_array(
+            $user->role,
+            [
+                'admin',
+                'employee',
+            ],
+            true
+        );
     }
 
-    public static function table(Table $table): Table
+
+    /*
+    |--------------------------------------------------------------------------
+    | Navigation Visibility
+    |--------------------------------------------------------------------------
+    |
+    | Hides Table Reservations from every other role.
+    |
+    */
+
+    public static function shouldRegisterNavigation(): bool
     {
-        return TableReservationsTable::configure($table);
+        return static::canAccessReservations();
     }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | List Page Access
+    |--------------------------------------------------------------------------
+    |
+    | Prevents unauthorized users from manually visiting:
+    |
+    | /admin/table-reservations
+    |
+    */
+
+    public static function canViewAny(): bool
+    {
+        return static::canAccessReservations();
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Form
+    |--------------------------------------------------------------------------
+    */
+
+    public static function form(
+        Schema $schema
+    ): Schema {
+        return TableReservationForm::configure(
+            $schema
+        );
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Table
+    |--------------------------------------------------------------------------
+    */
+
+    public static function table(
+        Table $table
+    ): Table {
+        return TableReservationsTable::configure(
+            $table
+        );
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Relations
+    |--------------------------------------------------------------------------
+    */
 
     public static function getRelations(): array
     {
@@ -37,12 +172,32 @@ class TableReservationResource extends Resource
         ];
     }
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Pages
+    |--------------------------------------------------------------------------
+    */
+
     public static function getPages(): array
     {
         return [
-            'index' => ListTableReservations::route('/'),
-            'create' => CreateTableReservation::route('/create'),
-            'edit' => EditTableReservation::route('/{record}/edit'),
+
+            'index' =>
+                ListTableReservations::route(
+                    '/'
+                ),
+
+            'create' =>
+                CreateTableReservation::route(
+                    '/create'
+                ),
+
+            'edit' =>
+                EditTableReservation::route(
+                    '/{record}/edit'
+                ),
+
         ];
     }
 }
